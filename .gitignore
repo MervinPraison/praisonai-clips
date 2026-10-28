@@ -145,3 +145,7 @@ id_ed25519
 # Root-level native crash dumps
 /core
 /core.*
+
+# Documentation build and browser sessions
+/site/
+/.playwright-cli/

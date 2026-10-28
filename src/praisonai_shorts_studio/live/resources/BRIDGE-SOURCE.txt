@@ -1,0 +1,5 @@
+Vendored, unmodified Lua helpers from https://github.com/saadk408/davinci-resolve-lua-mcp
+Commit: a10acbc33b5fc3976832d575425c7b35ae1432af (v0.2.0)
+License: MIT; see BRIDGE-LICENSE.txt.
+SHA256: 61b8b318cde0bf4e38982e569acf73221a98d13dab179b7852e9afb62d812431
+Loaded with RLB_BRIDGE_TESTING to return JSON/capture helpers without starting its mailbox loop.

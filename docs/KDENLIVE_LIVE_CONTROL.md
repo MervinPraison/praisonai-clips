@@ -2,6 +2,81 @@
 
 The optional live adapter targets a running scripting-enabled Kdenlive window. It is separate from the stable FFmpeg renderer and the existing headless Kdenlive source-cut exporter.
 
+## Native Mac live bridge
+
+The Mac now has a separate experimental live control path, implemented in
+`scripts/mac-live/`. It loads a small local Qt bridge into an isolated APFS copy
+of the installed Kdenlive app. The installed `/Applications/kdenlive.app` is
+untouched. The local copy is ad-hoc signed so it can load the bridge. This is our
+custom bridge, not an official stock Kdenlive scripting API.
+
+The bridge accepts authenticated requests on an ephemeral IPv4 loopback port.
+Its random bearer token is stored only in the ignored runtime directory, in a
+mode-0600 connection file. Requests execute native Qt methods on the editor's
+main thread. The MCP client binds to the launched process and the document's
+native undo-stack identity, and refuses edits after a different document opens.
+It does not send mouse, keyboard, or accessibility events and does not edit XML
+behind an open document.
+
+Requirements: macOS, Xcode command-line tools, Qt 6 development headers matching
+the app's Qt major/minor version, and this project's optional `live` dependency.
+The tested app is Kdenlive 26.08.2 with Qt 6.11, using Homebrew Qt 6.11.2 headers.
+
+```sh
+uv pip install --python .venv/bin/python 'mcp>=1,<2'
+scripts/kdenlive-mac-live build
+scripts/kdenlive-mac-live launch /absolute/path/to/project-copy.kdenlive
+scripts/kdenlive-mac-live status
+scripts/kdenlive-mac-live mcp
+```
+
+The last command serves standard stdio MCP. Seven tools are exposed:
+`get_live_status`, `select_sequence`, `seek`, `set_framing`, `undo`, `redo`, and
+`save_project`. Use IDs returned by the current live status; IDs change between
+editor sessions. `set_framing` requires exactly one native Transform effect on
+the selected video clip, and changes its rectangle in project pixels. On the
+current 1080×1920 project, `(0,0,1080,1920)` is the original full-frame fit and
+`(-135,-240,1350,2400)` is a centered 125% zoom. A simple command-line client is
+also available:
+
+```sh
+scripts/kdenlive-mac-live call select_sequence '{"index":1}'
+scripts/kdenlive-mac-live call seek '{"frame":644}'
+scripts/kdenlive-mac-live call transform '{"clip_id":12,"x":-135,"y":-240,"width":1350,"height":2400}'
+scripts/kdenlive-mac-live call undo
+scripts/kdenlive-mac-live call save
+```
+
+The default runtime is `data/mac-live/`. Keep the isolated editor closed when
+rebuilding the bridge. This experimental integration depends on Kdenlive's
+internal Qt method signatures; revalidate after editor updates. It is deliberately
+limited to the tested framing workflow, rather than claiming general editor API
+coverage. The clean-source sequence has no editable captions; the reference
+sequence preserves the exact captioned MP4.
+
+### Actual Mac validation, 28 October 2026
+
+`scripts/test_kdenlive_mac_live.py` used a real MCP client against the running
+native editor and passed all seven exposed tools. It selected the source
+sequence, sought to frame 644, applied a 125% Transform, saved using the native
+Save action, and verified the actual saved effect values. Native undo restored
+the original rectangle; redo restored the zoom. Native MLT rendered each saved
+state: zoom differed from baseline, undo matched baseline exactly, and redo
+matched zoom exactly. A final undo/save restored the baseline and left the
+document clean. The normalized source SHA-256 was unchanged.
+
+Evidence is in `data/mac-live/live-validation.json`, `mcp-test.log`, and the
+baseline/zoom125/undo/redo/restored PNG frames. The guarded live project is
+`data/mac-live/live-review.kdenlive`. The test refuses other project
+paths. It requires the demo to start at its original framing and makes real
+temporary edits, so use it only on this disposable demo.
+
+The initial generated source Transform had been attached to a media chain,
+which Kdenlive did not expose as an editable timeline effect. The live demo was
+prepared with a native timeline-entry Transform instead, and the stale chain
+filter was removed from the demo copy before launch. Subsequent tested edits
+were made through the running editor.
+
 ## Sources and isolation
 
 - Editor fork: https://github.com/D-Ogi/kdenlive at `8312f5ef03a5bd1fbb177d0e1696948bcb1b9b3a`.

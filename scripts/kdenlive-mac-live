@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+set -eu
+SHORTS_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+exec "$SHORTS_ROOT/.venv/bin/python" "$SHORTS_ROOT/scripts/mac-live/control.py" "$@"

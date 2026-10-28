@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+set -eu
+SHORTS_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+if [ "${RLB_MAC_CONSOLE:-0}" = 1 ]; then
+  exec "$SHORTS_ROOT/.venv/bin/python" -m praisonai_shorts_studio.live.mcp
+fi
+if [ ! -f "$SHORTS_ROOT/data/resolve-live/lua-reference/server/index.js" ]; then
+  echo 'Run .venv/bin/python scripts/setup_resolve_live.py first.' >&2
+  exit 1
+fi
+export RLB_STATE_DIR="$SHORTS_ROOT/data/resolve-live/state"
+export RLB_AUTO_INSTALL=0
+
+exec node "$SHORTS_ROOT/data/resolve-live/lua-reference/server/index.js"

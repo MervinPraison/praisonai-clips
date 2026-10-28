@@ -1,0 +1,4 @@
+interface:
+  display_name: "Resolve Mac Live"
+  short_description: "Set up and verify live Resolve editing on macOS"
+  default_prompt: "Use $resolve-mac-live to connect to Resolve and verify live framing safely."

@@ -1,0 +1,65 @@
+site_name: PraisonAI Clips
+site_description: Create reviewed vertical clips from long videos.
+site_url: ''
+strict: true
+hooks:
+  - docs/hooks.py
+watch:
+  - skills/resolve-mac-live/references
+theme:
+  name: material
+  custom_dir: docs/overrides
+  font: false
+  icon:
+    logo: material/movie-open-outline
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.footer
+    - content.code.copy
+    - search.highlight
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark paper
+    - scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light paper
+extra_css:
+  - stylesheets/paper.css
+plugins:
+  - search
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.superfences
+nav:
+  - Home: index.md
+  - Get started:
+      - Installation: getting-started/installation.md
+      - First clip: getting-started/quickstart.md
+  - Workflow:
+      - Processing and review: guides/workflow.md
+      - Files and configuration: reference/configuration.md
+      - CLI: reference/cli.md
+  - Editors:
+      - Choose an editor: editors/index.md
+      - Kdenlive live control: KDENLIVE_LIVE_CONTROL.md
+      - Kdenlive runtime setup: KDENLIVE_MCP_HANDOVER.md
+      - DaVinci Resolve: RESOLVE_LIVE_CONTROL.md
+      - Resolve setup and recovery: editors/resolve-runbook.md
+  - Contribute:
+      - Resolve SDK: reference/resolve-sdk.md
+      - Documentation: reference/documentation.md
+exclude_docs: |
+  /SHORTS_STUDIO.md
+  /assets/fonts/README.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/MervinPraison/praisonai-clips

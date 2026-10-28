@@ -74,6 +74,46 @@ The dashboard also has an optional export action. Each clip gets `kdenlive/edita
 
 For the separate experimental live editor and MCP adapter, see [docs/KDENLIVE_LIVE_CONTROL.md](docs/KDENLIVE_LIVE_CONTROL.md). Its actual build/test status is recorded there and under `data/kdenlive-live-test/`; registration of a tool is not proof that it has passed a live test.
 
+On macOS, `scripts/kdenlive-mac-live` provides a separate experimental native Qt
+bridge and seven MCP tools for live framing, seeking, sequence selection,
+undo/redo, and saving. Real Mac MCP tests verified zoom changes and native
+undo/redo against rendered frames, then restored the original framing. See the
+[Mac setup and validation](docs/KDENLIVE_LIVE_CONTROL.md#native-mac-live-bridge).
+
+Resolve on this Mac now has an opt-in AppleScript Lua Console MCP adapter.
+Live tests on free Resolve 21.1.2 verified zoom, pan and crop changes, native
+frame export, project guards and pixel-identical framing restoration.
+The upstream file-mailbox and external Python connections remain unavailable. See [Resolve setup and current limitations](docs/RESOLVE_LIVE_CONTROL.md).
+
 This is the independent PraisonAI Clips project. The existing praisonai-shorts repository is unchanged. The internal Python package retains the name praisonai_shorts_studio.
 
 Live Kdenlive testing succeeded on a fresh native project: splits, linked audio/video, undo/redo, save and screenshots. This remains experimental; the demo uses a rendered clip with burned-in captions, and importing the other backend's project crashed this build. See [the live-control report](docs/KDENLIVE_LIVE_CONTROL.md) for the tested scope.
+
+## Documentation site
+
+The MkDocs site follows the [PraisonAI design kit](https://praison.ai/design-kit/).
+
+```sh
+.venv/bin/pip install -e '.[docs]'
+.venv/bin/mkdocs serve --dev-addr 127.0.0.1:8001
+.venv/bin/mkdocs build --strict
+```
+
+Open http://127.0.0.1:8001. The static build is written to `site/`; these commands do not publish it.
+
+## Live Resolve SDK and reusable skill
+
+```sh
+.venv/bin/pip install -e '.[live]'
+.venv/bin/praisonai-resolve status
+.venv/bin/praisonai-resolve-mcp
+```
+
+Use `from praisonai_shorts_studio.live import ResolveClient, ClipTarget, Framing`.
+The SDK shares guarded framing operations across Python, CLI and eight MCP tools.
+Its Mac Console transport and licensed Lua helpers ship in the wheel, so the
+working route needs no separate upstream checkout or npm build. See
+[the SDK reference](docs/reference/resolve-sdk.md) and
+[the reusable Resolve Mac skill](skills/resolve-mac-live/SKILL.md).
+The skill's [maintained runbook](skills/resolve-mac-live/references/runbook.md)
+records setup, failed approaches, AppleScript details and repeatable live checks.
