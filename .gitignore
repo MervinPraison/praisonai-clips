@@ -141,3 +141,7 @@ id_ed25519
 
 # Untouched reference from the pre-existing Shorts repository
 .upstream-reference/
+
+# Root-level native crash dumps
+/core
+/core.*

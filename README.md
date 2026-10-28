@@ -75,3 +75,5 @@ The dashboard also has an optional export action. Each clip gets `kdenlive/edita
 For the separate experimental live editor and MCP adapter, see [docs/KDENLIVE_LIVE_CONTROL.md](docs/KDENLIVE_LIVE_CONTROL.md). Its actual build/test status is recorded there and under `data/kdenlive-live-test/`; registration of a tool is not proof that it has passed a live test.
 
 This is the independent PraisonAI Clips project. The existing praisonai-shorts repository is unchanged. The internal Python package retains the name praisonai_shorts_studio.
+
+Live Kdenlive testing succeeded on a fresh native project: splits, linked audio/video, undo/redo, save and screenshots. This remains experimental; the demo uses a rendered clip with burned-in captions, and importing the other backend's project crashed this build. See [the live-control report](docs/KDENLIVE_LIVE_CONTROL.md) for the tested scope.

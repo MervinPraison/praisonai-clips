@@ -50,3 +50,31 @@ def test_explicit_instance_prevents_arbitrary_service_selection(monkeypatch):
     assert client._discover_service()=='org.kde.kdenlive-2'
     monkeypatch.setenv('KDENLIVE_DBUS_SERVICE','org.some.other.app')
     with pytest.raises(ValueError):client._discover_service()
+
+
+def test_live_summary_orders_clips_before_detecting_transitions():
+    pytest.importorskip('mcp')
+    source=Path(__file__).resolve().parents[1]/'tools/kdenlive-live-mcp'
+    if not source.exists():pytest.skip('Optional live MCP checkout is absent')
+    sys.path.insert(0,str(source))
+    from types import SimpleNamespace
+    from mcp_kdenlive.tools import timeline
+    class Recorder:
+        def __init__(self):self.functions={}
+        def tool(self):
+            def register(function):
+                self.functions[function.__name__]=function
+                return function
+            return register
+    class DBus:
+        def get_all_tracks_info(self):return [{'id':4,'audio':False,'name':'V2'}]
+        def get_clips_on_track(self,track):
+            return [{'id':30,'position':300,'duration':744,'name':'video.mp4'},
+                    {'id':10,'position':0,'duration':150,'name':'video.mp4'},
+                    {'id':20,'position':150,'duration':150,'name':'video.mp4'}]
+    helpers=SimpleNamespace(get_resolve=lambda ctx:SimpleNamespace(_dbus=DBus()),
+                            get_fps=lambda ctx:30,format_tc=lambda frames,fps:str(frames))
+    recorder=Recorder();timeline.register(recorder,helpers)
+    text=recorder.functions['get_timeline_summary'](None)
+    assert 'dissolve' not in text
+    assert text.index('| 0 | 10 |')<text.index('| 1 | 20 |')<text.index('| 2 | 30 |')

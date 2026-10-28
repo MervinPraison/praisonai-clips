@@ -35,6 +35,7 @@ apply_once() {
 }
 apply_once tools/kdenlive-live-src "$SHORTS_ROOT/tools/kdenlive-live-build-fixes.patch"
 apply_once tools/kdenlive-live-api "$SHORTS_ROOT/tools/kdenlive-live-api-instance.patch"
+apply_once tools/kdenlive-live-mcp "$SHORTS_ROOT/tools/kdenlive-live-mcp-summary.patch"
 if [ ! -e tools/kdenlive-api ]; then ln -s kdenlive-live-api tools/kdenlive-api; fi
 if [ ! -x tools/runtime/flatpak-builder-packages/root/usr/bin/flatpak-builder ]; then
   command -v apt-get >/dev/null

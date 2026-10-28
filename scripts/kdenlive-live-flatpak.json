@@ -12,7 +12,8 @@
     "--env=MLT_REPOSITORY=/app/lib/mlt-7",
     "--env=MLT_DATA=/app/share/mlt-7",
     "--own-name=org.kde.kdenlive",
-    "--own-name=org.kde.kdenlive-2"
+    "--own-name=org.kde.kdenlive-2",
+    "--own-name=org.kde.kdenlive.*"
   ],
   "build-options": {
     "env": {

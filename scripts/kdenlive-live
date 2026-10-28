@@ -11,7 +11,7 @@ else
   SHORTS_MLT_REPO=/app/lib/mlt-7
 fi
 exec flatpak build --with-appdir --share=ipc --socket=x11 --socket=pulseaudio \
-  --device=dri --own-name=org.kde.kdenlive --own-name=org.kde.kdenlive-2 \
+  --device=dri --own-name=org.kde.kdenlive --own-name=org.kde.kdenlive-2 --own-name='org.kde.kdenlive.*' \
   --filesystem="$SHORTS_ROOT" \
   --env=LD_LIBRARY_PATH=/app/lib64:/app/lib --env=QT_QPA_PLATFORM=xcb \
   --env=MLT_REPOSITORY="$SHORTS_MLT_REPO" --env=MLT_DATA=/app/share/mlt-7 \

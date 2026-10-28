@@ -5,3 +5,6 @@ maxUploadSize = 2048
 [theme]
 base = "dark"
 primaryColor = "#9D8CFF"
+
+[browser]
+gatherUsageStats = false

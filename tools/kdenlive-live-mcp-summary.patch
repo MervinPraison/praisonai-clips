@@ -1,0 +1,13 @@
+diff --git a/mcp_kdenlive/tools/timeline.py b/mcp_kdenlive/tools/timeline.py
+index c8ecdc5..81fd3e7 100644
+--- a/mcp_kdenlive/tools/timeline.py
++++ b/mcp_kdenlive/tools/timeline.py
+@@ -47,6 +47,8 @@ def register(mcp, helpers):
+                     cd["clip_id"] = int(cd.get("id", cd.get("clip_id", -1)))
+                     clips_info.append(cd)
+ 
++                clips_info.sort(key=lambda c: (int(c.get("position", 0)), int(c["clip_id"])))
++
+                 total_frames = sum(int(c.get("duration", 0)) for c in clips_info)
+                 total_tc = helpers.format_tc(total_frames, fps)
+                 header = f"## {label}{tid}{f' — {tname}' if tname else ''} — {len(clips_info)} clips, {total_frames}f ({total_tc})"
