@@ -1,119 +1,126 @@
 # PraisonAI Clips
 
-Create reviewed vertical Shorts from a full-length video using the OpenAI Python SDK and FFmpeg. Local Streamlit upload screen, durable SQLite jobs, independent five-second vision analysis, dense crop inspection, word-highlight captions, automatic crop repair, and an HTML preview gallery.
+**Turn long videos into reviewed, captioned vertical clips.**
 
-## Setup
+PraisonAI Clips combines OpenAI analysis with FFmpeg rendering to find complete moments, frame them for vertical video, and add captions with measured word timestamps. Work from a local dashboard or the command line, preview the results, and refine framing through optional Kdenlive and DaVinci Resolve integrations.
 
-Requires Python 3.11+ and FFmpeg with libx264, libass and loudnorm (Debian/Ubuntu: `sudo apt install ffmpeg python3-venv`).
+[Quickstart](docs/getting-started/quickstart.md) · [Workflow](docs/guides/workflow.md) · [CLI reference](docs/reference/cli.md) · [Editor integrations](docs/editors/index.md)
 
-```bash
+## Features
+
+- **Moment selection:** identify self-contained, non-overlapping clips from a longer recording.
+- **Evidence-based framing:** inspect sampled frames, apply a stable crop when supported, and preserve slides or screen recordings with full-frame fit.
+- **Word-highlight captions:** retain measured source timestamps and explicit mappings to the edited output.
+- **Review and repair:** check rendered media, attempt supported framing repairs, and keep uncertain drafts separate from accepted clips.
+- **Resumable processing:** store jobs in SQLite and reuse cached API responses and frame analysis.
+- **Local previews:** review clips in Streamlit or an HTML gallery and download accepted results.
+- **Optional editor control:** export editable Kdenlive source cuts or use experimental live framing through Python and MCP.
+
+By default, a job produces up to five 30–60 second clips at 1080 × 1920. It may produce fewer when suitable moments or sufficient review evidence are unavailable.
+
+## Requirements
+
+- Python 3.11 or later.
+- FFmpeg and ffprobe, with `libx264`, `subtitles`/libass, and `loudnorm` support.
+- An OpenAI API key with access to the configured transcription and vision models.
+
+The core workflow runs on CPU. Editor integrations have additional, platform-specific requirements documented in their setup guides.
+
+## Quickstart
+
+```sh
+git clone https://github.com/MervinPraison/praisonai-clips.git
+cd praisonai-clips
 python3 -m venv .venv
-.venv/bin/pip install -e '.[dev]'
-cp .env.example .env  # only on first setup; preserve your existing .env
+source .venv/bin/activate
+python -m pip install -e .
+
+# First setup only; keep an existing .env file.
+cp -n .env.example .env
 ```
 
-Set `OPENAI_API_KEY` in `.env`. The default vision/editor model is `gpt-4o-mini`. Transcription uses `whisper-1` because measured word timestamps are required. OpenAI usage is billed to your API account; source audio and sampled frames are sent to OpenAI. No automatic publishing.
-
-```bash
-.venv/bin/praisonai-clips doctor
-.venv/bin/streamlit run app.py
-```
-
-Open http://127.0.0.1:8501. The app binds to localhost. Uploads up to 2GB are enabled; choose an existing local path for larger videos.
-
-## Process the main video
-
-```bash
-.venv/bin/praisonai-clips run 'input/main video.mp4'
-```
-
-Defaults: up to five non-overlapping, self-contained Shorts, 30–60 seconds each, 1080×1920 MP4. Fewer clips are returned when suitable moments or acceptance evidence are insufficient. The first pass normalizes the full source timeline, which takes CPU time before transcription starts.
-
-```bash
-.venv/bin/praisonai-clips list
-.venv/bin/praisonai-clips status JOB_ID
-.venv/bin/praisonai-clips cancel JOB_ID
-.venv/bin/praisonai-clips resume JOB_ID
-```
-
-Cancellation interrupts FFmpeg promptly; in-flight API requests finish and cache their responses before stopping. Resume after the worker releases its lock. If the original source changed, create a fresh job.
-
-## HTML preview
-
-```bash
-.venv/bin/python scripts/serve_preview.py
-```
-
-Open http://127.0.0.1:8765/preview/index.html. The local gallery refreshes while jobs run and does not interrupt playing videos. Streamlit also provides a ZIP download for each accepted Short. The preview server exposes the local data directory on localhost; run this as a private local tool.
-
-## Artifacts
-
-`data/jobs/<job-id>/accepted/clip-NN/` contains `video.mp4`, `captions.srt`, `captions.ass`, `words.json`, `edl.json` and `review.json`. Uncertain results stay in `drafts/`. `timeline.json` records the common source origin and `manifest.json` lists accepted and uncertain results. API responses and frame samples are cached per source/configuration/prompt version. Raw inputs and data are ignored by Git.
-
-`words.json` preserves both measured source timestamps and output timestamps. EDL mappings remain explicit after each cut. No word timings or visible speaker identities are invented. Dense sampling chooses a stable crop only when the evidence supports it; full-frame fit preserves slides and screen recordings.
-
-## Validation
-
-```bash
-.venv/bin/pytest -q
-```
-
-Tests cover real FFmpeg renders, offset source timestamps and delayed audio, nonadjacent-cut word mapping, caption clock rounding and escaping, sentence/duration guards, cancellation and cache reuse. See `M0_REPORT.md` for actual environment/API validation, `architecture.md` for design contracts, and `prd.md` for acceptance criteria.
-
-Review uses full technical decode and timestamp checks plus sampled visual inspection. It cannot guarantee caption accuracy, catch every between-frame event or independently verify audible synchronization. Listen before publishing. The fetched OpenAI documentation schedules `whisper-1` shutdown on February 26, 2027; a verified alignment replacement will be needed before then.
-
-## Optional editable Kdenlive export
-
-With the separately installed pinned runtime from `docs/KDENLIVE_MCP_HANDOVER.md`:
-
-```bash
-.venv/bin/praisonai-clips export-kdenlive JOB_ID
-```
-
-The dashboard also has an optional export action. Each clip gets `kdenlive/editable.kdenlive`, measured caption sidecars, a rounded EDL and durable revisioned MCP state. Use `scripts/kdenlive-compatible` (Kdenlive 26.04). Keep the normalized source in place: projects reference it externally. This exports editable source cuts with portrait settings, not the finished FFmpeg layout/audio/caption effects, and does not control an open editor window. Existing timeline edits are never silently overwritten on resume.
-
-For the separate experimental live editor and MCP adapter, see [docs/KDENLIVE_LIVE_CONTROL.md](docs/KDENLIVE_LIVE_CONTROL.md). Its actual build/test status is recorded there and under `data/kdenlive-live-test/`; registration of a tool is not proof that it has passed a live test.
-
-On macOS, `scripts/kdenlive-mac-live` provides a separate experimental native Qt
-bridge and seven MCP tools for live framing, seeking, sequence selection,
-undo/redo, and saving. Real Mac MCP tests verified zoom changes and native
-undo/redo against rendered frames, then restored the original framing. See the
-[Mac setup and validation](docs/KDENLIVE_LIVE_CONTROL.md#native-mac-live-bridge).
-
-Resolve on this Mac now has an opt-in AppleScript Lua Console MCP adapter.
-Live tests on free Resolve 21.1.2 verified zoom, pan and crop changes, native
-frame export, project guards and pixel-identical framing restoration.
-The upstream file-mailbox and external Python connections remain unavailable. See [Resolve setup and current limitations](docs/RESOLVE_LIVE_CONTROL.md).
-
-This is the independent PraisonAI Clips project. The existing praisonai-shorts repository is unchanged. The internal Python package retains the name praisonai_shorts_studio.
-
-Live Kdenlive testing succeeded on a fresh native project: splits, linked audio/video, undo/redo, save and screenshots. This remains experimental; the demo uses a rendered clip with burned-in captions, and importing the other backend's project crashed this build. See [the live-control report](docs/KDENLIVE_LIVE_CONTROL.md) for the tested scope.
-
-## Documentation site
-
-The MkDocs site follows the [PraisonAI design kit](https://praison.ai/design-kit/).
+Set `OPENAI_API_KEY` in `.env`, then check the environment and process a video:
 
 ```sh
-.venv/bin/pip install -e '.[docs]'
-.venv/bin/mkdocs serve --dev-addr 127.0.0.1:8001
-.venv/bin/mkdocs build --strict
+praisonai-clips doctor
+praisonai-clips run '/absolute/path/to/video.mp4'
 ```
 
-Open http://127.0.0.1:8001. The static build is written to `site/`; these commands do not publish it.
-
-## Live Resolve SDK and reusable skill
+Or start the dashboard:
 
 ```sh
-.venv/bin/pip install -e '.[live]'
-.venv/bin/praisonai-resolve status
-.venv/bin/praisonai-resolve-mcp
+streamlit run app.py
 ```
 
-Use `from praisonai_shorts_studio.live import ResolveClient, ClipTarget, Framing`.
-The SDK shares guarded framing operations across Python, CLI and eight MCP tools.
-Its Mac Console transport and licensed Lua helpers ship in the wheel, so the
-working route needs no separate upstream checkout or npm build. See
-[the SDK reference](docs/reference/resolve-sdk.md) and
-[the reusable Resolve Mac skill](skills/resolve-mac-live/SKILL.md).
-The skill's [maintained runbook](skills/resolve-mac-live/references/runbook.md)
-records setup, failed approaches, AppleScript details and repeatable live checks.
+Open [the local dashboard](http://127.0.0.1:8501). Upload files up to 2 GB, or select a local path for larger videos. See [installation](docs/getting-started/installation.md) for dependency setup.
+
+OpenAI processes source audio and sampled frames; API usage is billed to your account. Source files, job state, and rendered outputs remain in your local workspace. Review [data handling](docs/reference/public-release.md) before sharing a repository or diagnostic bundle.
+
+## Manage jobs and preview results
+
+```sh
+praisonai-clips list
+praisonai-clips status JOB_ID
+praisonai-clips cancel JOB_ID
+praisonai-clips resume JOB_ID
+
+# Optional browser gallery
+python scripts/serve_preview.py
+```
+
+Open [the preview gallery](http://127.0.0.1:8765/preview/index.html). Cancellation stops FFmpeg promptly; an in-flight API request finishes and caches its response before stopping. Resume once the worker releases its lock. A changed source requires a new job.
+
+The dashboard and gallery bind to localhost. The gallery serves the local data directory, including review artifacts, so keep it private.
+
+## Output files
+
+Each accepted clip is stored under `data/jobs/<job-id>/accepted/clip-NN/`:
+
+| File | Purpose |
+| --- | --- |
+| `video.mp4` | Rendered vertical video with burned-in captions and normalized audio |
+| `captions.srt`, `captions.ass` | Caption sidecars |
+| `words.json` | Measured word timings in source and output coordinates |
+| `edl.json` | Explicit source-to-output edit mapping |
+| `review.json` | Review evidence and acceptance result |
+
+Uncertain clips remain in `drafts/`. Job-level `timeline.json` and `manifest.json` record the source origin and output inventory. See [files and configuration](docs/reference/configuration.md) for details.
+
+Automated review combines technical decoding and timestamp checks with sampled visual inspection. Listen and inspect the final clips before publishing; sampling cannot catch every visual event or verify every spoken word.
+
+## Editor integrations
+
+| Integration | Supported workflow | Setup |
+| --- | --- | --- |
+| Kdenlive export | Editable source cuts, portrait project settings, and remapped caption sidecars | [Runtime and export guide](docs/KDENLIVE_MCP_HANDOVER.md) |
+| Kdenlive live control · experimental | Native framing, seeking, sequence selection, undo/redo, and saving on the tested Mac bridge; a separate Linux adapter is also available | [Live-control guide](docs/KDENLIVE_LIVE_CONTROL.md) |
+| DaVinci Resolve · experimental | Guarded live zoom, pan, crop, native frame export, and saving through the macOS Lua Console | [Resolve guide](docs/RESOLVE_LIVE_CONTROL.md) |
+
+Kdenlive source-cut export requires a separately provisioned runtime and does not reproduce every FFmpeg layout, audio, or caption effect. Live editor changes do not automatically update the pipeline's EDL or review manifest. Consult each guide for the tested scope and version constraints.
+
+### Resolve SDK and MCP
+
+```sh
+python -m pip install -e '.[live]'
+praisonai-resolve status
+praisonai-resolve-mcp
+```
+
+The Python SDK exposes `ResolveClient`, `ClipTarget`, and `Framing` from `praisonai_shorts_studio.live`. Shared validation and project identity guards support the Python API, CLI, and eight MCP tools. The macOS transport and licensed Lua helpers ship with the package.
+
+Start with the [SDK reference](docs/reference/resolve-sdk.md), [reusable Resolve skill](skills/resolve-mac-live/SKILL.md), and [setup and recovery runbook](skills/resolve-mac-live/references/runbook.md).
+
+## Development and documentation
+
+```sh
+python -m pip install -e '.[dev,docs]'
+pytest -q
+mkdocs build --strict
+mkdocs serve --dev-addr 127.0.0.1:8001
+```
+
+Open [the local documentation site](http://127.0.0.1:8001). The MkDocs Material site follows the [PraisonAI design kit](https://praison.ai/design-kit/); the static build is written to `site/`.
+
+Tests cover FFmpeg rendering, timing and caption mapping, candidate validation, cache reuse, cancellation, and editor adapter guards. Live editor tests are opt-in and require disposable projects. See [architecture](architecture.md), [acceptance criteria](prd.md), and the [initial validation report](M0_REPORT.md) for implementation context.
+
+Before contributing, review the [public-release checklist](docs/reference/public-release.md). Keep source media, API responses, credentials, and editor runtime files out of commits. The distribution and primary CLI are named `praisonai-clips`; the internal Python package is `praisonai_shorts_studio`.

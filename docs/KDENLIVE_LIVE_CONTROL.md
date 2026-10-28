@@ -4,7 +4,7 @@ The optional live adapter targets a running scripting-enabled Kdenlive window. I
 
 ## Native Mac live bridge
 
-The Mac now has a separate experimental live control path, implemented in
+macOS has a separate experimental live control path, implemented in
 `scripts/mac-live/`. It loads a small local Qt bridge into an isolated APFS copy
 of the installed Kdenlive app. The installed `/Applications/kdenlive.app` is
 untouched. The local copy is ad-hoc signed so it can load the bridge. This is our
@@ -66,10 +66,16 @@ matched zoom exactly. A final undo/save restored the baseline and left the
 document clean. The normalized source SHA-256 was unchanged.
 
 Evidence is in `data/mac-live/live-validation.json`, `mcp-test.log`, and the
-baseline/zoom125/undo/redo/restored PNG frames. The guarded live project is
-`data/mac-live/live-review.kdenlive`. The test refuses other project
-paths. It requires the demo to start at its original framing and makes real
-temporary edits, so use it only on this disposable demo.
+baseline/zoom125/undo/redo/restored PNG frames. Select an explicit disposable
+project under `data/mac-live/` when running the test:
+
+```sh
+.venv/bin/python scripts/test_kdenlive_mac_live.py --project data/mac-live/live-review.kdenlive
+```
+
+The named project must already exist and match the running bridge connection.
+The test requires the demo's source sequence and original framing, and makes
+real temporary edits. Use only a disposable copy prepared for this test.
 
 The initial generated source Transform had been attached to a media chain,
 which Kdenlive did not expose as an editable timeline effect. The live demo was
@@ -127,7 +133,7 @@ Three application regression tests verify scalar types, video-track booleans and
 
 Existing GUI changes are not automatically imported into the Shorts application's EDL or review manifest. Final deliveries still use the established FFmpeg captions, source/output mapping and acceptance workflow until live export parity is verified.
 
-This independent PraisonAI Clips repository uses the internal src/praisonai_shorts_studio/ package. Its primary CLI is praisonai-clips. The existing praisonai-shorts repository remains unchanged; its fetched reference is kept only in the ignored .upstream-reference/ directory locally.
+This independent PraisonAI Clips repository uses the internal src/praisonai_shorts_studio/ package. Its primary CLI is praisonai-clips.
 
 ## Actual live result, 28 October 2026
 

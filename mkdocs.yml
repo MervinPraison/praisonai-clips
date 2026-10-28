@@ -55,6 +55,7 @@ nav:
   - Contribute:
       - Resolve SDK: reference/resolve-sdk.md
       - Documentation: reference/documentation.md
+      - Data handling and releases: reference/public-release.md
 exclude_docs: |
   /SHORTS_STUDIO.md
   /assets/fonts/README.md

@@ -1,6 +1,6 @@
 # Kdenlive MCP integration handover
 
-Prepared 28 October 2026 for PraisonAI Shorts in `/absolute/path/to/praisonai-clips`.
+Historical Linux integration validation for PraisonAI Clips, recorded 28 October 2026. Paths below are relative to the repository root unless stated otherwise.
 
 ## Decision and honest capability boundary
 
@@ -20,12 +20,12 @@ Do not claim every feature is validated. The inventory below lists every discove
 | MCP version | 1.1.0, 42 tools |
 | Private Node | `tools/runtime/node/bin/node`, version 22.23.4 |
 | Private pnpm | `tools/runtime/pnpm/node_modules/.bin/pnpm`, version 9.5.0 |
-| MCP launcher | `/absolute/path/to/praisonai-clips/scripts/kdenlive-mcp` |
-| Allowed root | `/absolute/path/to/praisonai-clips` only |
+| MCP launcher | `scripts/kdenlive-mcp` |
+| Allowed root | The absolute path of the local repository checkout only |
 | Stable client ID | `codex` (use a distinct stable ID for the app) |
 | Durable MCP state | `.kdenlive-mcp/` |
 | Desktop Kdenlive | Private KDE AppImage 26.04.2, extracted under `tools/runtime/kdenlive-26.04.2/squashfs-root` |
-| Desktop launcher | `/absolute/path/to/praisonai-clips/scripts/kdenlive-compatible` |
+| Desktop launcher | `scripts/kdenlive-compatible` |
 | Applications menu | **Kdenlive 26.04 (MCP compatible)** |
 | System runtimes used by MCP | `/usr/bin/melt` 7.12.0, `/usr/bin/ffmpeg` and `/usr/bin/ffprobe` 5.1.7 |
 
@@ -33,7 +33,7 @@ The old `/usr/bin/kdenlive` is 22.12.3 and cannot load this server's project exp
 
 The doctor passed all 14 checks. This machine's distribution MLT/FFmpeg are older than the repository's Linux CI versions; only the actual tests described here establish local behavior.
 
-FFmpeg MCP and WhisperX were **not installed** during this work: the user redirected priority to Kdenlive MCP. The existing application retains its OpenAI transcription and FFmpeg implementation.
+FFmpeg MCP and WhisperX were **not installed** during this validation. The existing application retains its OpenAI transcription and FFmpeg implementation.
 
 ## What was actually tested
 
@@ -46,7 +46,7 @@ FFmpeg MCP and WhisperX were **not installed** during this work: the user redire
 7. Fully decoded the rendered video and audio with FFmpeg; inspected output frames at 1 and 6 seconds to check both source ranges. Video: H.264, 1920x1080, 30 fps, 300 frames, 10.000 seconds. Audio: AAC, stereo, 48 kHz, approximately 10.005 seconds. Container: approximately 10.006 seconds.
 8. Submitted another export and cancelled it; confirmed terminal `cancelled` status. This confirms immediate submitted-job cancellation, not every possible mid-encode interruption/race.
 9. Exported `.kdenlive`, launched Kdenlive 26.04.2 separately, and inspected the actual GUI: source present, two video clips, two audio clips, working picture/audio meters.
-10. Compared the source SHA-256 with the hash captured at MCP import. Original backup was preserved: `<source-checksum>`.
+10. Compared the source SHA-256 with the hash captured at MCP import. The source checksum was unchanged; source-specific checksums remain in ignored local reports.
 11. Ran the pinned repository test suite after the local patch: **74 passed, 3 skipped; 15 test files passed, 1 skipped**. A targeted render-core run passed 22 tests with 1 skipped. These are upstream tests, not 74 independent real-video acceptance cases.
 
 `job_verify` emitted one freeze warning on the delivered test. The source includes static presentation slides. Treat this as advisory and inspect the actual frames; do not automatically promote or reject based only on this warning.
@@ -137,14 +137,14 @@ scripts/kdenlive-compatible output/kdenlive-mcp-test/backup-mcp-test.kdenlive
 
 The test script contains actual standard MCP `Client`, `StdioClientTransport`, `listTools`, and `callTool` calls. It does not simulate edits with direct FFmpeg commands. FFmpeg was used separately only for final decoding and frame inspection.
 
-The launcher is registered as `mcp_servers.kdenlive` in `~/.codex/config.toml`, with 30-second startup and 3600-second tool timeouts. The original config was backed up as `config.toml.before-kdenlive-mcp`. Registered config and direct SDK stdio connectivity were checked separately; a running Codex session may need MCP reload/new chat to discover newly registered tools.
+Register the launcher as `mcp_servers.kdenlive` in the local MCP host configuration (for Codex, `~/.codex/config.toml`), using 30-second startup and 3600-second tool timeouts. Back up an existing configuration before changing it. Registered config and direct SDK stdio connectivity were checked separately; a running Codex session may need MCP reload/new chat to discover newly registered tools.
 
 ## Application integration guidance
 
-The existing app is Python/Streamlit. `src/praisonai_shorts/pipeline.py` already drives evidence gathering and rendering; `models.py` has second-based EDL mappings; `media.py` currently renders via direct FFmpeg and intentionally accepts one mapping per Short. Add an optional editing/export adapter instead of replacing the functioning default path before parity is proven.
+The existing app is Python/Streamlit. `src/praisonai_shorts_studio/pipeline.py` already drives evidence gathering and rendering; `models.py` has second-based EDL mappings; `media.py` currently renders via direct FFmpeg and intentionally accepts one mapping per Short. Add an optional editing/export adapter instead of replacing the functioning default path before parity is proven.
 
 1. Launch the pinned MCP executable through a standard MCP client. Python can use the MCP Python SDK in an isolated optional dependency; alternatively use the working Node SDK example as a local bridge. Reserve stdout for MCP protocol; log to stderr. Give the application a distinct stable `--client-id praisonai-shorts` and do not mix its ownership with Codex jobs. The launcher allows additional arguments, so that final CLI client ID overrides its default.
-2. Use explicit absolute roots under `/absolute/path/to/praisonai-clips`. Keep job-local canonical MCP project folders and persist project ID, current revision, source hash, asset IDs, clip IDs and MCP job IDs in the app's durable job records. Add the chosen client's SDK dependency explicitly; it is not installed into the app's Python environment by this handover.
+2. Use an explicit absolute allowed root pointing to the local repository checkout. Keep job-local canonical MCP project folders and persist project ID, current revision, source hash, asset IDs, clip IDs and MCP job IDs in the app's durable job records. Add the chosen client's SDK dependency explicitly; it is not installed into the app's Python environment by this handover.
 3. Import the app's normalized `source.mp4` as external media (or use managed mode after testing). The source must remain accessible for external-reference projects.
 4. Convert **seconds to integer project frames once**, consistently, at the boundary. At 30 fps, frame = round(seconds * 30). Source ranges are **half-open** `[sourceIn, sourceOut)`; 150 frames is 5 seconds. Preserve the app's source-to-output mappings after rounding. Keep linked A/V together.
 5. Every mutation sends exact `expectedRevision`. Refresh on revision conflict rather than retrying stale edits. Successful edit calls typically return `{project, revision, changedIds, warnings, undoToken}`; `project_create` returns the project directly. Some successful calls, such as checkpoint creation, have no data payload. All tools use `{ok, data}` / `{ok:false, error}` envelopes; inspect MCP `isError` too.
@@ -181,4 +181,4 @@ The existing app is Python/Streamlit. `src/praisonai_shorts/pipeline.py` already
 - Reproducible standard MCP client: `scripts/test_kdenlive_mcp.mjs`
 - Local source patch: `tools/kdenlive-mcp-linux-x11.patch`
 
-Installation/build artifacts, model/media outputs, and server state are ignored in `.gitignore`; preserve the pinned source SHA and local patch for reproducible provisioning. This workspace was not a Git repository when checked. Application implementation files were not modified by this installation/test task.
+Installation/build artifacts, model/media outputs, and server state are ignored in `.gitignore`; preserve the pinned source SHA and local patch for reproducible provisioning. Local reports and source media are intentionally excluded from the public repository.

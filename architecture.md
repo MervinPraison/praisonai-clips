@@ -2,7 +2,7 @@
 
 ## Scope and decisions
 
-Python 3.11, direct OpenAI Python SDK, FFmpeg/ffprobe, SQLite, filesystem artifacts, local Streamlit UI and portable HTML preview. PraisonAI, WhisperX, GPU acceleration and Kdenlive are not MVP dependencies. These documents were recreated from the user's requirements because the original planning documents were not present.
+Python 3.11, direct OpenAI Python SDK, FFmpeg/ffprobe, SQLite, filesystem artifacts, local Streamlit UI and portable HTML preview. PraisonAI, WhisperX, GPU acceleration and Kdenlive are not MVP dependencies.
 
 The first real source is `input/main video.mp4` (240 seconds). The other input videos are separate sources and must never be silently substituted.
 

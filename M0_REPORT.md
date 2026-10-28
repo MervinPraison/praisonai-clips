@@ -1,19 +1,18 @@
 # M0 / first end-to-end run — 28 October 2026
 
-## Actual source and environment
+## Validation fixture and toolchain
 
-- Main source: input/main video.mp4, SHA256 `<source-checksum>`.
+- A local four-minute validation video was used. Original filenames, media checksums, and job identifiers are omitted from this public report; detailed evidence remains in ignored local artifacts.
 - Source presentation duration: 240.000s video, 240.007s container; 1920×1080. The AAC tail must not be sampled as a nonexistent final video frame.
-- Python 3.11.2, CPU processing. GPU is not required.
+- Python 3.11.2; CPU processing, without a GPU requirement.
 - FFmpeg/ffprobe 5.1.7; libx264, libass/subtitles and loudnorm available.
-- OpenAI Python SDK 2.54.0. Actual paid calls to whisper-1 and gpt-4o-mini succeeded using the user's ignored .env configuration.
-- Durable application job: `<job-id>`.
+- OpenAI Python SDK 2.54.0. Actual paid calls to whisper-1 and gpt-4o-mini succeeded using environment-based credentials.
 
 ## Verified outcomes
 
 Actual transcription returned 538 word measurements. Fourteen provider tokens had zero duration. Their original measurements remain in transcript.json with alignment warnings. Candidate selection excludes any range containing such tokens; timings were never invented. Punctuation is recovered from the same API transcript using matched lexical tokens without modifying timestamps.
 
-A separate agent completed actual gpt-4o-mini visual analysis at all 48 five-second samples, 0 through 235 seconds. Six API batches, frame artifacts, source SHA, independent observation method and original timestamp origin are saved under data/main-video-visual/. That evidence was imported into the job's matching cache, avoiding duplicate billed overview calls.
+Validation included actual gpt-4o-mini visual analysis at all 48 five-second samples, 0 through 235 seconds. Six API batches, frame artifacts, source SHA, independent observation method and original timestamp origin are saved under data/main-video-visual/. That evidence was imported into the job's matching cache, avoiding duplicate billed overview calls.
 
 Selection now uses a deterministic pool of admissible sentence ranges before model ranking, preventing the model from inventing invalid cut indexes or ignoring duration limits. Thirteen valid ranges produced three nonoverlapping edits:
 
@@ -27,7 +26,7 @@ Each selected range received half-second frame inspection. The full-width presen
 
 Initial sampled model review returned vague clipping claims even on full-frame fits. The review protocol was corrected to require concrete timestamps, original-source reference frames, explicit caption intervals, and a constrained repair enum. One Short passed every revised review batch at the acceptance threshold. Two remain quarantined with their actual review evidence; no acceptance threshold was bypassed. The picture at the first draft's reported 20.920001s was independently inspected and shows the complete caption, illustrating that model review can produce false positives. That draft remains separate because the automated reviewer did not fully accept it.
 
-The localhost HTML gallery and Streamlit dashboard run successfully. Streamlit's app test reports no exceptions. Opening a browser preview window was declined by the browser permission gate; the user can open the local gallery link directly. This did not prevent generation or local preview delivery.
+The localhost HTML gallery and Streamlit dashboard run successfully. Streamlit's app test reports no exceptions. The gallery can be opened directly in a local browser.
 
 ## Dependency / implementation defects found and fixed
 

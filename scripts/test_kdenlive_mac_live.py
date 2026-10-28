@@ -1,4 +1,5 @@
 """Real MCP crop/undo/redo/save test, restricted to our disposable Mac demo."""
+import argparse
 import asyncio
 import hashlib
 import json
@@ -12,7 +13,6 @@ from mcp.client.stdio import stdio_client
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "data/mac-live"
-PROJECT = OUT / "live-review.kdenlive"
 
 
 def sha(path):
@@ -20,8 +20,8 @@ def sha(path):
         return hashlib.file_digest(stream, "sha256").hexdigest()
 
 
-def saved_rect():
-    tree = ET.parse(PROJECT)
+def saved_rect(project):
+    tree = ET.parse(project)
     entries = tree.findall(".//playlist/entry")
     rects = [p.text for entry in entries for effect in entry.findall("filter")
              if effect.findtext("property[@name='kdenlive_id']") == "qtblend"
@@ -30,22 +30,25 @@ def saved_rect():
     return [float(n) for n in rects[0].rsplit("=", 1)[1].split()][:4]
 
 
-def render(label):
+def render(label, project):
     image = OUT / f"{label}.png"
     # Native MLT renders the saved active sequence, including the live-saved Transform.
     with (OUT / f"{label}-render.log").open("w") as log:
-        subprocess.run(["/Applications/kdenlive.app/Contents/MacOS/melt", str(PROJECT), "in=644", "out=644",
+        subprocess.run(["/Applications/kdenlive.app/Contents/MacOS/melt", str(project), "in=644", "out=644",
                         "-consumer", f"avformat:{image}", "vcodec=png", "an=1", "real_time=-1"],
                        check=True, stdout=log, stderr=log, timeout=60)
     assert image.exists()
     return sha(image)
 
 
-async def main():
+async def main(project):
+    project = project.resolve(strict=True)
+    if project.parent != OUT.resolve() or project.suffix != ".kdenlive":
+        raise RuntimeError("Disposable test project must be a .kdenlive file directly under data/mac-live")
     state = json.loads((OUT / "connection.json").read_text())
-    if Path(state["project"]).resolve() != PROJECT:
+    if Path(state["project"]).resolve() != project:
         raise RuntimeError("Refusing to edit a project other than our disposable live demo")
-    report = {"success": False, "project": str(PROJECT), "operations": []}
+    report = {"success": False, "project": str(project), "operations": []}
     try:
         async with stdio_client(StdioServerParameters(command=str(ROOT / "scripts/kdenlive-mac-live"), args=["mcp"], cwd=str(ROOT))) as (reader, writer):
             async with ClientSession(reader, writer) as session:
@@ -70,30 +73,30 @@ async def main():
                 await call("select_sequence", {"index": source["index"]})
                 await call("seek", {"frame": 644})
                 await call("save_project")
-                assert saved_rect() == [0, 0, 1080, 1920], "Demo must start at full-frame fit"
-                baseline = render("baseline")
+                assert saved_rect(project) == [0, 0, 1080, 1920], "Demo must start at full-frame fit"
+                baseline = render("baseline", project)
                 report["baseline_frame_sha256"] = baseline
                 framing = dict(clip_id=clip["item"], x=-135, y=-240, width=1350, height=2400)
                 changed = await call("set_framing", framing)
                 assert "Transform" in changed["history"]["undoText"]
                 assert changed["history"]["canUndo"]
                 await call("save_project")
-                assert saved_rect() == [-135, -240, 1350, 2400]
-                zoomed = render("zoom125")
+                assert saved_rect(project) == [-135, -240, 1350, 2400]
+                zoomed = render("zoom125", project)
                 report["zoom_frame_sha256"] = zoomed
                 assert zoomed != baseline, "Saved native edit did not change the rendered frame"
                 await call("undo")
                 await call("save_project")
-                assert saved_rect() == [0, 0, 1080, 1920]
-                assert render("undo") == baseline
+                assert saved_rect(project) == [0, 0, 1080, 1920]
+                assert render("undo", project) == baseline
                 await call("redo")
                 await call("save_project")
-                assert saved_rect() == [-135, -240, 1350, 2400]
-                assert render("redo") == zoomed
+                assert saved_rect(project) == [-135, -240, 1350, 2400]
+                assert render("redo", project) == zoomed
                 await call("undo")
                 await call("save_project")
-                assert saved_rect() == [0, 0, 1080, 1920]
-                assert render("restored") == baseline
+                assert saved_rect(project) == [0, 0, 1080, 1920]
+                assert render("restored", project) == baseline
                 # Native model and document stay live, with the original framing restored.
                 final = await call("get_live_status")
                 report["source_sha256_after"] = sha(clip["resource"])
@@ -107,4 +110,8 @@ async def main():
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--project", type=Path, required=True,
+                        help="Explicit disposable project under data/mac-live; must match the live connection")
+    args = parser.parse_args()
+    asyncio.run(main(args.project))
