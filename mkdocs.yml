@@ -1,6 +1,6 @@
 site_name: PraisonAI Clips
 site_description: Create reviewed vertical clips from long videos.
-site_url: ''
+site_url: https://clips.praison.ai/
 strict: true
 hooks:
   - docs/hooks.py
