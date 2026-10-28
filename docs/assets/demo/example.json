@@ -1,0 +1,15 @@
+{
+  "title": "One recording, more to share",
+  "source_duration": 16,
+  "clip_duration": 12.0,
+  "dimensions": [
+    1080,
+    1920
+  ],
+  "media": "generated graphics and silent audio",
+  "word_timing_origin": "scripted demonstration timings; not measured transcription",
+  "selection": "authored edit; no AI selection or analysis",
+  "api_calls": 0,
+  "technical_checks": "Full decode, dimensions, codecs, duration and A/V start checks passed",
+  "editorial_review": "not performed; this example is not an accepted pipeline job"
+}

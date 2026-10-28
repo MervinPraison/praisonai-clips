@@ -8,18 +8,17 @@ hide:
 <div class="hero" markdown>
 <div markdown>
 <p class="eyebrow">YOUR RECORDING HAS MORE TO GIVE</p>
-<h1>One recording.<br><em>More worth sharing.</em></h1>
-<p class="lede">Turn long videos into captioned vertical clips. Find the complete thought, frame it for the feed, and keep the final editorial decision.</p>
-<div class="actions"><a class="paper-button" href="getting-started/quickstart/">Create your first clips ↗</a><a class="paper-button secondary" href="product/">Explore the product</a></div>
-<p class="hero-note">Local dashboard & CLI · OpenAI analysis · Optional desktop editor control</p>
+<h1>Your long video.<br><em>Your next short.</em></h1>
+<p class="lede">Find complete moments in your interviews, lessons, and webinars. Turn them into vertical clips with highlighted captions, then review and choose what to share.</p>
+<div class="actions"><a class="paper-button" href="getting-started/quickstart/">Make my first clips ↗</a><a class="paper-button secondary" href="#see-example">Watch the example</a></div>
+<p class="hero-note">Watch the example without an API key. Process your own video in the local app.</p>
 </div>
-<div class="workflow-visual" markdown="0" aria-label="Illustrated workflow from a source recording to reviewed clips">
-<div class="visual-topline"><span>THE CONTENT WORKFLOW</span><span>01 → 03</span></div>
-<div class="source-card"><span class="eyebrow">01 / START WITH THE FULL STORY</span><div class="waveform" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><strong>Your recording</strong><span>Webinar · Interview · Lesson · Walkthrough</span></div>
-<div class="review-line"><span>02 / FIND · FRAME · CAPTION · REVIEW</span><span aria-hidden="true">↓</span></div>
-<div class="clip-illustrations"><div><span>03 / A COMPLETE THOUGHT</span><div class="illustrated-subject" aria-hidden="true"></div><strong>A moment<br>that stands alone.</strong></div><div><span>03 / KEEP THE CONTEXT</span><div class="illustrated-slide" aria-hidden="true"><i></i><i></i><i></i></div><strong>The detail<br>worth keeping.</strong></div></div>
-<p class="visual-caption">Workflow illustration. Clip content and review results depend on your recording.</p>
-</div>
+<figure class="demo-showcase" id="see-example">
+<div class="demo-heading"><span>SEE WHAT YOU CAN TAKE AWAY</span><span>00:12</span></div>
+<video controls playsinline preload="metadata" poster="assets/demo/poster.jpg" aria-label="A twelve-second generated vertical clip with scripted word-highlight captions"><source src="assets/demo/clip.mp4" type="video/mp4">Your browser does not support embedded video. <a href="assets/demo/clip.mp4">Download the example clip</a>.</video>
+<figcaption>Silent generated example with scripted captions. Rendered with the app's video and caption pipeline; no AI selection or editorial review was run.</figcaption>
+<div class="demo-downloads"><a href="assets/demo/clip.mp4" download>Download the clip ↗</a><a href="assets/demo/source.mp4">Compare the original</a></div>
+</figure>
 </div>
 <div class="value-strip"><div><strong>Complete thoughts</strong><span>Transcript + visual context</span></div><div><strong>Review before delivery</strong><span>Accepted clips & separate drafts</span></div><div><strong>Keep editorial control</strong><span>Source mappings & editor tools</span></div></div>
 <div class="section-heading"><span class="eyebrow">BUILT FOR THE RECORDINGS YOU ALREADY MAKE</span><span>One workflow. More places to start.</span></div>

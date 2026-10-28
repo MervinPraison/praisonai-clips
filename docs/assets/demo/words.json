@@ -1,0 +1,163 @@
+[
+  {
+    "word": "One",
+    "source_start": 2.15,
+    "source_end": 2.587142857142857,
+    "start": 0.1499999999999999,
+    "end": 0.5871428571428572
+  },
+  {
+    "word": "recording",
+    "source_start": 2.664285714285714,
+    "source_end": 3.1014285714285714,
+    "start": 0.6642857142857141,
+    "end": 1.1014285714285714
+  },
+  {
+    "word": "can",
+    "source_start": 3.178571428571429,
+    "source_end": 3.6157142857142857,
+    "start": 1.1785714285714288,
+    "end": 1.6157142857142857
+  },
+  {
+    "word": "hold",
+    "source_start": 3.692857142857143,
+    "source_end": 4.13,
+    "start": 1.692857142857143,
+    "end": 2.13
+  },
+  {
+    "word": "several",
+    "source_start": 4.207142857142857,
+    "source_end": 4.644285714285714,
+    "start": 2.2071428571428573,
+    "end": 2.644285714285714
+  },
+  {
+    "word": "useful",
+    "source_start": 4.7214285714285715,
+    "source_end": 5.158571428571429,
+    "start": 2.7214285714285715,
+    "end": 3.1585714285714293
+  },
+  {
+    "word": "stories.",
+    "source_start": 5.235714285714286,
+    "source_end": 5.6728571428571435,
+    "start": 3.2357142857142858,
+    "end": 3.6728571428571435
+  },
+  {
+    "word": "Choose",
+    "source_start": 6.15,
+    "source_end": 6.532500000000001,
+    "start": 4.15,
+    "end": 4.532500000000001
+  },
+  {
+    "word": "one",
+    "source_start": 6.6000000000000005,
+    "source_end": 6.9825,
+    "start": 4.6000000000000005,
+    "end": 4.9825
+  },
+  {
+    "word": "complete",
+    "source_start": 7.050000000000001,
+    "source_end": 7.4325,
+    "start": 5.050000000000001,
+    "end": 5.4325
+  },
+  {
+    "word": "thought",
+    "source_start": 7.5,
+    "source_end": 7.8825,
+    "start": 5.5,
+    "end": 5.8825
+  },
+  {
+    "word": "and",
+    "source_start": 7.95,
+    "source_end": 8.3325,
+    "start": 5.95,
+    "end": 6.3325
+  },
+  {
+    "word": "keep",
+    "source_start": 8.4,
+    "source_end": 8.7825,
+    "start": 6.4,
+    "end": 6.782500000000001
+  },
+  {
+    "word": "its",
+    "source_start": 8.850000000000001,
+    "source_end": 9.2325,
+    "start": 6.850000000000001,
+    "end": 7.2325
+  },
+  {
+    "word": "context.",
+    "source_start": 9.3,
+    "source_end": 9.682500000000001,
+    "start": 7.300000000000001,
+    "end": 7.682500000000001
+  },
+  {
+    "word": "Add",
+    "source_start": 10.15,
+    "source_end": 10.5325,
+    "start": 8.15,
+    "end": 8.5325
+  },
+  {
+    "word": "clear",
+    "source_start": 10.6,
+    "source_end": 10.9825,
+    "start": 8.6,
+    "end": 8.9825
+  },
+  {
+    "word": "captions,",
+    "source_start": 11.05,
+    "source_end": 11.432500000000001,
+    "start": 9.05,
+    "end": 9.432500000000001
+  },
+  {
+    "word": "then",
+    "source_start": 11.5,
+    "source_end": 11.8825,
+    "start": 9.5,
+    "end": 9.8825
+  },
+  {
+    "word": "review",
+    "source_start": 11.950000000000001,
+    "source_end": 12.3325,
+    "start": 9.950000000000001,
+    "end": 10.3325
+  },
+  {
+    "word": "before",
+    "source_start": 12.4,
+    "source_end": 12.7825,
+    "start": 10.4,
+    "end": 10.7825
+  },
+  {
+    "word": "you",
+    "source_start": 12.850000000000001,
+    "source_end": 13.2325,
+    "start": 10.850000000000001,
+    "end": 11.2325
+  },
+  {
+    "word": "share.",
+    "source_start": 13.3,
+    "source_end": 13.682500000000001,
+    "start": 11.3,
+    "end": 11.682500000000001
+  }
+]

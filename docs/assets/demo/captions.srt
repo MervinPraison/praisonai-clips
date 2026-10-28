@@ -1,0 +1,23 @@
+1
+00:00:00,150 --> 00:00:02,644
+One recording can hold several
+
+2
+00:00:02,721 --> 00:00:03,673
+useful stories.
+
+3
+00:00:04,150 --> 00:00:06,332
+Choose one complete thought and
+
+4
+00:00:06,400 --> 00:00:07,683
+keep its context.
+
+5
+00:00:08,150 --> 00:00:10,332
+Add clear captions, then review
+
+6
+00:00:10,400 --> 00:00:11,683
+before you share.

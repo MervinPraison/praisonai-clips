@@ -62,6 +62,7 @@ nav:
 exclude_docs: |
   /SHORTS_STUDIO.md
   /assets/fonts/README.md
+  /assets/demo/README.md
 
 extra:
   social:

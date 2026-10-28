@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "title": "One recording, more to share",
+  "rationale": "Scripted public onboarding example; not AI-selected",
+  "mappings": [
+    {
+      "source_start": 2.0,
+      "source_end": 14.0,
+      "output_start": 0.0
+    }
+  ],
+  "mode": "crop",
+  "crop_x": 0.5,
+  "crop_y": 0.5,
+  "crop_evidence": ""
+}

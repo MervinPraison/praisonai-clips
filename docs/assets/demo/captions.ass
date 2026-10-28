@@ -1,0 +1,53 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,DejaVu Sans,60,&H00FFFFFF,&H0000FFFF,&H00101010,&H80000000,-1,0,0,0,100,100,0,0,1,4,1,2,110,110,300,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.15,0:00:00.59,Default,,0,0,0,,{\c&H0000FFFF&}One {\c&H00FFFFFF&}recording {\c&H00FFFFFF&}can {\c&H00FFFFFF&}hold {\c&H00FFFFFF&}several
+Dialogue: 0,0:00:00.59,0:00:00.66,Default,,0,0,0,,{\c&H00FFFFFF&}One {\c&H00FFFFFF&}recording {\c&H00FFFFFF&}can {\c&H00FFFFFF&}hold {\c&H00FFFFFF&}several
+Dialogue: 0,0:00:00.66,0:00:01.10,Default,,0,0,0,,{\c&H00FFFFFF&}One {\c&H0000FFFF&}recording {\c&H00FFFFFF&}can {\c&H00FFFFFF&}hold {\c&H00FFFFFF&}several
+Dialogue: 0,0:00:01.10,0:00:01.18,Default,,0,0,0,,{\c&H00FFFFFF&}One {\c&H00FFFFFF&}recording {\c&H00FFFFFF&}can {\c&H00FFFFFF&}hold {\c&H00FFFFFF&}several
+Dialogue: 0,0:00:01.18,0:00:01.62,Default,,0,0,0,,{\c&H00FFFFFF&}One {\c&H00FFFFFF&}recording {\c&H0000FFFF&}can {\c&H00FFFFFF&}hold {\c&H00FFFFFF&}several
+Dialogue: 0,0:00:01.62,0:00:01.69,Default,,0,0,0,,{\c&H00FFFFFF&}One {\c&H00FFFFFF&}recording {\c&H00FFFFFF&}can {\c&H00FFFFFF&}hold {\c&H00FFFFFF&}several
+Dialogue: 0,0:00:01.69,0:00:02.13,Default,,0,0,0,,{\c&H00FFFFFF&}One {\c&H00FFFFFF&}recording {\c&H00FFFFFF&}can {\c&H0000FFFF&}hold {\c&H00FFFFFF&}several
+Dialogue: 0,0:00:02.13,0:00:02.21,Default,,0,0,0,,{\c&H00FFFFFF&}One {\c&H00FFFFFF&}recording {\c&H00FFFFFF&}can {\c&H00FFFFFF&}hold {\c&H00FFFFFF&}several
+Dialogue: 0,0:00:02.21,0:00:02.64,Default,,0,0,0,,{\c&H00FFFFFF&}One {\c&H00FFFFFF&}recording {\c&H00FFFFFF&}can {\c&H00FFFFFF&}hold {\c&H0000FFFF&}several
+Dialogue: 0,0:00:02.72,0:00:03.16,Default,,0,0,0,,{\c&H0000FFFF&}useful {\c&H00FFFFFF&}stories.
+Dialogue: 0,0:00:03.16,0:00:03.24,Default,,0,0,0,,{\c&H00FFFFFF&}useful {\c&H00FFFFFF&}stories.
+Dialogue: 0,0:00:03.24,0:00:03.67,Default,,0,0,0,,{\c&H00FFFFFF&}useful {\c&H0000FFFF&}stories.
+Dialogue: 0,0:00:04.15,0:00:04.53,Default,,0,0,0,,{\c&H0000FFFF&}Choose {\c&H00FFFFFF&}one {\c&H00FFFFFF&}complete {\c&H00FFFFFF&}thought {\c&H00FFFFFF&}and
+Dialogue: 0,0:00:04.53,0:00:04.60,Default,,0,0,0,,{\c&H00FFFFFF&}Choose {\c&H00FFFFFF&}one {\c&H00FFFFFF&}complete {\c&H00FFFFFF&}thought {\c&H00FFFFFF&}and
+Dialogue: 0,0:00:04.60,0:00:04.98,Default,,0,0,0,,{\c&H00FFFFFF&}Choose {\c&H0000FFFF&}one {\c&H00FFFFFF&}complete {\c&H00FFFFFF&}thought {\c&H00FFFFFF&}and
+Dialogue: 0,0:00:04.98,0:00:05.05,Default,,0,0,0,,{\c&H00FFFFFF&}Choose {\c&H00FFFFFF&}one {\c&H00FFFFFF&}complete {\c&H00FFFFFF&}thought {\c&H00FFFFFF&}and
+Dialogue: 0,0:00:05.05,0:00:05.43,Default,,0,0,0,,{\c&H00FFFFFF&}Choose {\c&H00FFFFFF&}one {\c&H0000FFFF&}complete {\c&H00FFFFFF&}thought {\c&H00FFFFFF&}and
+Dialogue: 0,0:00:05.43,0:00:05.50,Default,,0,0,0,,{\c&H00FFFFFF&}Choose {\c&H00FFFFFF&}one {\c&H00FFFFFF&}complete {\c&H00FFFFFF&}thought {\c&H00FFFFFF&}and
+Dialogue: 0,0:00:05.50,0:00:05.88,Default,,0,0,0,,{\c&H00FFFFFF&}Choose {\c&H00FFFFFF&}one {\c&H00FFFFFF&}complete {\c&H0000FFFF&}thought {\c&H00FFFFFF&}and
+Dialogue: 0,0:00:05.88,0:00:05.95,Default,,0,0,0,,{\c&H00FFFFFF&}Choose {\c&H00FFFFFF&}one {\c&H00FFFFFF&}complete {\c&H00FFFFFF&}thought {\c&H00FFFFFF&}and
+Dialogue: 0,0:00:05.95,0:00:06.33,Default,,0,0,0,,{\c&H00FFFFFF&}Choose {\c&H00FFFFFF&}one {\c&H00FFFFFF&}complete {\c&H00FFFFFF&}thought {\c&H0000FFFF&}and
+Dialogue: 0,0:00:06.40,0:00:06.78,Default,,0,0,0,,{\c&H0000FFFF&}keep {\c&H00FFFFFF&}its {\c&H00FFFFFF&}context.
+Dialogue: 0,0:00:06.78,0:00:06.85,Default,,0,0,0,,{\c&H00FFFFFF&}keep {\c&H00FFFFFF&}its {\c&H00FFFFFF&}context.
+Dialogue: 0,0:00:06.85,0:00:07.23,Default,,0,0,0,,{\c&H00FFFFFF&}keep {\c&H0000FFFF&}its {\c&H00FFFFFF&}context.
+Dialogue: 0,0:00:07.23,0:00:07.30,Default,,0,0,0,,{\c&H00FFFFFF&}keep {\c&H00FFFFFF&}its {\c&H00FFFFFF&}context.
+Dialogue: 0,0:00:07.30,0:00:07.68,Default,,0,0,0,,{\c&H00FFFFFF&}keep {\c&H00FFFFFF&}its {\c&H0000FFFF&}context.
+Dialogue: 0,0:00:08.15,0:00:08.53,Default,,0,0,0,,{\c&H0000FFFF&}Add {\c&H00FFFFFF&}clear {\c&H00FFFFFF&}captions, {\c&H00FFFFFF&}then {\c&H00FFFFFF&}review
+Dialogue: 0,0:00:08.53,0:00:08.60,Default,,0,0,0,,{\c&H00FFFFFF&}Add {\c&H00FFFFFF&}clear {\c&H00FFFFFF&}captions, {\c&H00FFFFFF&}then {\c&H00FFFFFF&}review
+Dialogue: 0,0:00:08.60,0:00:08.98,Default,,0,0,0,,{\c&H00FFFFFF&}Add {\c&H0000FFFF&}clear {\c&H00FFFFFF&}captions, {\c&H00FFFFFF&}then {\c&H00FFFFFF&}review
+Dialogue: 0,0:00:08.98,0:00:09.05,Default,,0,0,0,,{\c&H00FFFFFF&}Add {\c&H00FFFFFF&}clear {\c&H00FFFFFF&}captions, {\c&H00FFFFFF&}then {\c&H00FFFFFF&}review
+Dialogue: 0,0:00:09.05,0:00:09.43,Default,,0,0,0,,{\c&H00FFFFFF&}Add {\c&H00FFFFFF&}clear {\c&H0000FFFF&}captions, {\c&H00FFFFFF&}then {\c&H00FFFFFF&}review
+Dialogue: 0,0:00:09.43,0:00:09.50,Default,,0,0,0,,{\c&H00FFFFFF&}Add {\c&H00FFFFFF&}clear {\c&H00FFFFFF&}captions, {\c&H00FFFFFF&}then {\c&H00FFFFFF&}review
+Dialogue: 0,0:00:09.50,0:00:09.88,Default,,0,0,0,,{\c&H00FFFFFF&}Add {\c&H00FFFFFF&}clear {\c&H00FFFFFF&}captions, {\c&H0000FFFF&}then {\c&H00FFFFFF&}review
+Dialogue: 0,0:00:09.88,0:00:09.95,Default,,0,0,0,,{\c&H00FFFFFF&}Add {\c&H00FFFFFF&}clear {\c&H00FFFFFF&}captions, {\c&H00FFFFFF&}then {\c&H00FFFFFF&}review
+Dialogue: 0,0:00:09.95,0:00:10.33,Default,,0,0,0,,{\c&H00FFFFFF&}Add {\c&H00FFFFFF&}clear {\c&H00FFFFFF&}captions, {\c&H00FFFFFF&}then {\c&H0000FFFF&}review
+Dialogue: 0,0:00:10.40,0:00:10.78,Default,,0,0,0,,{\c&H0000FFFF&}before {\c&H00FFFFFF&}you {\c&H00FFFFFF&}share.
+Dialogue: 0,0:00:10.78,0:00:10.85,Default,,0,0,0,,{\c&H00FFFFFF&}before {\c&H00FFFFFF&}you {\c&H00FFFFFF&}share.
+Dialogue: 0,0:00:10.85,0:00:11.23,Default,,0,0,0,,{\c&H00FFFFFF&}before {\c&H0000FFFF&}you {\c&H00FFFFFF&}share.
+Dialogue: 0,0:00:11.23,0:00:11.30,Default,,0,0,0,,{\c&H00FFFFFF&}before {\c&H00FFFFFF&}you {\c&H00FFFFFF&}share.
+Dialogue: 0,0:00:11.30,0:00:11.68,Default,,0,0,0,,{\c&H00FFFFFF&}before {\c&H00FFFFFF&}you {\c&H0000FFFF&}share.

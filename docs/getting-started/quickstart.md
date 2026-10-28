@@ -2,6 +2,10 @@
 
 [Install the prerequisites](installation.md) and configure your API key first. Run commands from the repository root.
 
+## See an example first
+
+Open [the homepage example](../index.md#see-example) to watch a silent generated clip, or start the dashboard and choose **Download the example bundle**. The example needs no API key and makes no API calls. Its captions and edit are scripted; it demonstrates rendering and exported files, rather than AI selection or editorial acceptance.
+
 ## Process a recording
 
 ```sh
@@ -27,7 +31,7 @@ Use a new output filename if that file already exists.
 .venv/bin/streamlit run app.py
 ```
 
-Open [the local dashboard](http://127.0.0.1:8501). Upload a video or choose a local path. Uploads support up to 2 GB; use a path for larger files.
+Open [the local dashboard](http://127.0.0.1:8501). On your first visit, add a recording directly in the main screen. Open **Use a local file or adjust clip settings** for local paths, clip count, and duration. Uploads support up to 2 GB; use a path for larger files. **Create my clips** becomes available when a source is selected and processing prerequisites are ready.
 
 ## Review the output
 

@@ -4,7 +4,13 @@
 
 Turn a long recording into a collection of captioned vertical clips. PraisonAI Clips finds complete moments, adapts the framing, checks the output, and keeps the source mappings available for review. Start in the local dashboard and refine through optional Kdenlive and DaVinci Resolve integrations.
 
-[Quickstart](docs/getting-started/quickstart.md) · [Workflow](docs/guides/workflow.md) · [CLI reference](docs/reference/cli.md) · [Editor integrations](docs/editors/index.md)
+[Watch an example](https://clips.praison.ai/#see-example) · [Quickstart](docs/getting-started/quickstart.md) · [Workflow](docs/guides/workflow.md) · [CLI reference](docs/reference/cli.md) · [Editor integrations](docs/editors/index.md)
+
+## See what you can make
+
+The dashboard includes a playable example and downloadable video, caption, and edit files. Explore it without an API key or API calls. The example uses generated graphics and scripted timings rendered through the app's caption and video pipeline; it demonstrates the output format without using private footage.
+
+[View the sample clip](docs/assets/demo/clip.mp4) · [Compare the generated source](docs/assets/demo/source.mp4)
 
 ## Built for recordings with more to give
 

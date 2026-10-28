@@ -14,3 +14,6 @@ h1{font-size:clamp(2.2rem,4vw,3.6rem)!important;line-height:1.08!important;max-w
 [data-testid="stCaptionContainer"]{color:var(--studio-muted)}
 [data-testid="stVideo"]{max-height:640px}
 @media(max-width:640px){.studio-masthead span:last-child{display:none}.studio-intro{font-size:1rem}[data-testid="stAppViewBlockContainer"]{padding-top:1rem}}
+.st-key-first_example video{max-height:430px;object-fit:contain;background:#ece7dc}
+.st-key-first_example [data-testid="stVideo"]{max-width:280px;margin-inline:auto}
+@media(max-width:640px){.st-key-first_example video{max-height:420px}}
