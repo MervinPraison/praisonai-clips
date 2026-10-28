@@ -1,0 +1,48 @@
+diff --git a/packages/render-core/src/render-core.test.ts b/packages/render-core/src/render-core.test.ts
+index 32ed9b8..3c8ad6d 100644
+--- a/packages/render-core/src/render-core.test.ts
++++ b/packages/render-core/src/render-core.test.ts
+@@ -288,6 +288,23 @@ describe('export profiles', () => {
+ });
+ 
+ describe('runtime process isolation', () => {
++  it('preserves the X11 connection required by Linux MLT Qt services', () => {
++    const previous = { DISPLAY: process.env.DISPLAY, XAUTHORITY: process.env.XAUTHORITY };
++    try {
++      process.env.DISPLAY = ':71';
++      process.env.XAUTHORITY = '/tmp/kdenlive-test.Xauthority';
++      const environment = runtimeEnvironment('/usr/bin/melt');
++      expect(environment.DISPLAY).toBe(':71');
++      expect(environment.XAUTHORITY).toBe('/tmp/kdenlive-test.Xauthority');
++      expect(environment.KDENLIVE_MCP_TEST_SECRET).toBeUndefined();
++    } finally {
++      for (const [key, value] of Object.entries(previous)) {
++        if (value === undefined) delete process.env[key];
++        else process.env[key] = value;
++      }
++    }
++  });
++
+   it('does not forward arbitrary parent secrets', async () => {
+     process.env.KDENLIVE_MCP_TEST_SECRET = 'must-not-leak';
+     try {
+diff --git a/packages/render-core/src/runtime.ts b/packages/render-core/src/runtime.ts
+index c2c9e3f..bd9d63d 100644
+--- a/packages/render-core/src/runtime.ts
++++ b/packages/render-core/src/runtime.ts
+@@ -94,6 +94,7 @@ export interface CommandExecutor {
+ 
+ const ALLOWED_ENVIRONMENT = new Set([
+   'APPDATA',
++  'DISPLAY',
+   'HOME',
+   'LANG',
+   'LC_ALL',
+@@ -113,6 +114,7 @@ const ALLOWED_ENVIRONMENT = new Set([
+   'TMP',
+   'USERPROFILE',
+   'WINDIR',
++  'XAUTHORITY',
+ ]);
+ 
+ export function runtimeEnvironment(executable: string): NodeJS.ProcessEnv {

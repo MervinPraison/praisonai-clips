@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+set -eu
+PROJECT_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+exec "$PROJECT_ROOT/tools/runtime/kdenlive-26.04.2/squashfs-root/AppRun" "$@"

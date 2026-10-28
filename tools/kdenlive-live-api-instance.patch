@@ -1,0 +1,37 @@
+diff --git a/kdenlive_api/dbus_client.py b/kdenlive_api/dbus_client.py
+index 6bd3c2e..f289f73 100644
+--- a/kdenlive_api/dbus_client.py
++++ b/kdenlive_api/dbus_client.py
+@@ -88,6 +88,15 @@ class KdenliveDBus:
+ 
+     def _discover_service(self) -> str:
+         """Find the actual D-Bus service name (org.kde.kdenlive-{PID})."""
++        # App integration may pin a verified scripting-enabled instance, avoiding
++        # accidentally connecting to another stock Kdenlive window.
++        import os
++        explicit = os.getenv("KDENLIVE_DBUS_SERVICE")
++        if explicit:
++            if not explicit.startswith("org.kde.kdenlive"):
++                raise ValueError("KDENLIVE_DBUS_SERVICE must identify a Kdenlive instance")
++            return explicit
++
+         dbus_send = _find_dbus_tool("dbus-send")
+         if not dbus_send:
+             return DBUS_SERVICE
+@@ -242,10 +251,13 @@ class KdenliveDBus:
+         """Try to parse a scalar value from a stripped line. Returns (value, True) or (None, False)."""
+         if line.startswith('string "'):
+             return line[8:-1] if line.endswith('"') else line[7:], True
+-        for prefix, start in [("int32 ", 6), ("int64 ", 6), ("uint32 ", 7),
+-                               ("uint64 ", 7), ("double ", 7), ("boolean ", 8)]:
++        if line.startswith("boolean "):
++            return line[8:].strip().lower() == "true", True
++        for prefix in ("int32 ", "int64 ", "uint32 ", "uint64 "):
+             if line.startswith(prefix):
+-                return line[start:], True
++                return int(line[len(prefix):].strip()), True
++        if line.startswith("double "):
++            return float(line[7:].strip()), True
+         return None, False
+ 
+     @staticmethod

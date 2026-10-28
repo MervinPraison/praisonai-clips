@@ -1,0 +1,70 @@
+import json
+
+from praisonai_shorts_studio import media
+from praisonai_shorts_studio.pipeline import Pipeline, default_config
+from praisonai_shorts_studio.preview import generate
+from praisonai_shorts_studio.store import Store
+
+
+class FixtureBackend:
+    """Synthetic API fixtures; never used by production code or real-video output."""
+    def __init__(self):
+        self.calls = []
+        self.review_frame_versions = set()
+
+    def transcribe(self, audio):
+        self.calls.append('transcribe')
+        return {'text': 'One. Two. Three.', 'words': [
+            {'word':'One','start':.3,'end':.8},
+            {'word':'Two','start':1.4,'end':2.0},
+            {'word':'Three','start':2.6,'end':3.2}]}
+
+    def scenes(self, frames):
+        self.calls.append('scenes')
+        return {'scenes':[{'time':t, 'scene':'Test pattern','actions':'None',
+            'screen_content':'Synthetic color test','visible_text':'','subjects':[],
+            'confidence':1} for t,_ in frames]}
+
+    def select(self, evidence):
+        self.calls.append('select')
+        option=evidence['validated_moment_options'][0]
+        return {'clips':[{'option_id':option['option_id'], 'title':'<script>Fixture</script>',
+                          'rationale':'Synthetic pipeline fixture','score':1}]}
+
+    def crop(self, frames, evidence):
+        self.calls.append('crop')
+        return {'mode':'crop','center_x':.5,'center_y':.5,'confidence':1,'reason':'Synthetic fixture'}
+
+    def review(self, frames, evidence):
+        self.calls.append('review')
+        self.review_frame_versions.add(frames[0][1].parent.name)
+        if evidence['edl']['mode'] == 'crop':
+            return {'accepted':False,'confidence':1,'defects':['Synthetic crop defect'],'repair':'fit'}
+        return {'accepted':True,'confidence':1,'defects':[],'repair':'none'}
+
+
+def test_end_to_end_render_repair_promote_and_resume(tmp_path):
+    source=tmp_path/'input.mp4'
+    media.run(['ffmpeg','-y','-v','error','-f','lavfi','-i',
+        'testsrc2=size=320x180:rate=30:duration=4','-f','lavfi','-i',
+        'sine=frequency=440:sample_rate=48000:duration=4','-c:v','libx264',
+        '-threads','2','-preset','ultrafast','-c:a','aac',source])
+    store=Store(tmp_path/'data')
+    job=store.create(source,default_config(min_duration=1,max_duration=3,max_clips=1))
+    backend=FixtureBackend()
+    result=Pipeline(store,job,backend).run()
+    assert store.get(job)['status']=='completed'
+    assert len(result['accepted'])==1 and not result['drafts']
+    from pathlib import Path
+    clip=Path(result['accepted'][0]['path'])
+    assert json.loads((clip/'edl.json').read_text())['mode']=='fit'
+    assert json.loads((clip/'review.json').read_text())['attempt']==2
+    assert not list((store.job_dir(job)/'drafts').iterdir())
+    page=generate(store).read_text()
+    assert '&lt;script&gt;Fixture&lt;/script&gt;' in page
+    assert '<script>Fixture</script>' not in page
+    assert 'accepted/clip-01/video.mp4' in page
+    assert len(backend.review_frame_versions)==2  # repaired render must not reuse stale crop frames
+    calls=list(backend.calls)
+    assert Pipeline(store,job,backend).run()==result
+    assert backend.calls==calls

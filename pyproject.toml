@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "praisonai-clips"
+version = "0.1.0"
+description = "Create reviewed vertical clips with OpenAI, FFmpeg and optional Kdenlive editing"
+requires-python = ">=3.11"
+authors = [{name = "Mervin Praison"}]
+dependencies = ["openai>=2.54,<3", "pydantic>=2,<3", "python-dotenv>=1,<2", "streamlit>=1.40,<2"]
+
+[project.optional-dependencies]
+studio = []
+dev = ["pytest>=8,<10"]
+live = ["mcp>=1,<2"]
+
+[project.scripts]
+praisonai-clips = "praisonai_shorts_studio.cli:main"
+praisonai-shorts-studio = "praisonai_shorts_studio.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

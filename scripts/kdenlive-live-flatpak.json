@@ -1,0 +1,120 @@
+{
+  "id": "org.praisonai.KdenliveLive",
+  "runtime": "org.kde.Platform",
+  "runtime-version": "6.10",
+  "sdk": "org.kde.Sdk",
+  "command": "kdenlive",
+  "finish-args": [
+    "--share=ipc",
+    "--socket=x11",
+    "--socket=pulseaudio",
+    "--device=dri",
+    "--env=MLT_REPOSITORY=/app/lib/mlt-7",
+    "--env=MLT_DATA=/app/share/mlt-7",
+    "--own-name=org.kde.kdenlive",
+    "--own-name=org.kde.kdenlive-2"
+  ],
+  "build-options": {
+    "env": {
+      "CMAKE_BUILD_PARALLEL_LEVEL": "4"
+    }
+  },
+  "modules": [
+    {
+      "name": "Imath",
+      "buildsystem": "cmake-ninja",
+      "config-opts": [
+        "-DBUILD_TESTING=OFF",
+        "-DPYTHON=OFF"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://github.com/AcademySoftwareFoundation/Imath/archive/refs/tags/v3.1.12.tar.gz",
+          "sha256": "8a1bc258f3149b5729c2f4f8ffd337c0e57f09096e4ba9784329f40c4a9035da"
+        }
+      ]
+    },
+    {
+      "name": "opentimelineio",
+      "buildsystem": "cmake-ninja",
+      "builddir": true,
+      "config-opts": [
+        "-DOTIO_FIND_IMATH=ON",
+        "-DOTIO_DEPENDENCIES_INSTALL=OFF",
+        "-DBUILD_TESTING=OFF"
+      ],
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://github.com/AcademySoftwareFoundation/OpenTimelineIO.git/",
+          "tag": "v0.18.1"
+        }
+      ]
+    },
+    {
+      "name": "kddockwidgets",
+      "buildsystem": "cmake-ninja",
+      "config-opts": [
+        "-DKDDockWidgets_FRONTENDS=qtwidgets"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://github.com/KDAB/KDDockWidgets/releases/download/v2.4.0/kddockwidgets-2.4.0.tar.gz",
+          "sha256": "51dbf24fe72e43dd7cb9a289d3cab47112010f1a2ed69b6fc8ac0dff31991ed2"
+        }
+      ]
+    },
+    {
+      "name": "mlt",
+      "buildsystem": "cmake-ninja",
+      "builddir": true,
+      "config-opts": [
+        "-DMOD_GLAXNIMATE=OFF",
+        "-DMOD_GLAXNIMATE_QT6=OFF",
+        "-DMOD_OPENCV=OFF",
+        "-DMOD_MOVIT=OFF",
+        "-DMOD_QT=OFF",
+        "-DMOD_QT6=ON",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DMOD_RUBBERBAND=OFF",
+        "-DMOD_SOX=OFF",
+        "-DMOD_VIDSTAB=OFF"
+      ],
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://github.com/mltframework/mlt.git",
+          "tag": "v7.36.0",
+          "commit": "678193bda13a1ce0e100056157ade41db3384e2a",
+          "disable-submodules": true
+        }
+      ]
+    },
+    {
+      "name": "kdenlive-live",
+      "buildsystem": "cmake-ninja",
+      "builddir": true,
+      "config-opts": [
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DBUILD_TESTING=OFF",
+        "-DUSE_DBUS=ON",
+        "-DRELEASE_BUILD=ON",
+        "-DCMAKE_CXX_FLAGS_RELEASE=-O1 -DNDEBUG",
+        "-DCMAKE_C_FLAGS_RELEASE=-O1 -DNDEBUG",
+        "-DCMAKE_CXX_FLAGS=-pipe",
+        "-DCMAKE_C_FLAGS=-pipe"
+      ],
+      "sources": [
+        {
+          "type": "dir",
+          "path": "../tools/kdenlive-live-src",
+          "skip": [
+            ".git"
+          ]
+        }
+      ]
+    }
+  ]
+}

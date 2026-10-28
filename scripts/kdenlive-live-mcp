@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+set -eu
+SHORTS_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+export TEMP="$SHORTS_ROOT/data/kdenlive-live-test/tmp"
+mkdir -p "$TEMP"
+export PYTHONPATH="$SHORTS_ROOT/tools/kdenlive-live-api:$SHORTS_ROOT/tools/kdenlive-live-mcp${PYTHONPATH:+:$PYTHONPATH}"
+if [ -z "${KDENLIVE_DBUS_SERVICE:-}" ]; then
+  if [ ! -f "$SHORTS_ROOT/data/kdenlive-live-test/service.txt" ]; then
+    echo 'No verified live editor endpoint; launch the live editor and run scripts/kdenlive_live_status.py.' >&2
+    exit 1
+  fi
+  KDENLIVE_DBUS_SERVICE=$(cat "$SHORTS_ROOT/data/kdenlive-live-test/service.txt")
+  export KDENLIVE_DBUS_SERVICE
+fi
+exec "$SHORTS_ROOT/.venv/bin/python" -m mcp_kdenlive

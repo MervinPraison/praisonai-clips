@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+set -eu
+PROJECT_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+export DISPLAY="${DISPLAY:-:0}"
+export XAUTHORITY="${XAUTHORITY:-$HOME/.Xauthority}"
+exec "$PROJECT_ROOT/tools/runtime/node/bin/node" "$PROJECT_ROOT/tools/kdenlive-mcp/apps/mcp-server/dist/cli.js" --root "$PROJECT_ROOT" --client-id codex "$@"

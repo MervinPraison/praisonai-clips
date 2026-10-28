@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+set -eu
+SHORTS_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+if [ ! -x "$SHORTS_ROOT/tools/runtime/kdenlive-live-flatpak/files/bin/kdenlive" ]; then
+  echo 'Live editor is not built yet; see data/kdenlive-live-test/build.log.' >&2
+  exit 1
+fi
+if [ -d "$SHORTS_ROOT/tools/runtime/kdenlive-live-flatpak/files/lib64/mlt-7" ]; then
+  SHORTS_MLT_REPO=/app/lib64/mlt-7
+else
+  SHORTS_MLT_REPO=/app/lib/mlt-7
+fi
+exec flatpak build --with-appdir --share=ipc --socket=x11 --socket=pulseaudio \
+  --device=dri --own-name=org.kde.kdenlive --own-name=org.kde.kdenlive-2 \
+  --filesystem="$SHORTS_ROOT" \
+  --env=LD_LIBRARY_PATH=/app/lib64:/app/lib --env=QT_QPA_PLATFORM=xcb \
+  --env=MLT_REPOSITORY="$SHORTS_MLT_REPO" --env=MLT_DATA=/app/share/mlt-7 \
+  "$SHORTS_ROOT/tools/runtime/kdenlive-live-flatpak" /app/bin/kdenlive "$@"

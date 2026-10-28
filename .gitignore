@@ -1,0 +1,143 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Rendered output. Large binaries, and always reproducible from the job
+# file that made them -- which is the thing worth keeping.
+*.short.mp4
+examples/*.mp4
+
+# Stills taken from a video, and the ASS written beside a render. Both are
+# derived from a job file and a source, so both regenerate on demand.
+*.shots/
+*.check/
+*.ass
+
+# Transcripts are a cache, not a source: they are re-derived from the
+# audio whenever they are missing. The audio itself is never committed.
+*.transcript.json
+
+# Source media. Kept out deliberately -- a repo of editing tools should
+# not become a repo of footage.
+*.mp4
+*.mov
+*.m4a
+*.mp3
+*.wav
+*.aac
+!examples/**/*.md
+
+.DS_Store
+
+# Credentials. Nothing here reads a key from a file -- every backend takes
+# its key from the environment -- so these patterns guard against a key
+# arriving by another route rather than describing files this package uses.
+.env
+.env.*
+*.env
+*.pem
+*.key
+*_token
+credentials*.json
+
+# Studio local data, credentials, and installed runtimes
+# Local environment variables and credentials
+.env
+.env.*
+!.env.example
+!.env.sample
+.aws/
+
+# Python environments and caches
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Node.js dependencies
+node_modules/
+
+# Build and test outputs
+build/
+dist/
+coverage/
+.coverage
+htmlcov/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+*~
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Local videos, analysis, database, and rendered Shorts
+data/
+.pytest_cache/
+
+# User-provided source media
+input/
+
+# Installed local MCP runtimes and generated video exports
+tools/runtime/
+tools/kdenlive-mcp/
+.kdenlive-mcp/
+output/
+
+# Isolated experimental live Kdenlive sources and Flatpak build state
+tools/kdenlive-live-src/
+tools/kdenlive-live-api/
+tools/kdenlive-live-mcp/
+tools/kdenlive-api
+.flatpak-builder/
+flatpak-builder_*.deb
+
+# Native live editor build diagnostics
+*.core
+
+# Additional private credentials, local sessions, and generated media
+*.p12
+*.pfx
+*.sqlite
+*.sqlite3
+*.sqlite3-*
+*.db
+*.db-*
+*.mkv
+*.webm
+*.m4v
+*.flac
+*.kdenlive
+.codex/
+.agents/
+# Keep credential-free configuration templates.
+!.env.example
+!.env.sample
+
+# Machine-specific dependency snapshots and diagnostics
+/requirements.lock.txt
+tools/*-doctor.json
+client_secret*.json
+token*.json
+*.credentials.json
+*.secrets.json
+secrets/
+id_rsa
+id_ed25519
+
+# Untouched reference from the pre-existing Shorts repository
+.upstream-reference/
