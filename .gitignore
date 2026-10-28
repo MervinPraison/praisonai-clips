@@ -149,3 +149,6 @@ id_ed25519
 # Documentation build and browser sessions
 /site/
 /.playwright-cli/
+
+# Browser verification snapshots can contain local workspace details
+/.playwright-mcp/

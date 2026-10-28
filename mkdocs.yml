@@ -6,6 +6,7 @@ hooks:
   - docs/hooks.py
 watch:
   - skills/resolve-mac-live/references
+  - M0_REPORT.md
 theme:
   name: material
   custom_dir: docs/overrides
@@ -39,6 +40,7 @@ markdown_extensions:
   - pymdownx.superfences
 nav:
   - Home: index.md
+  - Product: product.md
   - Get started:
       - Installation: getting-started/installation.md
       - First clip: getting-started/quickstart.md
@@ -55,6 +57,7 @@ nav:
   - Contribute:
       - Resolve SDK: reference/resolve-sdk.md
       - Documentation: reference/documentation.md
+      - Initial validation: reference/validation-report.md
       - Data handling and releases: reference/public-release.md
 exclude_docs: |
   /SHORTS_STUDIO.md

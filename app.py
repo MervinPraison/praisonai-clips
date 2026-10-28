@@ -21,8 +21,11 @@ from praisonai_shorts_studio.store import Store
 load_dotenv()
 st.set_page_config(page_title="PraisonAI Clips", page_icon="🎬", layout="wide")
 store = Store(os.getenv("SHORTS_DATA_DIR", "data"))
-st.title("PraisonAI Clips")
-st.write("Turn a full-length video into captioned vertical Shorts. Review, download, and publish when you're ready.")
+style = (Path(__file__).resolve().parent / "assets/studio.css").read_text()
+st.markdown(f"<style>{style}</style>", unsafe_allow_html=True)
+st.markdown('<div class="studio-masthead"><span>PRAISONAI CLIPS</span><span>YOUR CONTENT WORKSPACE</span></div>', unsafe_allow_html=True)
+st.title("One recording. More worth sharing.")
+st.markdown('<p class="studio-intro">Find the complete thought. Frame it for the feed. Turn your longer recordings into captioned vertical clips, with a review step before delivery.</p>', unsafe_allow_html=True)
 
 
 def active(job_id):
@@ -43,15 +46,16 @@ def launch(job_id):
 
 
 with st.sidebar:
-    st.header("New Short job")
+    st.header("Start with a recording")
+    st.caption("An interview, lesson, webinar, or product walkthrough.")
     uploaded = st.file_uploader("Source video", type=["mp4", "mov", "mkv", "webm", "m4v"])
     local_path = st.text_input("Or enter a local video path", placeholder="/path/to/video.mp4")
-    maximum = st.slider("Maximum Shorts", 1, 5, 5)
+    maximum = st.slider("Maximum clips", 1, 5, 5)
     lengths = st.slider("Length range (seconds)", 5, 60, (30, 60))
     st.caption("Video frames and audio are sent to OpenAI. API usage is billed to your account. No automatic publishing.")
     if not os.getenv("OPENAI_API_KEY"):
         st.warning("Add OPENAI_API_KEY to .env and restart this app to enable processing.")
-    if st.button("Create Shorts", type="primary", disabled=not os.getenv("OPENAI_API_KEY")):
+    if st.button("Create clips", type="primary", disabled=not os.getenv("OPENAI_API_KEY")):
         try:
             if uploaded is not None:
                 content = uploaded.getbuffer()
@@ -76,13 +80,37 @@ with st.sidebar:
 
 jobs = store.list()
 if not jobs:
-    st.info("Upload your first video to start. Accepted Shorts will appear here with captions and edit mappings.")
+    st.markdown('<p class="studio-label">FROM FULL RECORDING TO FINISHED MOMENTS</p>', unsafe_allow_html=True)
+    for col, step, title, description in zip(
+        st.columns(3),
+        ["01 / FIND", "02 / PRODUCE", "03 / REVIEW"],
+        ["Start with the full story", "Give the moment its format", "Keep the final say"],
+        ["Upload a video or choose a local file in the sidebar. We use the transcript and sampled frames to select complete thoughts.",
+         "Create portrait clips with measured word captions, normalized audio, and framing that accounts for the source.",
+         "Preview accepted clips, inspect uncertain drafts, and download the video, captions, and edit data together."],
+    ):
+        with col, st.container(border=True):
+            st.caption(step)
+            st.subheader(title)
+            st.write(description)
+    st.markdown('<div class="studio-divider"><p class="studio-label">AUTOMATION WITH EDITORIAL CONTROL</p></div>', unsafe_allow_html=True)
+    left, right = st.columns([3, 2])
+    with left:
+        st.subheader("Your source. Your judgment. More to share.")
+        st.write("Clips keep measured captions and source mappings. Automated review separates accepted results from uncertain drafts, so you can inspect the evidence and decide what to publish.")
+    with right, st.container(border=True):
+        st.markdown("**Your first session**")
+        st.write("1. Add a recording in the sidebar.\n2. Choose clip count and duration.\n3. Create, preview, and download.")
+        st.caption("Processing uses OpenAI and FFmpeg. API charges apply. Your recordings and outputs stay in the local workspace; audio and sampled frames are sent for analysis.")
+    with st.expander("Continue in a desktop editor"):
+        st.write("Optional integrations export editable Kdenlive source cuts or support live framing in Kdenlive and DaVinci Resolve. Live adapters are experimental and require separate setup.")
     st.stop()
 ids = [j["id"] for j in jobs]
 main_job_file = store.root / "main-job.txt"
 if "selected_job" not in st.session_state and main_job_file.exists():
     st.session_state["selected_job"] = main_job_file.read_text().strip()
-selected = st.selectbox("Jobs", ids,
+st.subheader("Your recordings")
+selected = st.selectbox("Choose a recording", ids,
     index=ids.index(st.session_state.get("selected_job")) if st.session_state.get("selected_job") in ids else 0,
     format_func=lambda key: next(f"{j['id']} · {Path(j['source']).name}" for j in jobs if j["id"] == key))
 
@@ -109,12 +137,12 @@ def dashboard(job_id):
     manifest_path = store.job_dir(job_id) / "manifest.json"
     if manifest_path.exists():
         manifest = json.loads(manifest_path.read_text())
-        st.subheader(f"Accepted Shorts ({len(manifest['accepted'])})")
+        st.subheader(f"Accepted clips ({len(manifest['accepted'])})")
         if job["status"] == "completed" and not manifest["accepted"]:
             st.info("No clips passed all acceptance checks. Any uncertain renders are available below.")
         for entry in manifest["accepted"]:
             folder = Path(entry["path"])
-            st.write(entry["title"])
+            st.markdown("### " + entry["title"])
             video_col, info_col = st.columns([1, 2])
             video_col.video(str(folder / "video.mp4"))
             with info_col:
@@ -124,9 +152,9 @@ def dashboard(job_id):
                 with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as z:
                     for name in ["video.mp4", "captions.srt", "captions.ass", "words.json", "edl.json", "review.json"]:
                         z.write(folder / name, name)
-                st.download_button("Download Short + captions + edit data", archive.getvalue(),
+                st.download_button("Download clip bundle", archive.getvalue(),
                                    file_name=folder.name + ".zip", mime="application/zip", key=str(folder))
-                with st.expander("Edit and review evidence"):
+                with st.expander("Review evidence & edit mappings"):
                     st.json(entry["review"])
         with st.expander(f"Uncertain drafts ({len(manifest['drafts'])})"):
             for entry in manifest["drafts"]:

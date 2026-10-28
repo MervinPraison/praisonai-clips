@@ -3,8 +3,12 @@ address = "127.0.0.1"
 maxUploadSize = 2048
 
 [theme]
-base = "dark"
-primaryColor = "#9D8CFF"
+base = "light"
+primaryColor = "#353C32"
+backgroundColor = "#F5F2E9"
+secondaryBackgroundColor = "#ECE7DC"
+textColor = "#20211E"
+font = "sans serif"
 
 [browser]
 gatherUsageStats = false

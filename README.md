@@ -1,10 +1,37 @@
 # PraisonAI Clips
 
-**Turn long videos into reviewed, captioned vertical clips.**
+**AI video repurposing, with editorial control built in.**
 
-PraisonAI Clips combines OpenAI analysis with FFmpeg rendering to find complete moments, frame them for vertical video, and add captions with measured word timestamps. Work from a local dashboard or the command line, preview the results, and refine framing through optional Kdenlive and DaVinci Resolve integrations.
+Turn a long recording into a collection of captioned vertical clips. PraisonAI Clips finds complete moments, adapts the framing, checks the output, and keeps the source mappings available for review. Start in the local dashboard and refine through optional Kdenlive and DaVinci Resolve integrations.
 
 [Quickstart](docs/getting-started/quickstart.md) · [Workflow](docs/guides/workflow.md) · [CLI reference](docs/reference/cli.md) · [Editor integrations](docs/editors/index.md)
+
+## Built for recordings with more to give
+
+A webinar, product walkthrough, interview, or lesson can contain several useful stories. Finding those moments, reframing them, captioning them, and checking the result are separate editing tasks. PraisonAI Clips brings that sequence into one repeatable workflow.
+
+| Who it helps | What they can create |
+| --- | --- |
+| Creators and interview hosts | Standalone moments from longer conversations |
+| Educators and technical presenters | Short explanations that preserve important slides and screen content |
+| Content teams | Captioned clips with review evidence and a path into desktop editing |
+
+## Automation with editorial control
+
+**Find → Frame → Caption → Review → Refine**
+
+The product combines automated production with an inspectable handoff: measured captions, explicit source mappings, review evidence, and experimental control inside familiar editors.
+
+- **Context before cutting.** Selection combines the transcript with sampled visual analysis to choose complete thoughts.
+- **A review gate before delivery.** Uncertain results stay in drafts. Supported framing repairs can be attempted before a clip is accepted.
+- **A source trail for every edit.** Word timings and edit mappings stay available alongside the rendered video.
+- **Room for a human finish.** Preview and download locally, export Kdenlive source cuts, or refine live framing through the experimental editor adapters.
+
+## Working today
+
+The implementation includes end-to-end video processing, a local dashboard, downloadable clip bundles, resumable jobs, and a Python SDK with MCP tools for Resolve framing. Real-video validation and native editor tests are documented with their limitations; live editor integrations remain experimental.
+
+[See the product and validation overview](docs/product.md) · [Read the initial processing report](M0_REPORT.md) · [Explore the Resolve SDK](docs/reference/resolve-sdk.md)
 
 ## Features
 
