@@ -18,7 +18,7 @@ Codex created a separate review timeline, so the new cuts can be compared with t
 <div markdown>
 <span class="step">03 / WHAT I CHECKED</span>
 ### Inspect the result
-Resolve showed five matching video and audio segments after four quiet pauses were removed. The review timeline still needs listening around the cuts; quiet audio can include speech.
+I checked the result in DaVinci Resolve. It created a separate review timeline with the pauses removed, while keeping the original available.
 </div>
 </div>
 
