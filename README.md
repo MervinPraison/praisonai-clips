@@ -102,7 +102,7 @@ praisonai-clips studio
 
 After processing starts, select your recording and open **Source evidence**. Choose a time window to see the source video and three side-by-side views:
 
-![Real Streamlit source evidence view showing a word-by-word transcript, sampled screen descriptions, and an audio waveform side by side.](docs/assets/evidence/streamlit-source-evidence.jpg)
+![Real Streamlit source evidence view showing a word-by-word transcript, sampled screen descriptions, and an audio waveform side by side.](docs/assets/evidence/streamlit-source-evidence-wide.png)
 
 *A real dashboard view from an analyzed recording. Word timings are estimates and screen descriptions come from sampled frames.*
 
