@@ -84,67 +84,28 @@ Inspect local audio peaks in the same source-time window.
 <figcaption>The comparison table in the dashboard. This screenshot shows part of the table; the audio column is outside the captured area. <a href="assets/evidence/streamlit-comparison-table.png">Open full-size image ↗</a></figcaption>
 </figure>
 <figure class="codex-flow"><img src="assets/illustrations/codex-resolve-flow.svg" alt="A Codex chat request passes through PraisonAI Clips MCP and SDK checks to DaVinci Resolve; the edit appears on screen and the result returns to Codex."><figcaption>From a request in Codex to a result you can review in Resolve.</figcaption></figure>
-<div class="value-strip"><div><strong>Find promising moments</strong><span>Transcript + sampled visuals</span></div><div><strong>Review before delivery</strong><span>Automatically checked clips & separate drafts</span></div><div><strong>Keep editorial control</strong><span>Source mappings & editor tools</span></div></div>
-<div class="section-heading"><span class="eyebrow">BUILT FOR THE RECORDINGS YOU ALREADY MAKE</span><span>One workflow. More places to start.</span></div>
+<div class="section-heading"><span class="eyebrow">FROM LONG VIDEO TO SHORTS</span><span>Then edit by chatting.</span></div>
 <div class="feature-grid" markdown>
 <div markdown>
-<span class="step">FOR CREATORS</span>
-### Let the moment stand alone
-Find potential standalone moments in an interview or longer conversation. Check that each clip makes sense on its own.
-</div>
-<div markdown>
-<span class="step">FOR EDUCATORS</span>
-### Keep the whole picture
-Make short lessons from longer recordings. Full-frame fit keeps the whole picture when a crop may lose context; check that slides and text remain readable.
-</div>
-<div markdown>
-<span class="step">FOR CONTENT TEAMS</span>
-### Make the handoff inspectable
-Review the result, download the video and caption files, and keep the source mappings available for the next edit.
-</div>
-</div>
-<div class="section-heading"><span class="eyebrow">FROM SOURCE TO SHORT</span><span>Automation with an editorial checkpoint.</span></div>
-<p>Start with a long video and render captioned vertical clips in one run. You can also stop after source analysis or moment selection and continue later from saved results. Import a rendered clip into DaVinci Resolve or Kdenlive, then set up Codex for supported further edits. Rendered framing and captions are baked in. An optional Kdenlive export, with separate setup and the normalised source kept at its existing path, provides editable source cuts and separate caption files; it does not reproduce the rendered framing or captions in the timeline. <a href="guides/workflow/">See the full workflow and editor handoff ↗</a></p>
-<div class="process-grid" markdown>
-<div markdown>
 <span class="step">01 / FIND</span>
-### Find a promising moment
-Estimated word timings and sampled frames inform selection. Candidate ranges follow sentence and duration rules before pause trimming; check that each selection is complete.
+### Find the moments
+The app uses the transcript and screen descriptions to choose promising clips.
 </div>
 <div markdown>
-<span class="step">02 / PRODUCE</span>
-### Frame, caption, render
-Create vertical video with a stable crop or full-frame fit, word-highlight captions, and normalized audio. The latest source checkout also trims detected quiet pauses; this is not yet in the PyPI release.
+<span class="step">02 / MAKE</span>
+### Create captioned Shorts
+It frames, captions and checks each clip. Clips that fail automated review stay in drafts.
 </div>
 <div markdown>
-<span class="step">03 / REVIEW</span>
-### Check before accepting
-Run technical checks and sampled visual review, attempt supported framing repairs, and keep rendered clips that do not pass the checks in drafts. Listen and check the final clip before sharing; the visual review does not listen to the audio.
-</div>
-<div markdown>
-<span class="step">04 / REFINE</span>
-### Keep the final say
-Preview, listen, and download. Explore native framing in Kdenlive or DaVinci Resolve when the cut needs a human finish.
+<span class="step">03 / REFINE</span>
+### Continue in your editor
+Import a clip into DaVinci Resolve or Kdenlive and ask Codex for supported live edits.
 </div>
 </div>
-<div class="section-heading"><span class="eyebrow">WORKING SOFTWARE. INSPECTABLE EVIDENCE.</span><span>See what has been tested.</span></div>
-<div class="start-grid proof-grid" markdown>
-<div markdown>
-## A real recording.<br><em>Documented checks.</em>
-In one four-minute real-video test, the app produced three captioned clips: one passed automated review and two remained drafts. Separate macOS tests checked live framing changes and restoration in DaVinci Resolve and a custom Kdenlive bridge using rendered frames; they do not establish support for every edit or editor version. The reports describe these tests; some original test files remain local.
-[Explore the product and validation](product.md) · [Read the processing report](reference/validation-report.md)
-</div>
-<div class="evidence-card" markdown>
-<span class="step">LATEST PYPI RELEASE · 0.1.3</span>
-### Build on a working foundation
-- Local dashboard, CLI, and resumable jobs
-- Video, captions, edit mappings, and review artifacts
-- Python SDK, CLI and YAML workflows; optional Resolve MCP tools
-- Supported live edits in DaVinci Resolve and Kdenlive with separate setup
-
-The tested Mac Kdenlive integration uses a custom bridge from the source checkout, not the stock app alone or the PyPI package by itself. Editor adapters have version constraints. The source checkout contains newer changes than this PyPI release. Automated review uses sampled frames; inspect and listen before publishing.
-</div>
-</div>
+<p>Preview and listen before sharing. You can also pause and resume processing, or inspect the transcript, screen descriptions and waveform. <a href="guides/workflow/">See the full workflow ↗</a></p>
+<div class="section-heading"><span class="eyebrow">TESTED ON REAL VIDEO</span><span>See the evidence.</span></div>
+<p>A four-minute recording produced three captioned clips: one passed automated review and two stayed in drafts. Live framing was also tested in DaVinci Resolve and a custom Kdenlive setup. <a href="reference/validation-report/">Read the test results ↗</a> · <a href="product/">See supported editor setups ↗</a></p>
+<p class="hero-note">The latest source checkout also trims detected quiet pauses during Shorts rendering; PyPI 0.1.3 does not yet include that change. The tested Mac Kdenlive integration needs a custom bridge from the source checkout.</p>
 <div class="section-heading"><span class="eyebrow">START WITH YOUR NEXT RECORDING</span><span>Python · OpenAI · FFmpeg</span></div>
 <div class="start-grid" markdown>
 <div markdown>
