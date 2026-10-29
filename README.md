@@ -4,7 +4,7 @@
 
 [![Visit clips.praison.ai](docs/assets/illustrations/visit-website.svg)](https://clips.praison.ai/)
 
-[**View on ChatGPT Sites →**](https://praisonai-clips-community.praison.chatgpt.site/)
+[**View on ChatGPT Sites →**](https://clips.praison.chatgpt.site/)
 
 ### Turn one long video into short clips you can review and share.
 
