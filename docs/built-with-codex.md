@@ -1,6 +1,6 @@
 # One recording. A small win worth sharing.
 
-**This project was built entirely using OpenAI Codex**, under Mervin Praison’s direction—from implementation and debugging to tests, documentation, and deployment.
+**This project was built entirely using OpenAI Codex**, under Mervin Praison’s direction—from implementation and debugging to tests, documentation, and deployment. It was prepared for the community-led [Cambridge Codex Community Challenge](https://cambridge-codex-workshop-guide.lilizhu.chatgpt.site/challenges.html).
 
 The everyday task: take a long recording, find a complete thought, make a captioned vertical clip, and check it before sharing. PraisonAI Clips brings those steps into one local workflow.
 
@@ -29,6 +29,10 @@ Rendering, caption timing, review/repair, resume, and first-run guards have auto
 [Open the video directly](assets/challenge/walkthrough.mp4) · [Try the short example](index.md#see-example) · [Explore the code](https://github.com/MervinPraison/praisonai-clips)
 
 The walkthrough records the local application and uses the public generated example. Its word timings and edit are scripted. It demonstrates the renderer, exported files, and first-run experience; it does not depict a new transcription or AI selection run. Real-provider and native-editor validation are documented separately below.
+
+## The request behind the improvement
+
+The request was to make the app understandable and convincing to a new user. The improvement put the upload beside a playable example and added setup checks before processing. The check covered browser playback, the downloadable example bundle, and automated first-run tests. The example uses generated media and scripted captions, so it does not demonstrate a fresh AI selection.
 
 ## The improvement you can see
 
