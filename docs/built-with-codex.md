@@ -2,13 +2,15 @@
 
 **This project was built with OpenAI Codex**, under Mervin Praison’s direction—from implementation and debugging to tests, documentation, and deployment. It was prepared for the community-led [Cambridge Codex Community Challenge](https://cambridge-codex-workshop-guide.lilizhu.chatgpt.site/challenges.html).
 
-The everyday task: remove quiet pauses from a short video without manually cutting every gap. I asked Codex to help while DaVinci Resolve was open, then reviewed the timeline it created.
+PraisonAI Clips turns long recordings into captioned vertical Shorts: it transcribes speech, describes frames from across the recording, selects promising moments, renders clips and checks the results. The latest GitHub source also trims detected quiet pauses during rendering; this newer feature is not yet in the PyPI package. Users can then import clips into DaVinci Resolve or Kdenlive and ask Codex to make supported live edits.
+
+The demonstrated everyday task: remove quiet pauses from a short video. I asked Codex to help while DaVinci Resolve was open, then reviewed the separate timeline it created. The broader build brief in my submission summarises several requests rather than quoting one original prompt.
 
 <div class="challenge-facts" markdown>
 <div markdown>
 <span class="step">01 / WHAT I MADE</span>
-### An edit I could request in chat
-PraisonAI Clips connects Codex to an open video editor. In this example, it creates a version of a clip with quiet pauses removed.
+### From long video to Shorts
+PraisonAI Clips finds moments in long recordings and creates captioned vertical clips. Codex can also make supported edits in an open video editor.
 </div>
 <div markdown>
 <span class="step">02 / WHAT I CHANGED</span>
@@ -17,8 +19,8 @@ My first run was rejected because Resolve counts the final frame differently. I 
 </div>
 <div markdown>
 <span class="step">03 / WHAT I CHECKED</span>
-### Cuts made and listened to
-Resolve showed five matching pieces after four quiet pauses were cut, with the original untouched. Three cuts overlap estimated word timings. I listened to all four cuts and they sounded good to me.
+### Clips checked and cuts reviewed
+One of three clips from a four-minute recording passed automated review; two remained drafts. In Resolve, four pauses were removed on a separate timeline. I checked the cuts and they looked and sounded good to me.
 </div>
 </div>
 
@@ -36,7 +38,9 @@ This screen recording shows the actual request and the resulting Resolve timelin
 
 The pause-removal guard rejected the clip when Resolve reported the final media frame inclusively. [The follow-up fix](https://github.com/MervinPraison/praisonai-clips/commit/f67d591b20d2fcdf2380208455af5078916a125e) accepts that boundary and adds a regression test. The recording predates the fix; it does not show a clean end-to-end run of the updated command. Version 0.1.3 includes the fix.
 
-### The request
+### The live-editing request
+
+The submission's broader build brief summarises the product workflow. For the Resolve edit shown here, the exact request was:
 
 > Your shorts is there in the timeline, please remove the silences.
 
@@ -55,7 +59,7 @@ The chart compares the four removed ranges with the source audio. Blue shows the
 | 3 | 227.500–227.667 s | −33.8 dBFS | No estimated word overlaps. |
 | 4 | 235.233–235.333 s | −36.7 dBFS | Estimated timing of “but” overlaps; on-screen text also advances across the cut. |
 
-Word timestamps are estimates and can include pauses. An overlap flags a risk, not proof that speech was removed; a quiet waveform cannot prove speech is absent. I listened to the four cuts and they sounded good to me. Five-second visual observations miss events between samples, and before-and-after frames do not show everything removed, so the visual timing still needs inspection before accepting the edit.
+Word timestamps are estimates and can include pauses. An overlap flags a risk, not proof that speech was removed; a quiet waveform cannot prove speech is absent. I checked the cuts and they looked and sounded good to me. Five-second visual observations miss events between samples, and before-and-after frames do not show everything removed; the automated evidence is not a continuous visual or audio review.
 
 ## Watch the walkthrough
 
@@ -84,7 +88,7 @@ The earlier first-run screen explained the workflow, but the upload lived in a s
 | --- | --- | --- |
 | Local automated suite | [Historical verification snapshot](assets/challenge/verification.json) and [test source](https://github.com/MervinPraison/praisonai-clips/tree/main/tests) | The snapshot records an earlier macOS run on 29 October 2026, not the current test count. Optional runtime tests are skipped when their dependencies are absent. |
 | End-to-end render, repair, and resume | [Pipeline regression](https://github.com/MervinPraison/praisonai-clips/blob/main/tests/test_pipeline.py) uses real FFmpeg output and a clearly labelled synthetic API backend | This test checks application behavior without paid provider calls. |
-| Real-video processing | A four-minute validation produced three captioned candidates; one passed review and two remained uncertain drafts. [Read the report](reference/validation-report.md). | A recorded engineering run, rather than a general quality or acceptance-rate claim. |
+| Real-video processing | A four-minute validation produced three captioned candidates; one passed automated review and two remained uncertain drafts. [Read the report](reference/validation-report.md). | A recorded engineering run, rather than a general quality or acceptance-rate claim; this run predates the new pipeline pause-trimming feature. |
 | First-run behavior | [Onboarding regressions](https://github.com/MervinPraison/praisonai-clips/blob/main/tests/test_onboarding.py) check missing setup, missing input, invalid paths, and the example bundle’s explicit file list | No paid request is started by these tests. |
 | Public website | The custom domain serves the example video, documentation, and code links over HTTPS | GitHub Pages hosts static pages. Process personal recordings in the local Streamlit app. |
 | Native editor framing | [Kdenlive](KDENLIVE_LIVE_CONTROL.md) and [Resolve](RESOLVE_LIVE_CONTROL.md) reports record framing changes and restoration | Tested workflows are version-dependent; broader operations require separate validation. |
