@@ -78,6 +78,18 @@ def test_doctor_exit_and_readiness_block_paid_job(tmp_path, monkeypatch, capsys)
     assert not Store(tmp_path).list()
 
 
+def test_yaml_workflow_matches_staged_cli_options(tmp_path):
+    from praisonai_shorts_studio.workflow import workflow_arguments
+    spec = tmp_path / 'workflow.yaml'
+    spec.write_text('action: run\nvideo: sample.mp4\nuntil: selection\nmax_clips: 2\n')
+    assert workflow_arguments(spec) == ['run', str(tmp_path / 'sample.mp4'), '--until', 'selection', '--max-clips', '2']
+    spec.write_text('action: resume\njob_id: 0123456789abcdef\nuntil: render\n')
+    assert workflow_arguments(spec) == ['resume', '0123456789abcdef', '--until', 'render']
+    spec.write_text('action: run\nvideo: sample.mp4\nuntil: render\nunknown: true\n')
+    with pytest.raises(ValueError, match='Unknown workflow fields'):
+        workflow_arguments(spec)
+
+
 def test_resolve_snapshot_restoration_and_wrong_identity(tmp_path):
     parser = configure(argparse.ArgumentParser())
     target = tmp_path / 'target.json'

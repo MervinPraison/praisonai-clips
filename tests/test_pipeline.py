@@ -68,3 +68,27 @@ def test_end_to_end_render_repair_promote_and_resume(tmp_path):
     calls=list(backend.calls)
     assert Pipeline(store,job,backend).run()==result
     assert backend.calls==calls
+
+
+def test_explicit_review_stages_resume_without_repeating_analysis(tmp_path):
+    source = tmp_path / 'input.mp4'
+    media.run(['ffmpeg','-y','-v','error','-f','lavfi','-i',
+        'testsrc2=size=320x180:rate=30:duration=4','-f','lavfi','-i',
+        'sine=frequency=440:sample_rate=48000:duration=4','-c:v','libx264',
+        '-threads','2','-preset','ultrafast','-c:a','aac',source])
+    store = Store(tmp_path/'data')
+    job = store.create(source, default_config(min_duration=1,max_duration=3,max_clips=1))
+    backend = FixtureBackend()
+    evidence = Pipeline(store,job,backend).run(until='evidence')
+    assert evidence['stage'] == 'evidence_ready'
+    assert store.get(job)['status'] == 'paused'
+    assert 'select' not in backend.calls and not (store.job_dir(job)/'manifest.json').exists()
+    selection = Pipeline(store,job,backend).run(until='selection')
+    assert selection['stage'] == 'selection_ready' and len(selection['selections']) == 1
+    assert store.get(job)['status'] == 'paused' and 'crop' not in backend.calls
+    before = list(backend.calls)
+    result = Pipeline(store,job,backend).run()
+    assert store.get(job)['status'] == 'completed' and len(result['accepted']) == 1
+    assert backend.calls.count('transcribe') == before.count('transcribe')
+    assert backend.calls.count('scenes') == before.count('scenes')
+    assert backend.calls.count('select') == before.count('select')

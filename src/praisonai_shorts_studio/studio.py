@@ -42,23 +42,26 @@ def active(job_id):
             return True
 
 
-def launch(job_id):
+def launch(job_id, *, until="render"):
     log = store.job_dir(job_id) / "worker.log"
     with log.open("ab") as output:
         subprocess.Popen([sys.executable, "-m", "praisonai_shorts_studio.cli", "--data-dir", str(store.root),
-                          "resume", job_id], stdout=output, stderr=output,
+                          "resume", job_id, "--until", until], stdout=output, stderr=output,
                          cwd=Path.cwd(), start_new_session=True)
 
 
 def new_recording():
     checks = doctor()
-    issues = processing_issues(checks)
     uploaded = st.file_uploader("Add your recording", type=["mp4", "mov", "mkv", "webm", "m4v"],
                                 help="Upload up to 2 GB, or use a local file below.")
     with st.expander("Use a local file or adjust clip settings"):
         local_path = st.text_input("Local video path", placeholder="/path/to/video.mp4")
         maximum = st.slider("Maximum clips", 1, 5, 5)
         lengths = st.slider("Length range (seconds)", 5, 60, (30, 60))
+    stopping_point = st.selectbox("How far should we go?", ["Create review clips", "Find moments for review", "Analyze source only"],
+        help="You can stop at each stage and continue later. Creating clips also prepares files you can import into an editor.")
+    until = {"Create review clips": "render", "Find moments for review": "selection", "Analyze source only": "evidence"}[stopping_point]
+    issues = processing_issues(checks, until=until)
     st.caption(f"Up to {maximum} clips · {lengths[0]}–{lengths[1]} seconds · Vertical video with captions")
     if issues:
         st.info("The example is ready to explore. Complete setup to process your own video.")
@@ -89,7 +92,7 @@ def new_recording():
                 if not source.is_file():
                     raise ValueError("Choose a video file, rather than a folder")
             job_id = store.create(source, config)
-            launch(job_id)
+            launch(job_id, until=until)
             st.session_state["selected_job"] = job_id
             st.rerun()
         except Exception as exc:
@@ -244,6 +247,14 @@ def dashboard(job_id):
         if cols[2].button("Cancel job"):
             store.update(job_id, cancel=1)
             st.info("Cancellation requested. Completed analysis is retained for resume.")
+    elif job["status"] == "paused":
+        if job["stage"] == "evidence_ready" and cols[2].button("Find moments", disabled=not os.getenv("OPENAI_API_KEY")):
+            launch(job_id, until="selection")
+            st.rerun(scope="fragment")
+        if st.button("Continue to render clips", disabled=not os.getenv("OPENAI_API_KEY"), key=f"render-{job_id}"):
+            launch(job_id, until="render")
+            st.rerun(scope="fragment")
+        st.info("This job stopped at your chosen review point. Its analysis is saved; continue when you are ready.")
     elif job["status"] != "completed":
         if cols[2].button("Resume job", disabled=not os.getenv("OPENAI_API_KEY")):
             launch(job_id)
@@ -252,6 +263,17 @@ def dashboard(job_id):
         st.error(job["error"])
     if job["status"] == "running" and not worker_active:
         st.warning("The worker is no longer active. Resume to continue from cached analysis.")
+    selection_path = store.job_dir(job_id) / "selection.json"
+    if job["stage"] == "selection_ready" and selection_path.exists():
+        st.subheader("Selected moments")
+        selections = json.loads(selection_path.read_text())
+        if not selections:
+            st.info("No suitable moments were selected. You can review the source evidence.")
+        for selection in selections:
+            st.markdown("**" + selection["title"].replace("<", "&lt;").replace(">", "&gt;") + "**")
+            for mapping in selection["mappings"]:
+                st.caption(f"Source {mapping['source_start']:.2f}–{mapping['source_end']:.2f} s")
+            st.write(selection["rationale"])
     manifest_path = store.job_dir(job_id) / "manifest.json"
     if manifest_path.exists():
         manifest = json.loads(manifest_path.read_text())
@@ -268,13 +290,18 @@ def dashboard(job_id):
                 st.caption("Passed full decode and timestamp checks plus sampled visual review. Listen before publishing.")
                 st.download_button("Download clip bundle", clip_bundle(folder),
                                    file_name=folder.name + ".zip", mime="application/zip", key=str(folder))
+                st.caption("Stop here, or unzip the bundle and import video.mp4 into DaVinci Resolve or Kdenlive. The rendered framing and captions are baked into the video; the bundle also includes caption sidecars and the source edit mapping. You can then use Codex with a configured live editor integration for supported further edits.")
                 with st.expander("Review evidence & edit mappings"):
                     st.json(entry["review"])
         with st.expander(f"Uncertain drafts ({len(manifest['drafts'])})"):
             for entry in manifest["drafts"]:
                 st.write(entry["title"])
                 st.json(entry["review"])
-                st.video(str(Path(entry["path"]) / "video.mp4"))
+                draft_folder = Path(entry["path"])
+                st.video(str(draft_folder / "video.mp4"))
+                st.download_button("Download draft bundle for review", clip_bundle(draft_folder),
+                                   file_name=draft_folder.name + "-draft.zip", mime="application/zip", key="draft-" + str(draft_folder))
+                st.caption("This draft did not pass all checks. Review and listen before sharing or importing it into an editor.")
     if manifest_path.exists() and not worker_active:
         with st.expander("Edit source cuts in Kdenlive (optional)"):
             st.caption("Exports source cuts and caption sidecars. Use Kdenlive 26.04. This does not reproduce the FFmpeg caption burn-in, audio normalization, or framing, and does not control an open editor window.")

@@ -49,6 +49,8 @@ flowchart LR
 | --- | --- | --- |
 | A video on your computer | Vertical videos with captions and downloadable files | Which clips to keep, edit, and share |
 
+Choose where to stop: analyze the source, review selected moments, or create finished review clips in one run. You can resume from a saved stage. Import a rendered clip into DaVinci Resolve or Kdenlive and, after setup, ask Codex for supported further edits. The rendered crop and captions are baked into the video; editable source-cut export is available separately for Kdenlive. [Explore the full workflow](docs/guides/workflow.md).
+
 The app aims for up to five clips of 30–60 seconds each. It may find fewer suitable clips. Results that need another look appear as drafts.
 
 ## Edit in Resolve by chatting

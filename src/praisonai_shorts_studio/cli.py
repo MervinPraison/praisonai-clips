@@ -42,13 +42,17 @@ def main(argv=None):
     diagnostic.add_argument("--check", action="store_true", help="Exit 1 if processing prerequisites are missing")
     commands.add_parser("list", help="List durable jobs")
     commands.add_parser("studio", help="Launch the local dashboard")
+    workflow = commands.add_parser("workflow", help="Run or resume a staged workflow from YAML")
+    workflow.add_argument("file", type=Path)
     run = commands.add_parser("run", help="Create and run a job (paid OpenAI calls)")
     run.add_argument("video", type=Path)
     run.add_argument("--max-clips", type=int, default=5)
     run.add_argument("--min-duration", type=float, default=30)
     run.add_argument("--max-duration", type=float, default=60)
+    run.add_argument("--until", choices=["evidence", "selection", "render"], default="render", help="Stop after evidence, selected moments, or rendered clips")
     resume = commands.add_parser("resume", help="Resume a failed/cancelled job from cached analysis")
     resume.add_argument("job_id")
+    resume.add_argument("--until", choices=["evidence", "selection", "render"], default="render", help="Continue through this stage")
     cancel = commands.add_parser("cancel", help="Request worker cancellation")
     cancel.add_argument("job_id")
     export = commands.add_parser("export-kdenlive", help="Export editable source cuts with caption sidecars through optional Kdenlive MCP")
@@ -77,6 +81,9 @@ def main(argv=None):
             command.add_argument("name", choices=["edl.json", "review.json", "words.json", "captions.srt", "captions.ass"])
     args = parser.parse_args(argv)
     try:
+        if args.command == "workflow":
+            from .workflow import workflow_arguments
+            return main(["--data-dir", args.data_dir, *workflow_arguments(args.file)])
         if args.command == "studio":
             raise SystemExit(subprocess.call([sys.executable, "-m", "streamlit", "run", str(Path(__file__).with_name("studio.py"))]))
         if args.command == "doctor":
@@ -139,7 +146,7 @@ def main(argv=None):
             print(json.dumps({"job_id": args.job_id, "cancellation_requested": True}))
         else:
             from .onboarding import processing_issues
-            issues = processing_issues(doctor())
+            issues = processing_issues(doctor(), until=args.until)
             if issues:
                 raise ValueError(" ".join(issues))
             if args.command == "run":
@@ -158,7 +165,7 @@ def main(argv=None):
                     except BlockingIOError:
                         raise ValueError("Worker is still active; wait for cancellation to finish")
                     store.update(job_id, cancel=0)
-            result = Pipeline(store, job_id).run()
+            result = Pipeline(store, job_id).run(until=args.until)
             print(json.dumps(result, indent=2))
     except Exception as exc:
         print(f"Error: {exc}", file=sys.stderr)

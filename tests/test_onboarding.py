@@ -59,3 +59,24 @@ def test_stages_show_the_action_instead_of_internal_cache_names():
     assert stage_label("transcribe-0000") == "Creating the transcript"
     assert stage_label("clip-01-render-1") == "Rendering your clip"
     assert stage_label("complete") == "Review your results"
+
+
+def test_paused_selection_can_continue_from_dashboard(tmp_path, monkeypatch):
+    import json
+    monkeypatch.setenv("SHORTS_DATA_DIR", str(tmp_path))
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    source = tmp_path / 'source.mp4'
+    source.write_bytes(b'fixture')
+    store = Store(tmp_path)
+    job_id = store.create(source, {})
+    store.update(job_id, status='paused', stage='selection_ready')
+    (store.job_dir(job_id) / 'selection.json').write_text(json.dumps([{
+        'title':'A useful moment', 'rationale':'Complete thought',
+        'mappings':[{'source_start':1,'source_end':2}]}]))
+    with patch('praisonai_shorts_studio.cli.doctor', return_value=READY), patch('subprocess.Popen') as launch:
+        app = AppTest.from_file(str(ROOT / 'app.py')).run(timeout=20)
+        assert not app.exception
+        assert any('A useful moment' in item.value for item in app.markdown)
+        next(b for b in app.button if b.label == 'Continue to render clips').click()
+        app.run(timeout=20)
+        assert '--until' in launch.call_args.args[0] and 'render' in launch.call_args.args[0]

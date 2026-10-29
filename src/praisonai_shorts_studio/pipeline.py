@@ -72,7 +72,9 @@ class Pipeline:
         return [(t, media.frame(source, self.folder / "frames" / label / f"{t:.6f}.jpg", t, self.check))
                 for t in times]
 
-    def run(self):
+    def run(self, *, until="render"):
+        if until not in {"evidence", "selection", "render"}:
+            raise ValueError("Choose evidence, selection, or render")
         self.folder.mkdir(parents=True, exist_ok=True)
         # A second worker must not reset status or race completed artifacts.
         with (self.folder / "worker.lock").open("w") as lock:
@@ -85,8 +87,11 @@ class Pipeline:
             self.store.update(self.job_id, status="running", error=None)
             try:
                 self.check()
-                result = self.execute()
-                self.store.update(self.job_id, status="completed", stage="complete")
+                result = self.execute(until=until)
+                if until == "render":
+                    self.store.update(self.job_id, status="completed", stage="complete")
+                else:
+                    self.store.update(self.job_id, status="paused", stage=until + "_ready")
                 return result
             except (Cancelled, KeyboardInterrupt):
                 self.store.update(self.job_id, status="cancelled", error=None)
@@ -96,7 +101,7 @@ class Pipeline:
                 self.store.update(self.job_id, status="failed", error=type(exc).__name__ + ": " + str(exc)[:1200])
                 raise
 
-    def execute(self):
+    def execute(self, *, until="render"):
         source = Path(self.job["source"])
         if digest_file(source) != self.job["fingerprint"]:
             raise ValueError("Source changed since job creation; create a new job")
@@ -120,8 +125,12 @@ class Pipeline:
                                          self.config["transcription_model"])
         words = self.transcribe(canonical, duration)
         overview = self.overview(canonical, min(duration, meta["video_duration"]))
+        if until == "evidence":
+            return {"job_id": self.job_id, "stage": "evidence_ready", "words": len(words), "scenes": len(overview)}
         edls = self.select(words, overview, duration)
         write_json(self.folder / "selection.json", [e.model_dump() for e in edls])
+        if until == "selection":
+            return {"job_id": self.job_id, "stage": "selection_ready", "selections": [e.model_dump() for e in edls]}
         manifest = {"job_id": self.job_id, "source_sha256": self.job["fingerprint"],
                     "accepted": [], "drafts": [], "rejected_candidates": self.rejections,
                     "notes": [] if edls else ["No qualifying self-contained moments found."]}

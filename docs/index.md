@@ -95,6 +95,7 @@ Review the result, download the video and caption files, and keep the source map
 </div>
 </div>
 <div class="section-heading"><span class="eyebrow">FROM SOURCE TO SHORT</span><span>Automation with an editorial checkpoint.</span></div>
+<p>Start with a long video and choose where to stop: review its transcript and screen evidence, review selected moments, or render captioned vertical clips in one run. You can continue later from saved analysis. Import a rendered clip into DaVinci Resolve or Kdenlive, then connect Codex for supported further edits. Rendered framing and captions are baked in; an optional Kdenlive export provides editable source cuts with separate caption files. <a href="guides/workflow/">See the full workflow and editor handoff ↗</a></p>
 <div class="process-grid" markdown>
 <div markdown>
 <span class="step">01 / FIND</span>
@@ -125,7 +126,7 @@ Real-video processing has produced captioned vertical clips with explicit review
 [Explore the product and validation](product.md) · [Read the processing report](reference/validation-report.md)
 </div>
 <div class="evidence-card" markdown>
-<span class="step">CURRENT PRODUCT · 0.1.2</span>
+<span class="step">CURRENT PRODUCT · 0.1.3</span>
 ### Build on a working foundation
 - Local dashboard, CLI, and resumable jobs
 - Video, captions, edit mappings, and review artifacts
