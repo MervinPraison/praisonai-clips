@@ -12,6 +12,7 @@ hide:
 <p class="lede">Find complete moments in your interviews, lessons, and webinars. Turn them into vertical clips with highlighted captions, then review and choose what to share.</p>
 <div class="actions"><a class="paper-button" href="getting-started/quickstart/">Make my first clips ↗</a><a class="paper-button secondary" href="#see-example">Watch the example</a></div>
 <p class="hero-note">Watch the example without an API key. Process your own video in the local app.</p>
+<p class="hero-note">Built entirely using OpenAI Codex. <a href="getting-started/codex/">Connect Codex to your editor ↗</a></p>
 <div class="editor-support" aria-label="Experimental real-time editor integrations">
 <span class="editor-support-label">REAL-TIME EDITING · EXPERIMENTAL</span>
 <div class="editor-support-links"><a href="reference/resolve-sdk/"><img src="assets/editor-logos/davinci-resolve.png" alt="" width="36" height="36"><span>DaVinci Resolve ↗</span></a><a href="KDENLIVE_LIVE_CONTROL/"><img src="assets/editor-logos/kdenlive.png" alt="" width="36" height="36"><span>Kdenlive ↗</span></a></div>

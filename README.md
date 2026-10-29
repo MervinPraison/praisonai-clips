@@ -52,7 +52,14 @@ With DaVinci Resolve open, you can ask Codex to inspect a timeline and make an e
 
 The pause workflow creates a separate timeline for review. In a real Mac test, a 20-second excerpt became six video and audio segments, with 0.9 seconds of quiet pauses removed.
 
-[**Connect Codex to Resolve →**](docs/reference/resolve-sdk.md) · [Mac setup](skills/resolve-mac-live/references/runbook.md) · [CLI and YAML](docs/reference/cli.md#remove-quiet-pauses)
+[**Set up Codex for live editing →**](docs/getting-started/codex.md) · [Resolve SDK](docs/reference/resolve-sdk.md) · [CLI and YAML](docs/reference/cli.md#remove-quiet-pauses)
+
+<details>
+<summary><strong>How do I connect Codex?</strong></summary>
+
+Open this repository in Codex and ask: “Help me set up PraisonAI Clips to edit my open Resolve project.” The included `resolve-mac-live` skill guides Codex through the tested Mac setup. For direct editor tools, install the optional MCP server and register it with Codex; the [step-by-step guide](docs/getting-started/codex.md) covers both Resolve and Kdenlive.
+
+</details>
 
 Resolve control is experimental and was tested with DaVinci Resolve Free 21.1 on macOS. Pause removal currently supports an unretimed 30 fps source clip on a 30 fps timeline. Quiet passages can contain speech, so listen to the cuts before sharing.
 
