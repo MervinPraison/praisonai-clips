@@ -1,6 +1,7 @@
 site_name: PraisonAI Clips
 site_description: Create reviewed vertical clips from long videos.
 site_url: https://clips.praison.ai/
+copyright: '© 2026 Mervin Praison. All rights reserved.'
 strict: true
 hooks:
   - docs/hooks.py
