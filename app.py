@@ -3,19 +3,18 @@ from __future__ import annotations
 
 import fcntl
 import hashlib
-import io
 import json
 import os
 import subprocess
 import sys
-import zipfile
 from pathlib import Path
 
 import streamlit as st
 from dotenv import load_dotenv
 
 from praisonai_shorts_studio.cli import doctor
-from praisonai_shorts_studio.onboarding import example_bundle, processing_issues, stage_label
+from praisonai_shorts_studio.artifacts import clip_bundle
+from praisonai_shorts_studio.onboarding import example_directory, example_bundle, processing_issues, stage_label
 from praisonai_shorts_studio.pipeline import default_config, validate_config
 from praisonai_shorts_studio.store import Store
 
@@ -96,7 +95,7 @@ def new_recording():
 
 
 def show_example():
-    example = Path(__file__).resolve().parent / "docs/assets/demo"
+    example = example_directory()
     st.caption("PLAYABLE EXAMPLE · NO API KEY NEEDED")
     st.subheader("See the result before you start")
     st.video(str(example / "clip.mp4"))
@@ -181,11 +180,7 @@ def dashboard(job_id):
             with info_col:
                 st.caption("1080 × 1920 · H.264/AAC · burned-in captions")
                 st.caption("Passed full decode and timestamp checks plus sampled visual review. Listen before publishing.")
-                archive = io.BytesIO()
-                with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as z:
-                    for name in ["video.mp4", "captions.srt", "captions.ass", "words.json", "edl.json", "review.json"]:
-                        z.write(folder / name, name)
-                st.download_button("Download clip bundle", archive.getvalue(),
+                st.download_button("Download clip bundle", clip_bundle(folder),
                                    file_name=folder.name + ".zip", mime="application/zip", key=str(folder))
                 with st.expander("Review evidence & edit mappings"):
                     st.json(entry["review"])

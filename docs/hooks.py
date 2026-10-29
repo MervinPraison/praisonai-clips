@@ -24,6 +24,9 @@ def on_files(files, config):
     destination, content = _paper_stylesheet(config)
     files.append(File.generated(config, destination, content=content))
     root = Path(config.config_file_path).parent
+    for asset in (root / "src/praisonai_shorts_studio/resources/demo").iterdir():
+        if asset.is_file():
+            files.append(File.generated(config, "assets/demo/" + asset.name, content=asset.read_bytes()))
     source = root / 'skills/resolve-mac-live/references/runbook.md'
     files.append(File.generated(config, 'editors/resolve-runbook.md', content=source.read_text()))
     report = root / 'M0_REPORT.md'

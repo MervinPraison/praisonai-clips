@@ -22,6 +22,10 @@ def processing_issues(checks: dict) -> list[str]:
     return issues
 
 
+def example_directory() -> Path:
+    return Path(__file__).resolve().parent / "resources/demo"
+
+
 def example_bundle(folder: Path) -> bytes:
     """Only publish the explicit generated example files, never directory contents."""
     archive = io.BytesIO()

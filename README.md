@@ -8,11 +8,26 @@ Turn a long recording into a collection of captioned vertical clips. PraisonAI C
 
 [Made, changed & checked](https://clips.praison.ai/built-with-codex/) · [Watch an example](https://clips.praison.ai/#see-example) · [Quickstart](docs/getting-started/quickstart.md) · [Workflow](docs/guides/workflow.md) · [CLI reference](docs/reference/cli.md) · [Editor integrations](docs/editors/index.md)
 
+## Use the same workflow from the terminal
+
+```sh
+praisonai-clips doctor --check
+praisonai-clips example --output example.zip
+praisonai-clips run input/video.mp4 --max-clips 3
+praisonai-clips manifest JOB_ID
+praisonai-clips bundle JOB_ID clip-01 --output clip-01.zip
+praisonai-clips preview --serve
+praisonai-clips resolve --help
+praisonai-clips kdenlive --help
+```
+
+The CLI shares processing, artifact exports, and guarded editor operations with the app and SDK. [Full CLI reference](docs/reference/cli.md).
+
 ## See what you can make
 
 The dashboard includes a playable example and downloadable video, caption, and edit files. Explore it without an API key or API calls. The example uses generated graphics and scripted timings rendered through the app's caption and video pipeline; it demonstrates the output format without using private footage.
 
-[View the sample clip](docs/assets/demo/clip.mp4) · [Compare the generated source](docs/assets/demo/source.mp4)
+[View the sample clip](https://clips.praison.ai/assets/demo/clip.mp4) · [Compare the generated source](https://clips.praison.ai/assets/demo/source.mp4)
 
 ## Built for recordings with more to give
 

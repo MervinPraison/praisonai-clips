@@ -15,7 +15,7 @@ from praisonai_shorts_studio import captions, media
 from praisonai_shorts_studio.models import EDL, Mapping, Word
 
 ROOT = Path(__file__).resolve().parents[1]
-DEST = ROOT / "docs/assets/demo"
+DEST = ROOT / "src/praisonai_shorts_studio/resources/demo"
 PHRASES = [
     (2, "One recording can hold several useful stories.", "ONE RECORDING.", "MORE TO SHARE."),
     (6, "Choose one complete thought and keep its context.", "KEEP THE IDEA.", "KEEP THE CONTEXT."),
