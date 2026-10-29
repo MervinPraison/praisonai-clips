@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "praisonai-clips"
 version = "0.1.0"
-description = "Create reviewed vertical clips with OpenAI, FFmpeg and optional Kdenlive editing"
+description = "Turn long videos into captioned vertical clips and edit them live in DaVinci Resolve or Kdenlive with Codex."
 requires-python = ">=3.11"
 authors = [{name = "Mervin Praison"}]
 dependencies = ["openai>=2.54,<3", "pydantic>=2,<3", "python-dotenv>=1,<2", "streamlit>=1.40,<2", "PyYAML>=6,<7"]
