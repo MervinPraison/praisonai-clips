@@ -67,6 +67,20 @@ A reordered clip or switched project/timeline fails instead of editing whatever
 happens to occupy the previous position. Fetch a fresh target after structural
 edits. The SDK does not create native undo/redo behavior.
 
+## Prepare a quiet-pause review timeline
+
+```python
+plan = resolve.plan_silence(target, threshold_db=-25, min_silence=0.3, padding=0.08)
+print(plan["removed_ranges"], plan["removed_seconds"])
+if plan["removed_ranges"]:
+    result = resolve.apply_silence_plan(plan, timeline_name="Quiet pauses review")
+    print(result["review"])
+```
+
+`plan_silence` analyzes the clip locally with FFmpeg. `apply_silence_plan` verifies source identity, creates a new timeline, preserves clip framing and timeline resolution, and adds corresponding video and audio segments. It currently requires an unretimed 30 fps source and timeline. A quiet passage may include speech: inspect and listen to the review timeline. Errors can leave a partially created timeline; inspect Resolve before retrying. The original timeline is not edited.
+
+Agents can call the `plan_silence` and `apply_silence_plan` MCP tools. The [CLI and YAML reference](cli.md#remove-quiet-pauses) exposes the same options and SDK behavior.
+
 ## Frame exports and official API extensions
 
 ```python

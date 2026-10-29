@@ -42,6 +42,16 @@ def create_server(client: ResolveClient | None = None):
         return client.set_framing(target, **changes)
 
     @server.tool()
+    def plan_silence(target: ClipTarget, threshold_db: float = -25.0, min_silence: float = 0.3, padding: float = 0.08) -> dict:
+        """Analyze a clip locally and return a reviewable quiet-pause removal plan."""
+        return client.plan_silence(target, threshold_db=threshold_db, min_silence=min_silence, padding=padding)
+
+    @server.tool()
+    def apply_silence_plan(plan: dict, timeline_name: str) -> dict:
+        """Create a new review timeline from a plan; never overwrite the original timeline."""
+        return client.apply_silence_plan(plan, timeline_name=timeline_name)
+
+    @server.tool()
     def save_project(expected_project_id: str) -> dict:
         """Save only the project with this native UUID."""
         return {"saved": client.save_project(expected_project_id)}

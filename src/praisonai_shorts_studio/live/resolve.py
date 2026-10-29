@@ -85,3 +85,11 @@ class ResolveClient:
         if not path.is_file():
             raise RuntimeError("Resolve reported success but the exported frame is missing")
         return path
+
+    def plan_silence(self, target, **options):
+        from .silence import plan_silence
+        return plan_silence(self, target, **options)
+
+    def apply_silence_plan(self, plan, *, timeline_name):
+        from .silence import apply_silence_plan
+        return apply_silence_plan(self, plan, timeline_name=timeline_name)

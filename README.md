@@ -2,9 +2,21 @@
 
 # PraisonAI Clips
 
-**AI video repurposing, with editorial control built in.**
+**Turn recordings into clips. Edit them in DaVinci Resolve by chatting with Codex.**
 
 Turn a long recording into a collection of captioned vertical clips. PraisonAI Clips finds complete moments, adapts the framing, checks the output, and keeps the source mappings available for review. Start in the local dashboard and refine through optional Kdenlive and DaVinci Resolve integrations.
+
+## Edit in Resolve by chatting with Codex
+
+Open a project in DaVinci Resolve and ask Codex to inspect the timeline, adjust a crop, or prepare a cut that removes quiet pauses. The editor updates on screen while you remain in control. For example:
+
+> “Find the quiet pauses in this clip and make a new timeline so I can review the cuts.”
+
+Codex can use the packaged MCP tools, the Python SDK, or the CLI. The pause workflow analyzes audio locally, shows an edit plan, and builds a separate timeline with linked video and audio segments. You can review the result in Resolve before saving or sharing. On the tested Mac, a 20-second excerpt became six segments with 0.9 seconds of quiet pauses removed.
+
+**Get started:** [Connect Codex to Resolve](docs/reference/resolve-sdk.md) · [CLI and YAML examples](docs/reference/cli.md#remove-quiet-pauses) · [Mac setup and troubleshooting](skills/resolve-mac-live/references/runbook.md)
+
+This is an experimental integration, tested with DaVinci Resolve Free 21.1 on macOS. Resolve must be open, the Mac unlocked, and the required Accessibility permissions enabled. Pause removal currently supports an unretimed 30 fps source clip on a 30 fps timeline; listen to the result because quiet audio can contain speech.
 
 [Made, changed & checked](https://clips.praison.ai/built-with-codex/) · [Watch an example](https://clips.praison.ai/#see-example) · [Quickstart](docs/getting-started/quickstart.md) · [Workflow](docs/guides/workflow.md) · [CLI reference](docs/reference/cli.md) · [Editor integrations](docs/editors/index.md)
 
@@ -156,7 +168,7 @@ praisonai-resolve status
 praisonai-resolve-mcp
 ```
 
-The Python SDK exposes `ResolveClient`, `ClipTarget`, and `Framing` from `praisonai_shorts_studio.live`. Shared validation and project identity guards support the Python API, CLI, and eight MCP tools. The macOS transport and licensed Lua helpers ship with the package.
+The Python SDK exposes `ResolveClient`, `ClipTarget`, and `Framing` from `praisonai_shorts_studio.live`. Shared validation and project identity guards support the Python API, CLI, and MCP tools. The macOS transport and licensed Lua helpers ship with the package.
 
 Start with the [SDK reference](docs/reference/resolve-sdk.md), [reusable Resolve skill](skills/resolve-mac-live/SKILL.md), and [setup and recovery runbook](skills/resolve-mac-live/references/runbook.md).
 

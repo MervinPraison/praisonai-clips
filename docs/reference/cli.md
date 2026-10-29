@@ -72,6 +72,46 @@ Framing flags also include `--crop-left`, `--crop-right`, `--crop-top` and `--cr
 
 `run-lua` is the project-guarded escape hatch for other official Resolve API operations, including media import and timeline construction. Its Lua file has the same access as the SDK/MCP operation; use a project copy when exploring edits.
 
+## Remove quiet pauses
+
+With an open Resolve project and a selected clip target from `resolve timeline`, analyze first, inspect the JSON plan, then create a separate timeline:
+
+```sh
+praisonai-clips resolve plan-silence --target target.json --threshold-db -25 \
+  --min-silence 0.3 --padding 0.08 --output plan.json
+praisonai-clips resolve apply-silence --plan plan.json \
+  --timeline-name "Quiet pauses review" --output result.json
+```
+
+The thresholds are in dBFS and seconds. FFmpeg analyzes the current source excerpt locally; no OpenAI call is made. The plan stores local paths and a source hash, so keep it private. The apply step checks project, timeline, clip, source identity and source hash, then creates a new review timeline with video and audio cuts. The source timeline is untouched. Only an unretimed 30 fps source on a 30 fps timeline is currently supported. Quiet speech may be detected: listen before saving or sharing. Errors can leave a partially created review timeline; inspect Resolve rather than retrying blindly.
+
+The same commands can be supplied as YAML (`target` and `plan` are paths to JSON files, relative to the current working directory):
+
+```yaml
+# plan.yaml
+command: plan-silence
+target: target.json
+threshold_db: -25
+min_silence: 0.3
+padding: 0.08
+output: plan.json
+```
+
+```yaml
+# apply.yaml
+command: apply-silence
+plan: plan.json
+timeline_name: Quiet pauses review
+output: result.json
+```
+
+```sh
+praisonai-clips resolve execute plan.yaml
+praisonai-clips resolve execute apply.yaml
+```
+
+Every non-server Resolve CLI subcommand can be expressed as YAML using `command` plus the same option names with underscores (for example `set-framing`, `target`, `zoom_x`, `zoom_y`). `run-lua` and `export-frame` use a `file` field for their positional file. YAML cannot start MCP or recursively execute another YAML file.
+
 ## Live Kdenlive on macOS
 
 The packaged CLI can control an existing native bridge session. Building and launching the version-specific bridge still requires the repository, a compatible installed Kdenlive, and the [native setup instructions](../KDENLIVE_LIVE_CONTROL.md):

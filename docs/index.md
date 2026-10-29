@@ -20,6 +20,8 @@ hide:
 <div class="demo-downloads"><a href="assets/demo/clip.mp4" download>Download the clip ↗</a><a href="assets/demo/source.mp4">Compare the original</a></div>
 </figure>
 </div>
+<div class="section-heading"><span class="eyebrow">EDIT BY CHATTING WITH CODEX</span><span>See changes in DaVinci Resolve.</span></div>
+<p>Ask Codex to adjust framing or create a review timeline with quiet pauses removed. The Python SDK, MCP tools, CLI and YAML commands share the same guarded operations. <a href="reference/resolve-sdk/">Explore live Resolve editing ↗</a></p>
 <div class="value-strip"><div><strong>Complete thoughts</strong><span>Transcript + visual context</span></div><div><strong>Review before delivery</strong><span>Accepted clips & separate drafts</span></div><div><strong>Keep editorial control</strong><span>Source mappings & editor tools</span></div></div>
 <div class="section-heading"><span class="eyebrow">BUILT FOR THE RECORDINGS YOU ALREADY MAKE</span><span>One workflow. More places to start.</span></div>
 <div class="feature-grid" markdown>
@@ -74,7 +76,7 @@ Real-video processing has produced captioned vertical clips with explicit review
 ### Build on a working foundation
 - Local dashboard, CLI, and resumable jobs
 - Video, captions, edit mappings, and review artifacts
-- Python SDK, CLI, and eight Resolve MCP tools
+- Python SDK, CLI, YAML, and Resolve MCP tools
 - Experimental Kdenlive and Resolve integrations
 
 Live adapters have version constraints. Automated review uses sampled frames; inspect and listen before publishing.
