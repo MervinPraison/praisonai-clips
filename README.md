@@ -34,6 +34,8 @@ The app aims for up to five clips of 30–60 seconds each. It may find fewer sui
 
 ## Edit in Resolve by chatting
 
+![How a Codex chat request reaches PraisonAI Clips MCP and SDK, updates DaVinci Resolve, and returns the result for review.](docs/assets/illustrations/codex-resolve-flow.svg)
+
 With DaVinci Resolve open, you can ask Codex to inspect a timeline and make an edit you can see in the editor. For example:
 
 > “Zoom in on the speaker.”
