@@ -33,9 +33,9 @@ apply_once() {
   git -C "$SHORTS_SOURCE" apply --check "$SHORTS_PATCH"
   git -C "$SHORTS_SOURCE" apply "$SHORTS_PATCH"
 }
-apply_once tools/kdenlive-live-src "$SHORTS_ROOT/tools/kdenlive-live-build-fixes.patch"
-apply_once tools/kdenlive-live-api "$SHORTS_ROOT/tools/kdenlive-live-api-instance.patch"
-apply_once tools/kdenlive-live-mcp "$SHORTS_ROOT/tools/kdenlive-live-mcp-summary.patch"
+apply_once tools/kdenlive-live-src "$SHORTS_ROOT/scripts/patches/kdenlive-live-build-fixes.patch"
+apply_once tools/kdenlive-live-api "$SHORTS_ROOT/scripts/patches/kdenlive-live-api-instance.patch"
+apply_once tools/kdenlive-live-mcp "$SHORTS_ROOT/scripts/patches/kdenlive-live-mcp-summary.patch"
 if [ ! -e tools/kdenlive-api ]; then ln -s kdenlive-live-api tools/kdenlive-api; fi
 if [ ! -x tools/runtime/flatpak-builder-packages/root/usr/bin/flatpak-builder ]; then
   command -v apt-get >/dev/null

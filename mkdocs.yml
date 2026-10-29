@@ -6,7 +6,6 @@ hooks:
   - docs/hooks.py
 watch:
   - skills/resolve-mac-live/references
-  - M0_REPORT.md
 theme:
   name: material
   custom_dir: docs/overrides

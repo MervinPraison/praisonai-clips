@@ -95,9 +95,9 @@ The experimental build uses `scripts/kdenlive-live-flatpak.json`. MLT 7.36.0, Im
 
 ## Local patches
 
-`tools/kdenlive-live-build-fixes.patch` removes an identical appended block of 45 C++ method implementations, an extra scene-detection implementation, and duplicate method declarations. It also fixes mixed designated/positional QuickJS aggregate initializers rejected by GCC in C++20 mode. The unpatched fork does not compile on this toolchain.
+`scripts/patches/kdenlive-live-build-fixes.patch` removes an identical appended block of 45 C++ method implementations, an extra scene-detection implementation, and duplicate method declarations. It also fixes mixed designated/positional QuickJS aggregate initializers rejected by GCC in C++20 mode. The unpatched fork does not compile on this toolchain.
 
-`tools/kdenlive-live-api-instance.patch` adds explicit `KDENLIVE_DBUS_SERVICE` selection and preserves boolean/integer/float types in the command-line D-Bus parser. In particular, a failed native edit returning boolean false must not become the truthy string "false".
+`scripts/patches/kdenlive-live-api-instance.patch` adds explicit `KDENLIVE_DBUS_SERVICE` selection and preserves boolean/integer/float types in the command-line D-Bus parser. In particular, a failed native edit returning boolean false must not become the truthy string "false".
 
 These patches are separate from the earlier headless server's Linux X11 patch. Do not apply them to the existing headless MCP checkout.
 
@@ -143,6 +143,6 @@ The running native project is data/kdenlive-live-test/live-demo.kdenlive. Eviden
 
 This successful test uses the accepted rendered MP4, imported into a fresh native project. Captions are already burned in; they are not editable subtitle text in this demo. Opening the other headless backend's exported .kdenlive project crashed this experimental build, so cross-backend project import is not approved. The new_project MCP tool can report failure for a successfully created untitled project because the native method returns an empty filename; actual project metadata must be verified. No claim is made that all 177 tools work.
 
-A further patch, tools/kdenlive-live-mcp-summary.patch, sorts timeline clips by position before detecting overlaps; the original tool incorrectly reported transitions when native clip IDs were not in time order. A regression test covers this case. Four focused adapter tests now cover local fixes; the initial upstream 85-pass/5-fail/3-skip result remains recorded honestly.
+A further patch, scripts/patches/kdenlive-live-mcp-summary.patch, sorts timeline clips by position before detecting overlaps; the original tool incorrectly reported transitions when native clip IDs were not in time order. A regression test covers this case. Four focused adapter tests now cover local fixes; the initial upstream 85-pass/5-fail/3-skip result remains recorded honestly.
 
 To reproduce safely, launch a fresh editor, create a new native project, set it to 1080×1920 at 30fps, import an accepted MP4, insert its video and audio on separate tracks, group them and save a new copy. Use audio-only bin prefix A<bin_id> when inserting audio to avoid creating an additional mirrored video layer. Then select the verified service and use the guarded MCP client. The demo integration test requires a fresh copy starting with one video clip and refuses other documents.

@@ -29,6 +29,4 @@ def on_files(files, config):
             files.append(File.generated(config, "assets/demo/" + asset.name, content=asset.read_bytes()))
     source = root / 'skills/resolve-mac-live/references/runbook.md'
     files.append(File.generated(config, 'editors/resolve-runbook.md', content=source.read_text()))
-    report = root / 'M0_REPORT.md'
-    files.append(File.generated(config, 'reference/validation-report.md', content=report.read_text()))
     return files

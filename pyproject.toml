@@ -32,4 +32,4 @@ testpaths = ["tests"]
 [tool.setuptools.package-data]
 "praisonai_shorts_studio.live.resources" = ["*.lua", "*.applescript", "*.txt"]
 
-"praisonai_shorts_studio" = ["resources/demo/*"]
+"praisonai_shorts_studio" = ["resources/demo/*", "resources/studio.css"]

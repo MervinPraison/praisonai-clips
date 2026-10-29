@@ -57,7 +57,7 @@ FFmpeg MCP and WhisperX were **not installed** during this validation. The exist
 
 The first render returned success and passed `job_verify`, but its image was an MLT **INVALID** placeholder. Logs showed that the Qt MLT services could not initialize because the runtime dropped `DISPLAY`/`XAUTHORITY`. A decodable file is insufficient evidence of valid picture content.
 
-Local patch: `tools/kdenlive-mcp-linux-x11.patch`. It adds only `DISPLAY` and `XAUTHORITY` to the subprocess environment allow list and includes a regression test. The launcher supplies the local defaults (`:0` and `$HOME/.Xauthority`) when the MCP host omits them. This is a desktop-specific setup; provision a proper X display or Xvfb for a headless service. The patch is applied in the checkout and built; preserve/reapply it when updating or reinstalling.
+Local patch: `scripts/patches/kdenlive-mcp-linux-x11.patch`. It adds only `DISPLAY` and `XAUTHORITY` to the subprocess environment allow list and includes a regression test. The launcher supplies the local defaults (`:0` and `$HOME/.Xauthority`) when the MCP host omits them. This is a desktop-specific setup; provision a proper X display or Xvfb for a headless service. The patch is applied in the checkout and built; preserve/reapply it when updating or reinstalling.
 
 ### Titles are not production-ready here
 
@@ -179,6 +179,6 @@ The existing app is Python/Streamlit. `src/praisonai_shorts_studio/pipeline.py` 
 - Actual GUI screenshot after compatible open: `data/kdenlive-mcp-test/kdenlive26-window.png`
 - Final rendered frames: `output/kdenlive-mcp-test/frame-1s.png`, `frame-6s.png`
 - Reproducible standard MCP client: `scripts/test_kdenlive_mcp.mjs`
-- Local source patch: `tools/kdenlive-mcp-linux-x11.patch`
+- Local source patch: `scripts/patches/kdenlive-mcp-linux-x11.patch`
 
 Installation/build artifacts, model/media outputs, and server state are ignored in `.gitignore`; preserve the pinned source SHA and local patch for reproducible provisioning. Local reports and source media are intentionally excluded from the public repository.

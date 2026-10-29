@@ -118,10 +118,10 @@ Yes. You can export editable source cuts and caption sidecars, or use experiment
 
 You decide what to publish. Preview the framing, check the captions, and listen to the audio. Automated review checks the render and samples frames, but it cannot catch every issue.
 
-[See what was made, changed, and checked](https://clips.praison.ai/built-with-codex/) · [Read the real-video validation report](M0_REPORT.md) · [View automated checks](https://github.com/MervinPraison/praisonai-clips/actions/workflows/verify.yml)
+[See what was made, changed, and checked](https://clips.praison.ai/built-with-codex/) · [Read the real-video validation report](docs/reference/validation-report.md) · [View automated checks](https://github.com/MervinPraison/praisonai-clips/actions/workflows/verify.yml)
 
 ## Explore further
 
-[Product overview](docs/product.md) · [Full documentation](https://clips.praison.ai/) · [Resolve SDK](docs/reference/resolve-sdk.md) · [Data handling](docs/reference/public-release.md) · [Contributing and architecture](architecture.md)
+[Product overview](docs/product.md) · [Full documentation](https://clips.praison.ai/) · [Resolve SDK](docs/reference/resolve-sdk.md) · [Data handling](docs/reference/public-release.md) · [Contributing and architecture](docs/development/architecture.md)
 
 PraisonAI Clips uses third-party tools and components, including OpenAI, FFmpeg, Streamlit, MkDocs Material, and optional editor integrations. Their license notices and attribution are retained in the project.

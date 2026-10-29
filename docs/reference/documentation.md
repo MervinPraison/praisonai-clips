@@ -26,6 +26,6 @@ The `Build and deploy documentation` workflow builds MkDocs on pushes to `main` 
 
 In repository **Settings → Pages**, use **GitHub Actions** as the source and `clips.praison.ai` as the custom domain. Keep **Enforce HTTPS** enabled once GitHub has provisioned the certificate.
 
-The DNS record for `clips.praison.ai` must be a CNAME to `mervinpraison.github.io` without a repository path. The site URL in `mkdocs.yml` and the CNAME files use the same custom domain. With Actions deployment, the custom domain is configured in GitHub's Pages settings; the CNAME files alone do not configure it.
+The DNS record for `clips.praison.ai` must be a CNAME to `mervinpraison.github.io` without a repository path. The site URL in `mkdocs.yml` and `docs/CNAME` use the same custom domain. With Actions deployment, the custom domain is configured in GitHub's Pages settings; `docs/CNAME` alone does not configure it.
 
 GitHub Pages serves the static documentation and public generated example. The interactive Streamlit app runs separately in an environment with Python and FFmpeg.

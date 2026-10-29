@@ -8,6 +8,7 @@ import os
 import subprocess
 import sys
 from pathlib import Path
+from importlib.resources import files
 
 import streamlit as st
 from dotenv import load_dotenv
@@ -21,7 +22,7 @@ from praisonai_shorts_studio.store import Store
 load_dotenv()
 st.set_page_config(page_title="PraisonAI Clips", page_icon="🎬", layout="wide")
 store = Store(os.getenv("SHORTS_DATA_DIR", "data"))
-style = (Path(__file__).resolve().parent / "assets/studio.css").read_text()
+style = files("praisonai_shorts_studio").joinpath("resources/studio.css").read_text()
 st.markdown(f"<style>{style}</style>", unsafe_allow_html=True)
 st.markdown('<div class="codex-credit">This project was built entirely using <strong>OpenAI Codex</strong>.</div>', unsafe_allow_html=True)
 st.markdown('<div class="studio-masthead"><span>PRAISONAI CLIPS</span><span>YOUR CONTENT WORKSPACE</span></div>', unsafe_allow_html=True)

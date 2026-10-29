@@ -40,7 +40,7 @@ The localhost HTML gallery and Streamlit dashboard run successfully. Streamlit's
 
 ## Optional Kdenlive export
 
-Read and preserved docs/KDENLIVE_MCP_HANDOVER.md and tools/kdenlive-mcp-linux-x11.patch. The application uses the pinned standard Node MCP client bridge with stable client ID praisonai-shorts. Each actual Short was exported to an editable source-cut project with linked A/V, portrait project settings, exact revision checks, source hash checks and persisted MCP state. Seconds are rounded half-up once at 30fps, with the quantized mapping and errors recorded. Caption sidecars are remapped against that rounded EDL.
+Read and preserved docs/KDENLIVE_MCP_HANDOVER.md and scripts/patches/kdenlive-mcp-linux-x11.patch. The application uses the pinned standard Node MCP client bridge with stable client ID praisonai-shorts. Each actual Short was exported to an editable source-cut project with linked A/V, portrait project settings, exact revision checks, source hash checks and persisted MCP state. Seconds are rounded half-up once at 30fps, with the quantized mapping and errors recorded. Caption sidecars are remapped against that rounded EDL.
 
 All three exported XML projects were parsed and checked for 1080×1920 profiles and matching half-open source cuts. Export uses external-reference normalized source media. The app does not claim Kdenlive GUI rendering parity, editable caption insertion, live GUI control, title fidelity, or MCP rendering parity. FFmpeg remains the delivery renderer. No render_submit job is used by the editable-export adapter; its persisted MCP job-ID list is empty by design. Broader MCP rendering/cancellation validation belongs to the handover's separate backup-video test.
 

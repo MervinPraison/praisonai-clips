@@ -31,7 +31,7 @@ Convert a full-length video into compelling, self-contained, vertical Shorts wit
 
 M0 — Validate prerequisites: Python/CPU/FFmpeg filters, installed SDK contracts, actual API word timestamps, actual gpt-4o-mini frame analysis, timeline tests with nonzero source PTS and delayed audio, caption mapping and a real local render.
 
-M1 — One working Short: real source transcription → independent visual overview → selection → dense crop inspection → EDL → captions → render → review → playable preview. Evidence recorded in data/ and M0_REPORT.md.
+M1 — One working Short: real source transcription → independent visual overview → selection → dense crop inspection → EDL → captions → render → review → playable preview. Evidence recorded in data/ and docs/reference/validation-report.md.
 
 M2 — Up to five Shorts, conservative overlap rejection, durable jobs, cancellation, resume, cache, separate accepted/draft output and downloadable bundles.
 
