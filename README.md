@@ -33,9 +33,9 @@ Ask Codex to adjust framing and see the result in your open editor. Resolve also
 
 [![The PraisonAI Clips dashboard showing a playable example. Select the image to watch the walkthrough.](docs/assets/challenge/after-onboarding.png)](https://clips.praison.ai/built-with-codex/#watch-the-walkthrough)
 
-**↑ Select the image to open the 66-second walkthrough.** Or [watch a real 46-second Short](https://clips.praison.ai/#see-example) and [compare it with the full horizontal recording](https://clips.praison.ai/assets/real-example/long-video.mp4). Watching needs no account, API key, or installation.
+**↑ Select the image to open the 66-second walkthrough.** Or [watch a real 51-second Short](https://clips.praison.ai/#see-example) and [compare it with the full 14-minute recording](https://www.youtube.com/watch?v=pIGRwMjhMaQ). Watching needs no account, API key, or installation.
 
-The app selected this moment from a three-minute explainer, used full-frame fit to keep the slides visible, added captions and passed its automated checks. Two other candidates from the same run remain drafts. The dashboard's downloadable generated example is separate.
+The app analysed Mervin’s RAG tutorial and rendered five captioned vertical candidates. We chose the self-contained introduction for the website. It keeps the full slide visible and remains a review draft because sampled visual checks flagged possible caption issues. The dashboard's downloadable generated example is separate.
 
 ## How it works
 

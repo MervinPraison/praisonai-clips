@@ -19,10 +19,10 @@ hide:
 </div>
 </div>
 <figure class="demo-showcase" id="see-example">
-<div class="demo-heading"><span>REAL VIDEO → VERTICAL SHORT</span><span>00:46 FROM 03:07</span></div>
-<video controls playsinline preload="metadata" poster="assets/real-example/poster.jpg" aria-label="A forty-six-second captioned Short selected from a three-minute horizontal explainer"><source src="assets/real-example/short.mp4" type="video/mp4">Your browser does not support embedded video. <a href="assets/real-example/short.mp4">Download the real example clip</a>.</video>
-<figcaption>The app selected this moment from a full horizontal recording, kept the complete slide visible in a vertical frame, added captions and passed its automated checks. Two other candidates remain drafts.</figcaption>
-<div class="demo-downloads"><a href="assets/real-example/short.mp4" download>Download the Short ↗</a><a href="assets/real-example/long-video.mp4">Watch the full original ↗</a></div>
+<div class="demo-heading"><span>REAL VIDEO → VERTICAL SHORT</span><span>00:51 FROM 14:02</span></div>
+<video controls playsinline preload="metadata" poster="assets/real-example/poster.jpg" aria-label="A fifty-one-second captioned Short selected from a fourteen-minute RAG tutorial"><source src="assets/real-example/short.mp4" type="video/mp4">Your browser does not support embedded video. <a href="assets/real-example/short.mp4">Download the real example clip</a>.</video>
+<figcaption>One of five clips the app made from Mervin’s 14-minute RAG tutorial. It keeps the full slide visible and adds highlighted captions. This is a review draft; check the video and audio before publishing.</figcaption>
+<div class="demo-downloads"><a href="assets/real-example/short.mp4" download>Download the Short ↗</a><a href="https://www.youtube.com/watch?v=pIGRwMjhMaQ">Watch the full original ↗</a><a href="assets/real-example/captions.srt" download>Download captions ↗</a></div>
 </figure>
 </div>
 <div class="section-heading"><span class="eyebrow">HOW IT WORKS</span><span>From recording to finished clips.</span></div>

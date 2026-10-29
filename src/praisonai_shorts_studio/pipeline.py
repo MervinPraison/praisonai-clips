@@ -183,14 +183,27 @@ class Pipeline:
                     raise ValueError("Cannot estimate a positive interval for a zero-duration word")
                 word.timing_source = "estimated_zero_duration"
         for previous, current in zip(combined, combined[1:]):
-            if current.start < previous.end - 0.08:
-                raise ValueError("Overlapping word measurements at chunk boundary; alignment requires review")
+            overlap = previous.end - current.start
+            if overlap <= 0.08:
+                continue
+            # Short provider overlaps can occur inside a transcription chunk too.
+            # Split the shared interval without inventing a gap or changing order.
+            boundary = (previous.end + current.start) / 2
+            if overlap > 0.25 or boundary <= previous.start or boundary >= current.end:
+                raise ValueError("Overlapping word measurements require manual alignment")
+            alignment_warnings.append({"word": previous.word + " / " + current.word,
+                                       "provider_previous_end": previous.end,
+                                       "provider_current_start": current.start,
+                                       "estimated_boundary": boundary})
+            previous.end = boundary
+            current.start = boundary
+            previous.timing_source = current.timing_source = "estimated_overlap"
         if not combined:
             raise ValueError("No timed speech found")
         write_json(self.folder / "transcript.json", {"words": [w.model_dump() for w in combined],
                    "timing": "provider_measured_with_flagged_estimates_for_zero_duration_words",
                    "speaker_identity": None, "alignment_warnings": alignment_warnings,
-                   "policy": "A zero-duration provider word receives a flagged 0.08-second estimated interval. Check captions before sharing."})
+                   "policy": "Zero-duration and short overlapping provider words receive flagged estimated intervals. Check captions before sharing."})
         return combined
 
     def overview(self, source, duration):
@@ -203,9 +216,14 @@ class Pipeline:
                     {"frame_times": batch, "frame_interval_seconds": 5},
                     lambda: self.backend.scenes(self.frames(source, batch, "overview"))))
             observations = [Scene.model_validate(s) for s in raw["scenes"]]
-            if len(observations) != len(batch) or any(abs(s.time - t) > 0.05 for s, t in zip(observations, batch)):
-                raise ValueError("Visual observations do not match requested frame timestamps")
-            scenes.extend(s.model_dump() for s in observations)
+            requested = []
+            for t in batch:
+                matches = [s for s in observations if abs(s.time - t) <= 0.05]
+                if len(matches) != 1:
+                    raise ValueError("Visual observations do not match requested frame timestamps")
+                requested.append(matches[0])
+            # Ignore unrequested timestamps; they have no corresponding sampled frame.
+            scenes.extend(s.model_dump() for s in requested)
         write_json(self.folder / "scenes.json", scenes)
         return scenes
 

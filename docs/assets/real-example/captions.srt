@@ -1,0 +1,123 @@
+1
+00:00:00,000 --> 00:00:01,440
+This is amazing.
+
+2
+00:00:01,920 --> 00:00:02,740
+Now we are going to
+
+3
+00:00:02,740 --> 00:00:04,920
+see about chunking strategies in
+
+4
+00:00:04,920 --> 00:00:06,980
+a RAG application from beginner
+
+5
+00:00:06,980 --> 00:00:08,920
+to advanced level and how
+
+6
+00:00:08,920 --> 00:00:10,020
+to optimize this.
+
+7
+00:00:10,100 --> 00:00:11,260
+So what is chunking?
+
+8
+00:00:11,300 --> 00:00:12,680
+So this is a basic
+
+9
+00:00:12,680 --> 00:00:13,480
+RAG application.
+
+10
+00:00:14,060 --> 00:00:15,360
+So the first step is
+
+11
+00:00:15,360 --> 00:00:17,440
+that the data is getting
+
+12
+00:00:17,440 --> 00:00:19,200
+divided into chunks.
+
+13
+00:00:19,420 --> 00:00:21,380
+Then it's converted to embeddings
+
+14
+00:00:21,380 --> 00:00:23,140
+and then gets stored in
+
+15
+00:00:23,140 --> 00:00:24,620
+the database, that is vector
+
+16
+00:00:24,620 --> 00:00:25,060
+database.
+
+17
+00:00:25,320 --> 00:00:27,220
+The second step is that
+
+18
+00:00:27,220 --> 00:00:28,320
+user is going to ask
+
+19
+00:00:28,320 --> 00:00:30,580
+a question and any relevant
+
+20
+00:00:30,580 --> 00:00:32,600
+chunks are searched in the
+
+21
+00:00:32,600 --> 00:00:34,360
+vector database and that
+
+22
+00:00:34,360 --> 00:00:36,000
+information is fed to the
+
+23
+00:00:36,000 --> 00:00:38,040
+last language model as context
+
+24
+00:00:38,040 --> 00:00:39,720
+to give a final accurate
+
+25
+00:00:39,720 --> 00:00:40,140
+answer.
+
+26
+00:00:40,360 --> 00:00:42,220
+So why chunking is very
+
+27
+00:00:42,220 --> 00:00:42,660
+important?
+
+28
+00:00:43,100 --> 00:00:45,340
+If the text got split
+
+29
+00:00:45,340 --> 00:00:48,120
+with less relevance, then
+
+30
+00:00:48,120 --> 00:00:49,540
+that is going to produce
+
+31
+00:00:49,500 --> 00:00:51,020
+an inaccurate answer.

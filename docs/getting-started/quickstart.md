@@ -4,7 +4,7 @@
 
 ## See an example first
 
-Open [the homepage example](../index.md#see-example) to watch a real captioned Short made from a three-minute horizontal recording. Watching it needs no API key. The dashboard also offers **Download the example bundle**, a separate silent generated clip with scripted captions that makes no API calls.
+Open [the homepage example](../index.md#see-example) to watch a real captioned Short made from a 14-minute horizontal recording. Watching it needs no API key. This clip is a review draft; listen and inspect it before publishing. The dashboard also offers **Download the example bundle**, a separate silent generated clip with scripted captions that makes no API calls.
 
 ## Process a recording
 

@@ -130,3 +130,46 @@ def test_zero_duration_provider_word_is_flagged_and_does_not_block_selection(tmp
     transcript = json.loads((store.job_dir(job) / 'transcript.json').read_text())
     assert transcript['alignment_warnings'][0]['word'] == 'Two.'
     assert transcript['words'][1]['end'] > transcript['words'][1]['start']
+
+
+def test_short_provider_word_overlap_is_aligned_and_flagged(tmp_path):
+    source = tmp_path / 'input.mp4'
+    media.run(['ffmpeg', '-y', '-v', 'error', '-f', 'lavfi', '-i',
+        'testsrc2=size=320x180:rate=30:duration=4', '-f', 'lavfi', '-i',
+        'sine=frequency=440:sample_rate=48000:duration=4', '-c:v', 'libx264',
+        '-threads', '2', '-preset', 'ultrafast', '-c:a', 'aac', source])
+
+    class OverlapBackend(FixtureBackend):
+        def transcribe(self, audio):
+            result = super().transcribe(audio)
+            result['words'][1]['start'] = .7  # 0.1 seconds inside the first word.
+            return result
+
+    store = Store(tmp_path / 'data')
+    job = store.create(source, default_config(min_duration=1, max_duration=3, max_clips=1))
+    Pipeline(store, job, OverlapBackend()).run(until='evidence')
+    transcript = json.loads((store.job_dir(job) / 'transcript.json').read_text())
+    first, second = transcript['words'][:2]
+    assert first['end'] == second['start'] == .75
+    assert first['timing_source'] == second['timing_source'] == 'estimated_overlap'
+    assert transcript['alignment_warnings'][0]['estimated_boundary'] == .75
+
+
+def test_unrequested_visual_observation_is_ignored(tmp_path):
+    source = tmp_path / 'input.mp4'
+    media.run(['ffmpeg', '-y', '-v', 'error', '-f', 'lavfi', '-i',
+        'testsrc2=size=320x180:rate=30:duration=4', '-f', 'lavfi', '-i',
+        'sine=frequency=440:sample_rate=48000:duration=4', '-c:v', 'libx264',
+        '-threads', '2', '-preset', 'ultrafast', '-c:a', 'aac', source])
+
+    class ExtraSceneBackend(FixtureBackend):
+        def scenes(self, frames):
+            result = super().scenes(frames)
+            result['scenes'].append({**result['scenes'][0], 'time': 500})
+            return result
+
+    store = Store(tmp_path / 'data')
+    job = store.create(source, default_config(min_duration=1, max_duration=3, max_clips=1))
+    result = Pipeline(store, job, ExtraSceneBackend()).run(until='evidence')
+    assert result['scenes'] == 1
+    assert [s['time'] for s in json.loads((store.job_dir(job) / 'scenes.json').read_text())] == [0]
