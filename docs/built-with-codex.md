@@ -28,7 +28,7 @@ Resolve showed five matching video and audio segments after four quiet pauses we
 
 [Watch the 30-second demo directly](assets/live-edit/resolve-demo.mp4) · [See the editor setup](getting-started/codex.md) · [Explore the code](https://github.com/MervinPraison/praisonai-clips)
 
-This screen recording shows the actual request and the resulting Resolve timeline. It is silent and edited to remove waiting, so it is not uninterrupted real-time footage. In this run Codex also had to clear pending Console input before proceeding. The original timeline remained available.
+This screen recording shows the actual request and the resulting Resolve timeline. It is silent and edited to remove waiting, so it is not uninterrupted real-time footage. In this run Codex cleared pending Console input and checked source-frame boundaries after the pause-removal guard rejected the clip; the review timeline was then created through the Resolve scripting route. This recording does not establish that the packaged pause-removal command runs without that intervention. The original timeline remained available.
 
 ### The request
 
