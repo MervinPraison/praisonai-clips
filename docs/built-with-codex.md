@@ -1,6 +1,6 @@
 # One recording. A small win worth sharing.
 
-**This project was built entirely using OpenAI Codex**, under Mervin Praison’s direction—from implementation and debugging to tests, documentation, and deployment. It was prepared for the community-led [Cambridge Codex Community Challenge](https://cambridge-codex-workshop-guide.lilizhu.chatgpt.site/challenges.html).
+**This project was built with OpenAI Codex**, under Mervin Praison’s direction—from implementation and debugging to tests, documentation, and deployment. It was prepared for the community-led [Cambridge Codex Community Challenge](https://cambridge-codex-workshop-guide.lilizhu.chatgpt.site/challenges.html).
 
 The everyday task: remove quiet pauses from a short video without manually cutting every gap. I asked Codex to help while DaVinci Resolve was open, then reviewed the timeline it created.
 
@@ -29,6 +29,10 @@ Resolve showed five matching video and audio segments after four quiet pauses we
 [Watch the 30-second demo directly](assets/live-edit/resolve-demo.mp4) · [See the editor setup](getting-started/codex.md) · [Explore the code](https://github.com/MervinPraison/praisonai-clips)
 
 This screen recording shows the actual request and the resulting Resolve timeline. It is silent and edited to remove waiting, so it is not uninterrupted real-time footage. In this run Codex cleared pending Console input and checked source-frame boundaries after the pause-removal guard rejected the clip; the review timeline was then created through the Resolve scripting route. This recording does not establish that the packaged pause-removal command runs without that intervention. The original timeline remained available.
+
+### What changed after the recording
+
+The pause-removal guard rejected the clip when Resolve reported the final media frame inclusively. [The follow-up fix](https://github.com/MervinPraison/praisonai-clips/commit/f67d591b20d2fcdf2380208455af5078916a125e) accepts that boundary and adds a regression test. The recording predates the fix; it does not show a clean end-to-end run of the updated command. Version 0.1.3 includes the fix.
 
 ### The request
 
@@ -76,7 +80,7 @@ The earlier first-run screen explained the workflow, but the upload lived in a s
 
 | Check | Evidence | Boundary |
 | --- | --- | --- |
-| Local automated suite | [Verification snapshot](assets/challenge/verification.json) and [test source](https://github.com/MervinPraison/praisonai-clips/tree/main/tests) | Optional runtime tests are skipped when their dependencies are absent. |
+| Local automated suite | [Historical verification snapshot](assets/challenge/verification.json) and [test source](https://github.com/MervinPraison/praisonai-clips/tree/main/tests) | The snapshot records an earlier macOS run on 29 October 2026, not the current test count. Optional runtime tests are skipped when their dependencies are absent. |
 | End-to-end render, repair, and resume | [Pipeline regression](https://github.com/MervinPraison/praisonai-clips/blob/main/tests/test_pipeline.py) uses real FFmpeg output and a clearly labelled synthetic API backend | This test checks application behavior without paid provider calls. |
 | Real-video processing | A four-minute validation produced three captioned candidates; one passed review and two remained uncertain drafts. [Read the report](reference/validation-report.md). | A recorded engineering run, rather than a general quality or acceptance-rate claim. |
 | First-run behavior | [Onboarding regressions](https://github.com/MervinPraison/praisonai-clips/blob/main/tests/test_onboarding.py) check missing setup, missing input, invalid paths, and the example bundle’s explicit file list | No paid request is started by these tests. |

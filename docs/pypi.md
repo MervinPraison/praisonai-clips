@@ -1,6 +1,6 @@
 # PraisonAI Clips
 
-Built entirely using OpenAI Codex under Mervin Praison’s direction. Turn long videos into captioned vertical clips and edit framing live in DaVinci Resolve or Kdenlive with Codex.
+Built with OpenAI Codex under Mervin Praison’s direction. Turn long videos into captioned vertical clips and edit framing live in DaVinci Resolve or Kdenlive with Codex.
 
 ```sh
 python -m pip install praisonai-clips

@@ -1,4 +1,4 @@
-> This project was built entirely using **OpenAI Codex**, under Mervin Praison’s direction, and prepared for the [Cambridge Codex Community Challenge](https://cambridge-codex-workshop-guide.lilizhu.chatgpt.site/challenges.html).
+> This project was built with **OpenAI Codex**, under Mervin Praison’s direction, and prepared for the [Cambridge Codex Community Challenge](https://cambridge-codex-workshop-guide.lilizhu.chatgpt.site/challenges.html).
 
 # PraisonAI Clips
 
