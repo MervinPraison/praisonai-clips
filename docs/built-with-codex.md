@@ -17,8 +17,8 @@ My first run was rejected because Resolve counts the final frame differently. I 
 </div>
 <div markdown>
 <span class="step">03 / WHAT I CHECKED</span>
-### Cuts made, listening still to do
-Resolve showed five matching pieces after four quiet pauses were cut, with the original untouched. Three cuts overlap estimated word timings, so I still need to listen before using it.
+### Cuts made and listened to
+Resolve showed five matching pieces after four quiet pauses were cut, with the original untouched. Three cuts overlap estimated word timings. I listened to all four cuts and they sounded good to me.
 </div>
 </div>
 
@@ -55,7 +55,7 @@ The chart compares the four removed ranges with the source audio. Blue shows the
 | 3 | 227.500–227.667 s | −33.8 dBFS | No estimated word overlaps. |
 | 4 | 235.233–235.333 s | −36.7 dBFS | Estimated timing of “but” overlaps; on-screen text also advances across the cut. |
 
-Word timestamps are estimates and can include pauses. An overlap flags a risk, not proof that speech was removed; a quiet waveform cannot prove speech is absent. Five-second visual observations miss events between samples, and before-and-after frames do not show everything removed. Listen to the actual timeline and inspect its visual timing before accepting these cuts.
+Word timestamps are estimates and can include pauses. An overlap flags a risk, not proof that speech was removed; a quiet waveform cannot prove speech is absent. I listened to the four cuts and they sounded good to me. Five-second visual observations miss events between samples, and before-and-after frames do not show everything removed, so the visual timing still needs inspection before accepting the edit.
 
 ## Watch the walkthrough
 

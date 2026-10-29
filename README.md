@@ -179,7 +179,7 @@ You decide what to publish. Preview the framing, check the captions, and listen 
 
 1. **Made:** Asked Codex to remove quiet pauses while DaVinci Resolve was open. After the first run was rejected, Codex intervened to create a separate review timeline to compare with the original. The [30-second recording](https://clips.praison.ai/assets/live-edit/resolve-demo.mp4) shows the interaction and has no narration.
 2. **Changed:** The first run was rejected because Resolve counts the final frame differently. Codex fixed the boundary check and added a regression test; version 0.1.3 includes the fix. The recording predates that fix and does not show a clean end-to-end run of the updated command.
-3. **Checked:** Resolve showed five matching video and audio pieces after four quiet pauses were cut, with the original untouched. Three cuts overlap estimated word timings; they still need listening before use. Pause removal currently supports unretimed 30 fps footage on a 30 fps timeline.
+3. **Checked:** Resolve showed five matching video and audio pieces after four quiet pauses were cut, with the original untouched. Three cuts overlap estimated word timings. Mervin listened to the four cuts and reported they sounded good. Pause removal currently supports unretimed 30 fps footage on a 30 fps timeline.
 
 ![Waveforms around the four removed ranges in the Resolve demonstration, with removed portions marked in red.](docs/assets/live-edit/resolve-cut-waveforms.png)
 

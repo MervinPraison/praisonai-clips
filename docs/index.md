@@ -51,7 +51,7 @@ praisonai-clips studio
 <figure class="live-edit-demo" id="silence-review">
 <div class="demo-heading"><span>HOW THE CUTS WERE CHECKED</span><span>4 PAUSES</span></div>
 <img src="assets/live-edit/resolve-cut-waveforms.png" alt="Four source audio waveforms around the removed ranges, marked in red. The transcript estimates overlap words on cuts one, two and four." loading="lazy">
-<figcaption>Blue shows the source waveform; red marks the four ranges removed in the demo. The audio in those ranges is quieter than the surrounding audio. We also compared estimated word timestamps and sampled screen descriptions: three cuts overlap estimated words, and one crosses an on-screen text animation. These are review flags, not proof that speech was cut. Listen and inspect the timeline before accepting the edit. <a href="built-with-codex/#checking-the-cuts">See the cut-by-cut evidence ↗</a></figcaption>
+<figcaption>Blue shows the source waveform; red marks the four ranges removed in the demo. The audio in those ranges is quieter than the surrounding audio. Three cuts overlap estimated word timings, and one crosses an on-screen text animation. Mervin listened to the four cuts and reported they sounded good; the visual timing still needs inspection. <a href="built-with-codex/#checking-the-cuts">See the cut-by-cut evidence ↗</a></figcaption>
 </figure>
 <div class="section-heading" id="source-evidence"><span class="eyebrow">SEE THE EVIDENCE TOGETHER</span><span>Three views. One source timeline.</span></div>
 <p>After uploading a video or choosing a local path, start processing, select the recording, and open <strong>Source evidence</strong>. Choose a time window to compare:</p>
