@@ -4,7 +4,7 @@
 | --- | --- | --- |
 | Kdenlive export | Writes editable source cuts, portrait project settings and caption sidecars | Separate pinned runtime required |
 | Kdenlive live on macOS | Controls framing, seeking, selection, undo/redo and saving in an open editor | Native MCP framing and rendered-frame checks passed on the test Mac |
-| DaVinci Resolve | Installs Lua MCP and the popular Python MCP alternative | Mac Console MCP verified crop, pan, zoom and pixel-identical restoration; broader editing remains experimental |
+| DaVinci Resolve | Installs Lua MCP and the popular Python MCP alternative | Mac Console MCP verified crop, pan, zoom and pixel-identical restoration; broader editing has not been validated by this test |
 
 ## Kdenlive
 

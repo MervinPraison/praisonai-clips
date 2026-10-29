@@ -8,7 +8,7 @@
 
 Bring an interview, lesson, webinar, or walkthrough. PraisonAI Clips finds moments, frames them for vertical video, adds captions, and gives you the final say. You can also ask Codex to make live edits in your video editor while you watch.
 
-**REAL-TIME EDITING · EXPERIMENTAL**
+**REAL-TIME EDITING**
 
 <a href="docs/reference/resolve-sdk.md"><img src="docs/assets/editor-logos/davinci-resolve.png" width="40" alt="DaVinci Resolve logo"></a> &nbsp; [**DaVinci Resolve**](docs/reference/resolve-sdk.md) &nbsp;&nbsp;&nbsp; <a href="docs/KDENLIVE_LIVE_CONTROL.md"><img src="docs/assets/editor-logos/kdenlive.png" width="40" alt="Kdenlive logo"></a> &nbsp; [**Kdenlive**](docs/KDENLIVE_LIVE_CONTROL.md)
 
@@ -61,7 +61,7 @@ Open this repository in Codex and ask: “Help me set up PraisonAI Clips to edit
 
 </details>
 
-Resolve control is experimental and was tested with DaVinci Resolve Free 21.1 on macOS. Pause removal currently supports an unretimed 30 fps source clip on a 30 fps timeline. Quiet passages can contain speech, so listen to the cuts before sharing.
+Resolve live control was tested with DaVinci Resolve Free 21.1 on macOS. Pause removal currently supports an unretimed 30 fps source clip on a 30 fps timeline. Quiet passages can contain speech, so listen to the cuts before sharing.
 
 ## Get started
 
@@ -125,7 +125,7 @@ A downloadable bundle contains the video, SRT and ASS captions, word timings, ed
 <details>
 <summary><strong>Can I use Kdenlive?</strong></summary>
 
-Yes. You can export editable source cuts and caption sidecars, or use experimental live framing controls. Setup and behavior differ from Resolve; see the [Kdenlive guide](docs/KDENLIVE_LIVE_CONTROL.md).
+Yes. You can export editable source cuts and caption sidecars, or use live framing controls. Setup and behavior differ from Resolve; see the [Kdenlive guide](docs/KDENLIVE_LIVE_CONTROL.md).
 
 </details>
 

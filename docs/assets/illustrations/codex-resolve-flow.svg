@@ -24,5 +24,5 @@
   <text x="94" y="717" fill="#20211e" font-family="Georgia,serif" font-size="32">The timeline updates on your screen</text>
   <text x="94" y="759" fill="#3c3d38" font-family="Arial,sans-serif" font-size="22">Review the result in Resolve; Codex reports what happened.</text>
   <line x1="65" y1="840" x2="935" y2="840" stroke="#b8b7ab" stroke-width="2"/>
-  <text x="65" y="879" fill="#74756e" font-family="Arial,sans-serif" font-size="19">Experimental on macOS · Resolve must be open · You choose what to save</text>
+  <text x="65" y="879" fill="#74756e" font-family="Arial,sans-serif" font-size="19">Tested on macOS · Resolve must be open · You choose what to save</text>
 </svg>

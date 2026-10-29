@@ -15,7 +15,7 @@ The current product is a developer-oriented, locally operated application. It in
 | Transcript and visual analysis | Choose complete thoughts and account for what is on screen | Measured word timestamps, sampled frames, and validated candidate ranges |
 | Review before acceptance | Keep uncertain output out of the accepted collection | Technical media checks, sampled visual review, and supported framing repair |
 | Explicit edit provenance | Inspect how the clip relates to the original recording | Source/output word timings, edit mappings, and review artifacts |
-| Editor integration | Continue refining framing in a desktop workflow | Kdenlive source-cut export and experimental native Kdenlive/Resolve adapters |
+| Editor integration | Continue refining framing in a desktop workflow | Kdenlive source-cut export and native Kdenlive/Resolve adapters |
 | Reusable automation | Expose the same Resolve framing operations to different clients | Shared SDK validation across Python, CLI, and MCP |
 
 ## Evidence you can inspect
@@ -31,7 +31,7 @@ Read the [initial validation report](reference/validation-report.md) for the rec
 - **Kdenlive on macOS:** native framing, sequence selection, seeking, undo/redo, and saving were exercised through MCP. Rendered frames changed with the zoom and matched the baseline after restoration. See [the validation scope](KDENLIVE_LIVE_CONTROL.md#actual-mac-validation-28-october-2026).
 - **DaVinci Resolve on macOS:** live zoom, pan, crop, frame export, and framing restoration were tested on the documented Free-edition setup. The SDK uses explicit project and clip identity guards. See [setup and limitations](RESOLVE_LIVE_CONTROL.md) and the [SDK reference](reference/resolve-sdk.md).
 
-Editor adapters are experimental and depend on the documented runtime versions. Live edits do not automatically update the pipeline's edit mappings or review manifest.
+Editor adapters depend on the documented runtime versions and supported operations. Live edits do not automatically update the pipeline's edit mappings or review manifest.
 
 ## Walk through the product
 

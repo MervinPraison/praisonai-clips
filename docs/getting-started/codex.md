@@ -1,12 +1,12 @@
 # Connect Codex to your editor
 
-Ask Codex to make a change and watch it appear in your open video editor. The live integrations are experimental and have different setup requirements. Start with a disposable project copy, and review changes before saving or sharing.
+Ask Codex to make a change and watch it appear in your open video editor. The live integrations have different setup requirements and tested version constraints. Start with a disposable project copy, and review changes before saving or sharing.
 
 ## What is included?
 
 - **A Codex skill for Resolve on macOS:** instructions for setup, troubleshooting, and verified live editing. Codex can discover it when you open this repository as your workspace.
 - **Resolve MCP server:** local tools that use the shared Resolve SDK to inspect and edit a running project. This is included in the optional `live` install.
-- **Kdenlive MCP bridge:** a separate experimental Mac bridge with seven live tools. It requires a specially prepared copy of Kdenlive; the standard app alone is not enough.
+- **Kdenlive MCP bridge:** a separate Mac bridge with seven live tools. It requires a specially prepared copy of Kdenlive; the standard app alone is not enough.
 - **CLI and Python SDK:** other ways to use the workflows without Codex. See the [CLI reference](../reference/cli.md) and [Resolve SDK](../reference/resolve-sdk.md).
 
 MCP gives Codex tools to call; the skill gives it the tested workflow. Listing a server confirms registration, not a working editor connection.

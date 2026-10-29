@@ -1,10 +1,10 @@
-# Experimental live Kdenlive control
+# Live Kdenlive control
 
 The optional live adapter targets a running scripting-enabled Kdenlive window. It is separate from the stable FFmpeg renderer and the existing headless Kdenlive source-cut exporter.
 
 ## Native Mac live bridge
 
-macOS has a separate experimental live control path, implemented in
+macOS has a separate live control path, implemented in
 `scripts/mac-live/`. It loads a small local Qt bridge into an isolated APFS copy
 of the installed Kdenlive app. The installed `/Applications/kdenlive.app` is
 untouched. The local copy is ad-hoc signed so it can load the bridge. This is our
@@ -48,7 +48,7 @@ scripts/kdenlive-mac-live call save
 ```
 
 The default runtime is `data/mac-live/`. Keep the isolated editor closed when
-rebuilding the bridge. This experimental integration depends on Kdenlive's
+rebuilding the bridge. This integration depends on Kdenlive's
 internal Qt method signatures; revalidate after editor updates. It is deliberately
 limited to the tested framing workflow, rather than claiming general editor API
 coverage. The clean-source sequence has no editable captions; the reference
