@@ -50,7 +50,7 @@ praisonai-clips studio
 </figure>
 <figure class="live-edit-demo" id="silence-review">
 <div class="demo-heading"><span>HOW THE CUTS WERE CHECKED</span><span>4 PAUSES</span></div>
-<img src="assets/live-edit/resolve-cut-waveforms.png" alt="Four source audio waveforms around the removed ranges, marked in red. The transcript estimates overlap words on cuts one, two and four." loading="lazy" style="display:block;width:100%;height:auto;margin:1rem 0">
+<img src="assets/live-edit/resolve-cut-waveforms.png" alt="Four source audio waveforms around the removed ranges, marked in red. The transcript estimates overlap words on cuts one, two and four." loading="lazy">
 <figcaption>Blue shows the source waveform; red marks the four ranges removed in the demo. The audio in those ranges is quieter than the surrounding audio. We also compared estimated word timestamps and sampled screen descriptions: three cuts overlap estimated words, and one crosses an on-screen text animation. These are review flags, not proof that speech was cut. Listen and inspect the timeline before accepting the edit. <a href="built-with-codex/#checking-the-cuts">See the cut-by-cut evidence ↗</a></figcaption>
 </figure>
 <div class="section-heading" id="source-evidence"><span class="eyebrow">SEE THE EVIDENCE TOGETHER</span><span>Three views. One source timeline.</span></div>
@@ -72,7 +72,11 @@ See what was observed in frames sampled about every five seconds.
 Inspect local audio peaks in the same source-time window.
 </div>
 </div>
-<figure><img src="assets/evidence/streamlit-source-evidence.jpg" alt="Real Streamlit source evidence view showing a word-by-word transcript, sampled screen descriptions, and an audio waveform side by side." loading="lazy" style="display:block;width:100%;max-width:691px;height:auto;margin:1rem auto"><figcaption>A real dashboard view from an analyzed recording. Word timings are estimates and screen descriptions come from sampled frames.</figcaption></figure>
+<figure class="source-evidence-demo">
+<div class="demo-heading"><span>INSIDE THE DASHBOARD</span><span>REAL APP VIEW</span></div>
+<a href="assets/evidence/streamlit-source-evidence.jpg" aria-label="Open the full-size Streamlit dashboard screenshot"><img src="assets/evidence/streamlit-source-evidence.jpg" alt="Real Streamlit source evidence view showing a word-by-word transcript, sampled screen descriptions, and an audio waveform side by side." loading="lazy"></a>
+<figcaption>A real dashboard view from an analyzed recording. Word timings are estimates and screen descriptions come from sampled frames. <a href="assets/evidence/streamlit-source-evidence.jpg">Open full-size image ↗</a></figcaption>
+</figure>
 <p>A comparison table groups all three into five-second intervals. Its audio number is the maximum sampled peak, not average loudness. The transcript and screen observations appear as processing finishes; use <strong>Refresh source evidence</strong> to reload them. The panel makes no additional AI calls. Video playback does not automatically follow the chart. Listen and inspect the video before accepting cuts. <a href="getting-started/quickstart/#use-the-dashboard">Open the dashboard guide ↗</a></p>
 <figure class="codex-flow"><img src="assets/illustrations/codex-resolve-flow.svg" alt="A Codex chat request passes through PraisonAI Clips MCP and SDK checks to DaVinci Resolve; the edit appears on screen and the result returns to Codex."><figcaption>From a request in Codex to a result you can review in Resolve.</figcaption></figure>
 <div class="value-strip"><div><strong>Complete thoughts</strong><span>Transcript + visual context</span></div><div><strong>Review before delivery</strong><span>Accepted clips & separate drafts</span></div><div><strong>Keep editorial control</strong><span>Source mappings & editor tools</span></div></div>

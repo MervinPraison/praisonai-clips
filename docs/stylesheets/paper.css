@@ -21,3 +21,12 @@
 .github-button{display:inline-flex;align-items:center;gap:.45rem}.github-button svg{width:1rem;height:1rem;fill:currentColor;flex:none}
 
 .live-edit-demo{max-width:850px;margin:1.5rem auto 2rem!important;border:1px solid var(--line);padding:1rem;background:var(--card);box-shadow:7px 7px 0 var(--md-code-bg-color)}.live-edit-demo video{display:block;width:100%;height:auto;margin:1rem 0}.live-edit-demo figcaption{font-size:.7rem;line-height:1.6;color:var(--muted)}
+
+/* Material's figure defaults otherwise override the homepage media widths. */
+.md-typeset figure.live-edit-demo,.md-typeset figure.source-evidence-demo{box-sizing:border-box;width:100%;max-width:850px;margin:1.5rem auto 2rem}
+.md-typeset figure.source-evidence-demo{max-width:735px;border:1px solid var(--line);padding:1rem;background:var(--card);box-shadow:7px 7px 0 var(--md-code-bg-color)}
+.md-typeset .live-edit-demo img,.md-typeset .source-evidence-demo img{display:block;width:100%;height:auto;margin:1rem auto}
+.md-typeset .source-evidence-demo img{max-width:691px;border:1px solid var(--line)}
+.md-typeset figure.live-edit-demo figcaption,.md-typeset figure.source-evidence-demo figcaption,.md-typeset figure.codex-flow figcaption{max-width:none;margin:.7rem 0 0;text-align:left;font-style:normal;font-size:.7rem;line-height:1.6;color:var(--muted)}
+.md-typeset figure.codex-flow{width:100%;max-width:720px;margin:2rem auto!important}
+@media(max-width:760px){.md-typeset figure.live-edit-demo,.md-typeset figure.source-evidence-demo{padding:.75rem;box-shadow:4px 4px 0 var(--md-code-bg-color)}}
