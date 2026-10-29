@@ -96,7 +96,15 @@ praisonai-clips studio
 3. Start the dashboard and add a recording.
 4. Review the clips, listen, and download the ones you want.
 
-After processing starts, select your recording and open **Source evidence** to inspect the source video alongside three views: word-by-word transcript, sampled screen descriptions, and the local audio waveform. A table maps them to the same five-second source intervals. Analysis appears as each stage finishes; use **Refresh source evidence** to update it. Listen and inspect before accepting cuts: quiet audio and estimated timestamps are not proof that speech is absent.
+### See the evidence together
+
+After processing starts, select your recording and open **Source evidence**. Choose a time window to see the source video and three side-by-side views:
+
+| Transcript | What appears on screen | Audio waveform |
+| --- | --- | --- |
+| Words with estimated start and end times | Descriptions of frames sampled about every five seconds | Local audio peaks across the same source-time window |
+
+A comparison table maps the three views to five-second source intervals. Its audio value is the maximum sampled peak, not average loudness. The transcript and screen descriptions appear as their processing stages finish; use **Refresh source evidence** to update them. The panel makes no additional AI calls. Playback does not automatically follow the chart. Listen and inspect before accepting cuts: quiet audio and estimated timestamps are not proof that speech is absent.
 
 <details>
 <summary><strong>Show the setup commands</strong></summary>
