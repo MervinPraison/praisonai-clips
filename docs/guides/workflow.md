@@ -6,7 +6,7 @@
 2. **Transcribe.** Record measured word timestamps and retain the source time for every word.
 3. **Inspect.** Analyze sampled frames at five-second intervals and inspect candidate crops more densely.
 4. **Select.** Choose complete, non-overlapping moments within the requested duration range.
-5. **Render.** Apply stable framing or full-frame fit, highlighted captions and audio normalization.
+5. **Render.** In the latest source checkout (not yet the PyPI release), detect quiet pauses within each selected moment, retain a safety margin around measured words, and join the remaining ranges. Apply stable framing or full-frame fit, highlighted captions and audio normalisation. Source mappings and caption timings follow the cuts.
 6. **Review.** Decode the result, check timestamps and inspect sampled visual evidence. Accepted results and uncertain drafts remain separate.
 
 A screen recording or slide presentation can use full-frame fit to preserve content. A crop is used only when the evidence supports one. Selection and framing do not invent visible speaker identities.
@@ -54,6 +54,6 @@ Cancellation interrupts FFmpeg promptly. An in-flight API request finishes and c
 
 ## Human review
 
-Technical checks and sampled visual inspection cannot guarantee caption accuracy or catch every event between inspected frames. Listen to the complete clip and check text, framing and cut boundaries before sharing. Nothing publishes automatically.
+Technical checks and sampled visual inspection cannot guarantee caption accuracy or catch every event between inspected frames. Quiet audio can still contain speech, estimated word timings can be inaccurate, and a pause cut can affect visual timing. Listen to the complete clip and check text, framing and cut boundaries before sharing. Nothing publishes automatically.
 
 For native adjustments, see [editor workflows](../editors/index.md). For output paths, see [files and configuration](../reference/configuration.md).

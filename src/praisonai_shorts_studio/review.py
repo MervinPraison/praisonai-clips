@@ -21,7 +21,8 @@ def inspect_render(source, video, folder, edl, mapped, backend, cache, check):
         batch = frames[offset:offset + 8]
         references = []
         for t, _, _ in batch[::3]:
-            source_t = edl.mappings[0].source_start + t
+            mapping = next((m for m in edl.mappings if m.output_start <= t < m.output_end), edl.mappings[-1])
+            source_t = mapping.source_start + max(0, t - mapping.output_start)
             references.append((source_t, media.frame(source, folder/'source-reference-frames'/f'{source_t:.6f}.jpg',
                                                     source_t, check), 'ORIGINAL SOURCE REFERENCE'))
         evidence = {'review_protocol': 2, 'edl': edl.model_dump(), 'words': mapped,

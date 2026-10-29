@@ -8,7 +8,7 @@
 
 ### Turn one long video into short clips you can review and share.
 
-Bring an interview, lesson, webinar, or walkthrough. PraisonAI Clips finds moments, frames them for vertical video, adds captions, and gives you the final say. You can also ask Codex to make live edits in your video editor while you watch.
+Bring an interview, lesson, webinar, or walkthrough. PraisonAI Clips finds moments, frames them for vertical video, adds captions, and gives you the final say. The latest source checkout also trims detected quiet pauses. You can ask Codex to make live edits in your video editor while you watch.
 
 **Install and open the app**
 
@@ -50,6 +50,8 @@ flowchart LR
 | A video on your computer | Vertical videos with captions and downloadable files | Which clips to keep, edit, and share |
 
 Choose where to stop: analyze the source, review selected moments, or create finished review clips in one run. You can resume from a saved stage. Import a rendered clip into DaVinci Resolve or Kdenlive and, after setup, ask Codex for supported further edits. The rendered crop and captions are baked into the video; editable source-cut export is available separately for Kdenlive. [Explore the full workflow](docs/guides/workflow.md).
+
+In the latest source checkout, rendering detects quiet pauses from the audio and trims them with a margin around estimated word timings. Caption timing and source mappings follow the cuts. This pipeline feature is not yet in the PyPI release. Listen and check visual timing before sharing: quiet audio can contain speech and word timings can be inaccurate.
 
 The app aims for up to five clips of 30–60 seconds each. It may find fewer suitable clips. Results that need another look appear as drafts.
 

@@ -84,8 +84,6 @@ def frame(source, target, timestamp, check=lambda: None):
 
 
 def render(source, folder, edl, check, width=1080, height=1920):
-    if len(edl.mappings) != 1:
-        raise ValueError("MVP renderer accepts one continuous source range per Short")
     m = edl.mappings[0]
     if edl.mode == "fit":
         framing = (f"scale={width}:{height}:force_original_aspect_ratio=decrease:force_divisible_by=2,"
@@ -96,9 +94,16 @@ def render(source, folder, edl, check, width=1080, height=1920):
                    f"y='max(0,min(ih-oh,ih*{edl.crop_y}-oh/2))',scale={width}:{height}")
     tmp = folder / "render.partial.mp4"
     # Use a fixed local subtitle filename, so uploaded names never enter a filter graph.
-    run(["ffmpeg", "-y", "-v", "error", "-threads", "2", "-ss", f"{m.source_start:.6f}",
-         "-i", source, "-t", f"{edl.duration:.6f}", "-map", "0:v:0", "-map", "0:a:0",
-         "-vf", framing + ",setsar=1,ass=captions.ass", "-af", "loudnorm=I=-16:TP=-1.5:LRA=11,aresample=48000,aformat=channel_layouts=stereo",
+    parts = []
+    for i, cut in enumerate(edl.mappings):
+        parts.append(f'[0:v]trim=start={cut.source_start:.6f}:end={cut.source_end:.6f},setpts=PTS-STARTPTS[v{i}]')
+        parts.append(f'[0:a]atrim=start={cut.source_start:.6f}:end={cut.source_end:.6f},asetpts=PTS-STARTPTS[a{i}]')
+    inputs = ''.join(f'[v{i}][a{i}]' for i in range(len(edl.mappings)))
+    parts.append(f'{inputs}concat=n={len(edl.mappings)}:v=1:a=1[joinedv][joineda]')
+    parts.append('[joinedv]' + framing + ',setsar=1,ass=captions.ass[outv]')
+    parts.append('[joineda]loudnorm=I=-16:TP=-1.5:LRA=11,aresample=48000,aformat=channel_layouts=stereo[outa]')
+    run(["ffmpeg", "-y", "-v", "error", "-threads", "2", "-i", source,
+         "-filter_complex", ';'.join(parts), "-map", "[outv]", "-map", "[outa]",
          "-c:v", "libx264", "-threads", "2", "-preset", "fast", "-crf", "20", "-r", "30",
          "-c:a", "aac", "-b:a", "160k", "-pix_fmt", "yuv420p", "-movflags", "+faststart", tmp],
         check, cwd=folder)

@@ -114,7 +114,7 @@ Measured transcription and sampled frames inform moment selection. Candidate ran
 <div markdown>
 <span class="step">02 / PRODUCE</span>
 ### Frame, caption, render
-Create vertical video with a stable crop or full-frame fit, word-highlight captions, and normalized audio.
+Create vertical video with a stable crop or full-frame fit, word-highlight captions, and normalized audio. The latest source checkout also trims detected quiet pauses; this is not yet in the PyPI release.
 </div>
 <div markdown>
 <span class="step">03 / REVIEW</span>

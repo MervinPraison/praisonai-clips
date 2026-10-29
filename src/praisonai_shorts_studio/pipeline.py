@@ -7,7 +7,7 @@ import os
 import re
 from pathlib import Path
 
-from . import captions, media
+from . import captions, media, quiet
 from .alignment import punctuate
 from .ai import OpenAIBackend, PROMPT_VERSION
 from .models import Candidate, CropChoice, EDL, Mapping, Scene, Word
@@ -281,6 +281,7 @@ class Pipeline:
             edl.crop_x = sum(c.center_x for c in choices) / len(choices)
             edl.crop_y = sum(c.center_y for c in choices) / len(choices)
         edl.crop_evidence = json.dumps([c.model_dump() for c in choices])
+        edl.mappings = quiet.remove_quiet_pauses(source, cut, words, self.check)
         write_json(draft / "edl.json", edl.model_dump())
         mapped = captions.export(draft, words, edl)
         report = None
