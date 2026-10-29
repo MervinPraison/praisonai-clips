@@ -8,6 +8,8 @@
 
 ### Turn one long video into short clips you can review and share.
 
+Mervin Praison uses this app to create Shorts for [his YouTube channel](https://www.youtube.com/@MervinPraison/).
+
 Bring an interview, lesson, webinar, or walkthrough. PraisonAI Clips finds moments, frames them for vertical video, adds captions, and gives you the final say. The latest source checkout also trims detected quiet pauses. You can ask Codex to make live edits in your video editor while you watch.
 
 **Install and open the app**
