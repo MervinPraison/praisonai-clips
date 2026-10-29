@@ -36,6 +36,21 @@ This screen recording shows the actual request and the resulting Resolve timelin
 
 This is one tested operation, not a claim that every natural-language edit is supported. The pause-removal workflow currently requires an unretimed 30 fps clip in a 30 fps Resolve timeline. See the [Resolve SDK guide](reference/resolve-sdk.md) for setup and limitations.
 
+## Checking the cuts
+
+The chart compares the four removed ranges with the source audio. Blue shows the waveform and red marks the removed portion. The values are RMS sound levels, not speech detection. We compared the ranges with estimated word timestamps and existing visual observations sampled every five seconds, then inspected frames immediately before and after each cut.
+
+![Four audio waveforms showing the removed portions in red. Estimated words overlap cuts one, two and four.](assets/live-edit/resolve-cut-waveforms.png)
+
+| Cut | Removed source time | Sound level (RMS) | Review flag |
+| --- | --- | --- | --- |
+| 1 | 222.200–222.433 s | −32.1 dBFS | Estimated end of “only” overlaps by about 20 ms. |
+| 2 | 224.133–224.300 s | −33.0 dBFS | Estimated timing of “a” overlaps. |
+| 3 | 227.500–227.667 s | −33.8 dBFS | No estimated word overlaps. |
+| 4 | 235.233–235.333 s | −36.7 dBFS | Estimated timing of “but” overlaps; on-screen text also advances across the cut. |
+
+Word timestamps are estimates and can include pauses. An overlap flags a risk, not proof that speech was removed; a quiet waveform cannot prove speech is absent. Five-second visual observations miss events between samples, and before-and-after frames do not show everything removed. Listen to the actual timeline and inspect its visual timing before accepting these cuts.
+
 ## Watch the walkthrough
 
 <video class="challenge-video" controls playsinline preload="metadata" poster="../assets/challenge/after-onboarding.png" aria-label="Captioned product walkthrough: what was made, changed, and checked"><source src="../assets/challenge/walkthrough.mp4" type="video/mp4"><a href="../assets/challenge/walkthrough.mp4">Download the captioned walkthrough</a>.</video>

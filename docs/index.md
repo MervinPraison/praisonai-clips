@@ -48,6 +48,11 @@ praisonai-clips studio
 <figcaption>Ask Codex to remove quiet pauses, then see a separate review timeline appear in Resolve. This screen recording is shortened to remove waiting; it has no narration.</figcaption>
 <div class="demo-downloads"><a href="assets/live-edit/resolve-demo.mp4" download>Download the demo ↗</a></div>
 </figure>
+<figure class="live-edit-demo" id="silence-review">
+<div class="demo-heading"><span>HOW THE CUTS WERE CHECKED</span><span>4 PAUSES</span></div>
+<img src="assets/live-edit/resolve-cut-waveforms.png" alt="Four source audio waveforms around the removed ranges, marked in red. The transcript estimates overlap words on cuts one, two and four." loading="lazy" style="display:block;width:100%;height:auto;margin:1rem 0">
+<figcaption>Blue shows the source waveform; red marks the four ranges removed in the demo. The audio in those ranges is quieter than the surrounding audio. We also compared estimated word timestamps and sampled screen descriptions: three cuts overlap estimated words, and one crosses an on-screen text animation. These are review flags, not proof that speech was cut. Listen and inspect the timeline before accepting the edit. <a href="built-with-codex/#checking-the-cuts">See the cut-by-cut evidence ↗</a></figcaption>
+</figure>
 <figure class="codex-flow"><img src="assets/illustrations/codex-resolve-flow.svg" alt="A Codex chat request passes through PraisonAI Clips MCP and SDK checks to DaVinci Resolve; the edit appears on screen and the result returns to Codex."><figcaption>From a request in Codex to a result you can review in Resolve.</figcaption></figure>
 <div class="value-strip"><div><strong>Complete thoughts</strong><span>Transcript + visual context</span></div><div><strong>Review before delivery</strong><span>Accepted clips & separate drafts</span></div><div><strong>Keep editorial control</strong><span>Source mappings & editor tools</span></div></div>
 <div class="section-heading"><span class="eyebrow">BUILT FOR THE RECORDINGS YOU ALREADY MAKE</span><span>One workflow. More places to start.</span></div>
