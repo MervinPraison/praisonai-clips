@@ -24,6 +24,7 @@ st.set_page_config(page_title="PraisonAI Clips", page_icon="🎬", layout="wide"
 store = Store(os.getenv("SHORTS_DATA_DIR", "data"))
 style = (Path(__file__).resolve().parent / "assets/studio.css").read_text()
 st.markdown(f"<style>{style}</style>", unsafe_allow_html=True)
+st.markdown('<div class="codex-credit">This project was built entirely using <strong>OpenAI Codex</strong>.</div>', unsafe_allow_html=True)
 st.markdown('<div class="studio-masthead"><span>PRAISONAI CLIPS</span><span>YOUR CONTENT WORKSPACE</span></div>', unsafe_allow_html=True)
 st.title("Turn your long videos into clips worth sharing.")
 st.markdown('<p class="studio-intro">Find complete moments, add highlighted captions, and make vertical clips from interviews, lessons, webinars, and walkthroughs. Review the results and choose what to share.</p>', unsafe_allow_html=True)

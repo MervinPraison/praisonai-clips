@@ -1,0 +1,14 @@
+{
+  "checked_at_utc": "2026-10-29T00:04:57.403805+00:00",
+  "command": "pytest -q",
+  "passed": 44,
+  "skipped": 4,
+  "failed": 0,
+  "errors": 0,
+  "platform": "macOS, Python 3.11, subtitle-enabled FFmpeg",
+  "scope": "Local automated suite; real FFmpeg renders, synthetic API fixtures, SDK guards and onboarding tests. No paid API calls or live desktop edits in this run.",
+  "skip_reasons": [
+    "Optional live API checkout is absent"
+  ],
+  "source": "tests/ in the public repository; independent portable checks run in the Verify project workflow"
+}

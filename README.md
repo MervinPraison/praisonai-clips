@@ -1,10 +1,12 @@
+> **This project was built entirely using OpenAI Codex.** Developed through prompts, iteration, debugging, testing, and deployment under Mervin Praison’s direction.
+
 # PraisonAI Clips
 
 **AI video repurposing, with editorial control built in.**
 
 Turn a long recording into a collection of captioned vertical clips. PraisonAI Clips finds complete moments, adapts the framing, checks the output, and keeps the source mappings available for review. Start in the local dashboard and refine through optional Kdenlive and DaVinci Resolve integrations.
 
-[Watch an example](https://clips.praison.ai/#see-example) · [Quickstart](docs/getting-started/quickstart.md) · [Workflow](docs/guides/workflow.md) · [CLI reference](docs/reference/cli.md) · [Editor integrations](docs/editors/index.md)
+[Made, changed & checked](https://clips.praison.ai/built-with-codex/) · [Watch an example](https://clips.praison.ai/#see-example) · [Quickstart](docs/getting-started/quickstart.md) · [Workflow](docs/guides/workflow.md) · [CLI reference](docs/reference/cli.md) · [Editor integrations](docs/editors/index.md)
 
 ## See what you can make
 

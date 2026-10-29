@@ -157,3 +157,6 @@ id_ed25519
 !/docs/assets/demo/source.mp4
 !/docs/assets/demo/clip.mp4
 !/docs/assets/demo/captions.ass
+
+# Public captioned walkthrough of the empty app and generated example
+!/docs/assets/challenge/walkthrough.mp4

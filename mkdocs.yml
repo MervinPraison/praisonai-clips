@@ -41,6 +41,7 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Product: product.md
+  - Built with Codex: built-with-codex.md
   - Get started:
       - Installation: getting-started/installation.md
       - First clip: getting-started/quickstart.md
