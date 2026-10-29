@@ -4,7 +4,6 @@ hide:
   - navigation
   - toc
 ---
-<div class="challenge-banner"><strong>Built with OpenAI Codex</strong><span>Prepared for the Cambridge Codex Community Challenge</span><a href="built-with-codex/">See what we made, changed and checked ↗</a></div>
 <div class="edition"><span>PRAISONAI CLIPS</span><span>AI VIDEO REPURPOSING</span><span>CREATE · REVIEW · REFINE</span></div>
 <div class="hero" markdown>
 <div markdown>
