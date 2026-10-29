@@ -97,12 +97,15 @@ Start in the dashboard or run a job from the command line. OpenAI processes audi
 </div>
 <div markdown>
 ```sh
-# After installation and API key setup
+# Install the package and open the dashboard
+python -m pip install praisonai-clips
+praisonai-clips studio
+
+# Check prerequisites or process from the command line
 praisonai-clips doctor
 praisonai-clips run '/absolute/path/to/video.mp4'
 
-# Or open the local dashboard
-streamlit run app.py
+# Source checkout also supports: streamlit run app.py
 ```
 </div>
 </div>

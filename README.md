@@ -71,6 +71,13 @@ Resolve live control was tested with DaVinci Resolve Free 21.1 on macOS. Pause r
 
 **Ready to use your own video?** The app runs on your computer. You’ll need Python 3.11+, FFmpeg with subtitle and H.264 support, and an OpenAI API key. OpenAI analyzes audio and sampled frames and charges for API usage; the source files and results stay in your local workspace.
 
+Install the package and start the dashboard:
+
+```sh
+python -m pip install praisonai-clips
+praisonai-clips studio
+```
+
 1. [Follow the installation guide](docs/getting-started/installation.md) to install the app and its prerequisites.
 2. Add your OpenAI API key as described in the guide.
 3. Start the dashboard and add a recording.

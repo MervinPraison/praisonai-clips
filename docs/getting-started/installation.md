@@ -2,6 +2,20 @@
 
 Use Python 3.11 or newer and FFmpeg with `libx264`, the `subtitles` filter (libass), and `loudnorm`.
 
+Install from PyPI into a virtual environment:
+
+```sh
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install praisonai-clips
+praisonai-clips doctor
+praisonai-clips studio
+```
+
+Set the `OPENAI_API_KEY` environment variable before processing your own video. To use the Resolve MCP server, install `praisonai-clips[live]`; Kdenlive live editing also needs the separate bridge in the [editor setup](../KDENLIVE_LIVE_CONTROL.md).
+
+## Install from source
+
 ```sh
 git clone https://github.com/MervinPraison/praisonai-clips.git
 cd praisonai-clips

@@ -41,6 +41,7 @@ def main(argv=None):
     diagnostic = commands.add_parser("doctor", help="Check hardware, FFmpeg and API prerequisites")
     diagnostic.add_argument("--check", action="store_true", help="Exit 1 if processing prerequisites are missing")
     commands.add_parser("list", help="List durable jobs")
+    commands.add_parser("studio", help="Launch the local dashboard")
     run = commands.add_parser("run", help="Create and run a job (paid OpenAI calls)")
     run.add_argument("video", type=Path)
     run.add_argument("--max-clips", type=int, default=5)
@@ -76,6 +77,8 @@ def main(argv=None):
             command.add_argument("name", choices=["edl.json", "review.json", "words.json", "captions.srt", "captions.ass"])
     args = parser.parse_args(argv)
     try:
+        if args.command == "studio":
+            raise SystemExit(subprocess.call([sys.executable, "-m", "streamlit", "run", str(Path(__file__).with_name("studio.py"))]))
         if args.command == "doctor":
             from .onboarding import processing_issues
             checks = doctor()
