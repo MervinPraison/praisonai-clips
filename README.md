@@ -31,9 +31,9 @@ Ask Codex to adjust framing and see the result in your open editor. Resolve also
 
 [![The PraisonAI Clips dashboard showing a playable example. Select the image to watch the walkthrough.](docs/assets/challenge/after-onboarding.png)](https://clips.praison.ai/built-with-codex/#watch-the-walkthrough)
 
-**↑ Select the image to open the 66-second walkthrough.** Or [watch the short clip](https://clips.praison.ai/#see-example) and [compare it with its original](https://clips.praison.ai/assets/demo/source.mp4). The example is free to explore: no account, API key, or installation is needed.
+**↑ Select the image to open the 66-second walkthrough.** Or [watch a real 46-second Short](https://clips.praison.ai/#see-example) and [compare it with the full horizontal recording](https://clips.praison.ai/assets/real-example/long-video.mp4). Watching needs no account, API key, or installation.
 
-The example is silent, generated media with scripted captions. It shows the output format and app experience; it does not show a new AI selection or a live Resolve edit.
+The app selected this moment from a three-minute explainer, used full-frame fit to keep the slides visible, added captions and passed its automated checks. Two other candidates from the same run remain drafts. The dashboard's downloadable generated example is separate.
 
 ## How it works
 
@@ -54,6 +54,8 @@ Choose where to stop: analyze the source, review selected moments, or create fin
 In the latest source checkout, rendering detects quiet pauses from the audio and trims them with a margin around estimated word timings. Caption timing and source mappings follow the cuts. This pipeline feature is not yet in the PyPI release. Listen and check visual timing before sharing: quiet audio can contain speech and word timings can be inaccurate.
 
 The app aims for up to five clips of 30–60 seconds each. It may find fewer suitable clips. Results that need another look appear as drafts.
+
+Horizontal video works too: the app chooses a stable vertical crop when the important content fits, or keeps the whole frame with padding when cropping would hide it. In the latest source checkout, the transcript and screen descriptions sampled every five seconds are cached locally and reused across jobs for the same unchanged source and analysis settings, so changing clip settings does not repeat those AI calls. [See the workflow and cache details](docs/guides/workflow.md).
 
 ## Edit in Resolve by chatting
 

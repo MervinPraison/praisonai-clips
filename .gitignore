@@ -163,3 +163,7 @@ id_ed25519
 
 # Public, user-approved live editing demonstration
 !/docs/assets/live-edit/resolve-demo.mp4
+
+# Public real-video example: full horizontal source and accepted vertical Short
+!/docs/assets/real-example/long-video.mp4
+!/docs/assets/real-example/short.mp4

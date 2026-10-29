@@ -9,11 +9,13 @@
 5. **Render.** In the latest source checkout (not yet the PyPI release), detect quiet pauses within each selected moment, retain a safety margin around measured words, and join the remaining ranges. Apply stable framing or full-frame fit, highlighted captions and audio normalisation. Source mappings and caption timings follow the cuts.
 6. **Review.** Decode the result, check timestamps and inspect sampled visual evidence. Accepted results and uncertain drafts remain separate.
 
-A screen recording or slide presentation can use full-frame fit to preserve content. A crop is used only when the evidence supports one. Selection and framing do not invent visible speaker identities.
+A horizontal recording is still rendered as a 9:16 Short. The app samples frames across the selected moment and uses one stable crop only when it can keep the important picture content visible. Otherwise it fits the whole horizontal frame inside the vertical canvas with padding. This is useful for slides and screen recordings, where a tight crop could hide text. Selection and framing do not invent visible speaker identities.
 
 ## Choose where to stop
 
-In the dashboard, choose **Analyze source only**, **Find moments for review**, or **Create review clips** before starting. The first stops after transcript and visual analysis; the second also selects source moments; the third completes rendering and review. At either review point, inspect the available evidence and continue later. Reused cached analysis does not repeat the same provider calls, though later stages can make additional billed calls.
+In the dashboard, choose **Analyze source only**, **Find moments for review**, or **Create review clips** before starting. The first stops after transcript and visual analysis; the second also selects source moments; the third completes rendering and review. At either review point, inspect the available evidence and continue later.
+
+The latest source checkout caches the transcript and five-second screen descriptions locally. Resuming a job reuses its completed calls. A new job for the same unchanged recording also reuses those two analyses when it uses the same data directory, model and analysis version, even if you change the number or length of requested clips. Changing the recording or analysis model starts fresh calls. Selection, dense crop checks and final review can make additional billed calls. The cache stays on your computer under the chosen data directory; delete `analysis-cache/` there to discard it. The released PyPI package does not yet include this cross-job cache.
 
 For the same choices at the command line:
 
@@ -54,6 +56,6 @@ Cancellation interrupts FFmpeg promptly. An in-flight API request finishes and c
 
 ## Human review
 
-Technical checks and sampled visual inspection cannot guarantee caption accuracy or catch every event between inspected frames. Quiet audio can still contain speech, estimated word timings can be inaccurate, and a pause cut can affect visual timing. Listen to the complete clip and check text, framing and cut boundaries before sharing. Nothing publishes automatically.
+Technical checks and sampled visual inspection cannot guarantee caption accuracy or catch every event between inspected frames. If the transcription provider gives a word zero duration, the app marks its short replacement timing as estimated in `transcript.json` and `words.json`; check those captions carefully. Quiet audio can still contain speech, and a pause cut can affect visual timing. Listen to the complete clip and check text, framing and cut boundaries before sharing. Nothing publishes automatically.
 
 For native adjustments, see [editor workflows](../editors/index.md). For output paths, see [files and configuration](../reference/configuration.md).

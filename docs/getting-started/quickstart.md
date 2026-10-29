@@ -4,7 +4,7 @@
 
 ## See an example first
 
-Open [the homepage example](../index.md#see-example) to watch a silent generated clip, or start the dashboard and choose **Download the example bundle**. The example needs no API key and makes no API calls. Its captions and edit are scripted; it demonstrates rendering and exported files, rather than AI selection or editorial acceptance.
+Open [the homepage example](../index.md#see-example) to watch a real captioned Short made from a three-minute horizontal recording. Watching it needs no API key. The dashboard also offers **Download the example bundle**, a separate silent generated clip with scripted captions that makes no API calls.
 
 ## Process a recording
 

@@ -92,3 +92,41 @@ def test_explicit_review_stages_resume_without_repeating_analysis(tmp_path):
     assert backend.calls.count('transcribe') == before.count('transcribe')
     assert backend.calls.count('scenes') == before.count('scenes')
     assert backend.calls.count('select') == before.count('select')
+
+
+def test_source_analysis_is_reused_across_jobs_but_not_models(tmp_path):
+    source = tmp_path / 'landscape.mp4'
+    media.run(['ffmpeg', '-y', '-v', 'error', '-f', 'lavfi', '-i',
+        'testsrc2=size=320x180:rate=30:duration=6', '-f', 'lavfi', '-i',
+        'sine=frequency=440:sample_rate=48000:duration=6', '-c:v', 'libx264',
+        '-threads', '2', '-preset', 'ultrafast', '-c:a', 'aac', source])
+    store = Store(tmp_path / 'data')
+    backend = FixtureBackend()
+    for maximum, vision_model in [(1, 'model-a'), (2, 'model-a'), (2, 'model-b')]:
+        job = store.create(source, default_config(max_clips=maximum, vision_model=vision_model))
+        assert Pipeline(store, job, backend).run(until='evidence')['scenes'] == 2
+    assert backend.calls.count('transcribe') == 1
+    assert backend.calls.count('scenes') == 2
+    assert len(list((store.root / 'analysis-cache').glob('transcription-*.json'))) == 1
+
+
+def test_zero_duration_provider_word_is_flagged_and_does_not_block_selection(tmp_path):
+    source = tmp_path / 'input.mp4'
+    media.run(['ffmpeg', '-y', '-v', 'error', '-f', 'lavfi', '-i',
+        'testsrc2=size=320x180:rate=30:duration=4', '-f', 'lavfi', '-i',
+        'sine=frequency=440:sample_rate=48000:duration=4', '-c:v', 'libx264',
+        '-threads', '2', '-preset', 'ultrafast', '-c:a', 'aac', source])
+
+    class ZeroBackend(FixtureBackend):
+        def transcribe(self, audio):
+            result = super().transcribe(audio)
+            result['words'][1]['end'] = result['words'][1]['start']
+            return result
+
+    store = Store(tmp_path / 'data')
+    job = store.create(source, default_config(min_duration=1, max_duration=3, max_clips=1))
+    result = Pipeline(store, job, ZeroBackend()).run(until='selection')
+    assert result['selections']
+    transcript = json.loads((store.job_dir(job) / 'transcript.json').read_text())
+    assert transcript['alignment_warnings'][0]['word'] == 'Two.'
+    assert transcript['words'][1]['end'] > transcript['words'][1]['start']

@@ -9,6 +9,7 @@ class Word(BaseModel):
     word: str
     start: float = Field(ge=0, allow_inf_nan=False)
     end: float = Field(ge=0, allow_inf_nan=False)
+    timing_source: Literal["measured", "estimated_zero_duration"] = Field(default="measured", exclude=True)
 
     @model_validator(mode="after")
     def ordered(self):

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import fcntl
 import json
 import os
 import sqlite3
@@ -99,3 +100,21 @@ class Store:
         write_json(path, result)
         self.check(job_id)
         return result
+
+    def shared_analysis(self, name, inputs, compute):
+        """Reuse billed source analysis across jobs in this local data directory.
+
+        The caller supplies the source digest, model, analysis contract and exact
+        time range. A file lock also prevents two workers billing the same call.
+        """
+        signature = hashlib.sha256(json.dumps(inputs, sort_keys=True).encode()).hexdigest()
+        folder = self.root / "analysis-cache"
+        folder.mkdir(parents=True, exist_ok=True)
+        path = folder / f"{name}-{signature}.json"
+        with (folder / f"{name}-{signature}.lock").open("w") as lock:
+            fcntl.flock(lock, fcntl.LOCK_EX)
+            if path.exists():
+                return json.loads(path.read_text(encoding="utf-8"))
+            result = compute()
+            write_json(path, result)
+            return result

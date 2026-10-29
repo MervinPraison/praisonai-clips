@@ -7,12 +7,13 @@ from .models import EDL, Word
 
 
 def map_words(words: list[Word], edl: EDL):
-    """Map measured words across cuts. Never synthesize or stretch word timings."""
+    """Map provider timings and explicitly flagged estimates across cuts."""
     result = []
     for cut in edl.mappings:
         for w in words:
             if w.start >= cut.source_start - 1e-6 and w.end <= cut.source_end + 1e-6:
                 result.append({"word": w.word, "source_start": w.start, "source_end": w.end,
+                               "timing_source": w.timing_source,
                                "start": max(0, cut.output_start + w.start - cut.source_start),
                                "end": min(edl.duration, cut.output_start + w.end - cut.source_start)})
     return result

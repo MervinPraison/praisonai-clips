@@ -68,6 +68,15 @@ class Pipeline:
         return self.store.cache(self.job_id, name,
             {"config": self.config, "source": self.job["fingerprint"], "inputs": inputs}, compute)
 
+    def analysis_cache(self, name, model, inputs, compute):
+        return self.store.shared_analysis(name, {
+            "source_sha256": self.job["fingerprint"],
+            "canonical_timeline_version": 1,
+            "prompt_version": self.config["prompt_version"],
+            "model": model,
+            "inputs": inputs,
+        }, compute)
+
     def frames(self, source, times, label):
         return [(t, media.frame(source, self.folder / "frames" / label / f"{t:.6f}.jpg", t, self.check))
                 for t in times]
@@ -152,7 +161,9 @@ class Pipeline:
             def compute():
                 media.extract_audio(source, audio, start, end - start, self.check)
                 return self.backend.transcribe(audio)
-            raw = self.cache(f"transcribe-{index:04}", {"start": start, "end": end}, compute)
+            bounds = {"start": start, "end": end}
+            raw = self.cache(f"transcribe-{index:04}", bounds,
+                lambda: self.analysis_cache("transcription", self.config["transcription_model"], bounds, compute))
             for item in punctuate(raw.get("words", []), raw.get("text", "")):
                 w = Word(word=item["word"], start=float(item["start"]) + start,
                          end=float(item["end"]) + start)
@@ -161,15 +172,25 @@ class Pipeline:
                 if core <= (w.start + w.end) / 2 < min(duration, core + 600):
                     combined.append(w)
         combined.sort(key=lambda w: w.start)
+        alignment_warnings = []
+        for index, word in enumerate(combined):
+            if word.end == word.start:
+                alignment_warnings.append({"word_index": index, "word": word.word,
+                                           "provider_start": word.start, "provider_end": word.end})
+                word.start = max(0, word.start - 0.04)
+                word.end = min(duration, word.end + 0.04)
+                if word.end <= word.start:
+                    raise ValueError("Cannot estimate a positive interval for a zero-duration word")
+                word.timing_source = "estimated_zero_duration"
         for previous, current in zip(combined, combined[1:]):
             if current.start < previous.end - 0.08:
                 raise ValueError("Overlapping word measurements at chunk boundary; alignment requires review")
         if not combined:
             raise ValueError("No timed speech found")
         write_json(self.folder / "transcript.json", {"words": [w.model_dump() for w in combined],
-                   "timing": "measured_by_transcription_api", "speaker_identity": None,
-                   "alignment_warnings": [w.model_dump() for w in combined if w.end <= w.start],
-                   "policy": "Zero-duration provider tokens are preserved but disqualify any candidate containing them."})
+                   "timing": "provider_measured_with_flagged_estimates_for_zero_duration_words",
+                   "speaker_identity": None, "alignment_warnings": alignment_warnings,
+                   "policy": "A zero-duration provider word receives a flagged 0.08-second estimated interval. Check captions before sharing."})
         return combined
 
     def overview(self, source, duration):
@@ -178,7 +199,9 @@ class Pipeline:
         for index in range(0, len(times), 8):
             batch = times[index:index + 8]
             raw = self.cache(f"overview-{index:05}", batch,
-                             lambda: self.backend.scenes(self.frames(source, batch, "overview")))
+                lambda: self.analysis_cache("screen-descriptions", self.config["vision_model"],
+                    {"frame_times": batch, "frame_interval_seconds": 5},
+                    lambda: self.backend.scenes(self.frames(source, batch, "overview"))))
             observations = [Scene.model_validate(s) for s in raw["scenes"]]
             if len(observations) != len(batch) or any(abs(s.time - t) > 0.05 for s, t in zip(observations, batch)):
                 raise ValueError("Visual observations do not match requested frame timestamps")
