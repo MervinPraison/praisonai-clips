@@ -30,3 +30,5 @@
 .md-typeset figure.live-edit-demo figcaption,.md-typeset figure.source-evidence-demo figcaption,.md-typeset figure.codex-flow figcaption{max-width:none;margin:.7rem 0 0;text-align:left;font-style:normal;font-size:.7rem;line-height:1.6;color:var(--muted)}
 .md-typeset figure.codex-flow{width:100%;max-width:720px;margin:2rem auto!important}
 @media(max-width:760px){.md-typeset figure.live-edit-demo,.md-typeset figure.source-evidence-demo{padding:.75rem;box-shadow:4px 4px 0 var(--md-code-bg-color)}}
+
+.md-typeset .install-grid h2,.md-typeset .install-grid pre{margin-top:0}

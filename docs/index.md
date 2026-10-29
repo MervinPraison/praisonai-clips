@@ -26,7 +26,7 @@ hide:
 </figure>
 </div>
 <div class="section-heading" id="install"><span class="eyebrow">GET STARTED</span><span>Install and open the app.</span></div>
-<div class="start-grid" markdown>
+<div class="start-grid install-grid" markdown>
 <div markdown>
 ## Ready to try your own video?
 Install PraisonAI Clips, then open its dashboard. You'll also need Python 3.11+, a compatible FFmpeg installation, and an OpenAI API key.
