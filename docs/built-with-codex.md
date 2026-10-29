@@ -22,6 +22,8 @@ Resolve showed five matching video and audio segments after four quiet pauses we
 </div>
 </div>
 
+[Download the three-column summary image](assets/challenge/three-columns.png)
+
 ## Watch the live editing demo
 
 <video class="challenge-video" controls playsinline preload="metadata" poster="../assets/live-edit/resolve-demo-poster.jpg" aria-label="Screen recording of a request in Codex and a review timeline in DaVinci Resolve"><source src="../assets/live-edit/resolve-demo.mp4" type="video/mp4"><a href="../assets/live-edit/resolve-demo.mp4">Download the live editing demo</a>.</video>
