@@ -4,6 +4,7 @@ from __future__ import annotations
 import fcntl
 import hashlib
 import json
+import math
 import os
 import subprocess
 import sys
@@ -11,10 +12,12 @@ from pathlib import Path
 from importlib.resources import files
 
 import streamlit as st
+import pandas as pd
 from dotenv import load_dotenv
 
 from praisonai_shorts_studio.cli import doctor
 from praisonai_shorts_studio.artifacts import clip_bundle
+from praisonai_shorts_studio.evidence import in_window, waveform
 from praisonai_shorts_studio.onboarding import example_directory, example_bundle, processing_issues, stage_label
 from praisonai_shorts_studio.pipeline import default_config, validate_config
 from praisonai_shorts_studio.store import Store
@@ -68,7 +71,7 @@ def new_recording():
             if sys.platform == "darwin" and any("FFmpeg" in issue for issue in issues):
                 st.code('brew install ffmpeg-full\nexport PATH="$(brew --prefix ffmpeg-full)/bin:$PATH"\npraisonai-clips studio', language="bash")
             st.caption("The example uses no API calls. Processing your recording sends audio and sampled frames to OpenAI and is billed to your account.")
-    st.caption("Your files and results stay in this workspace. Audio and sampled frames are sent to OpenAI for analysis; API charges apply.")
+    st.caption("Your files and results stay in this workspace. Audio and sampled frames are sent to OpenAI for analysis; API charges apply. After you start processing, open Source evidence to review the transcript, screen descriptions, and waveform as they become available.")
     if st.button("Create my clips", type="primary", use_container_width=True,
                  disabled=bool(issues) or (uploaded is None and not local_path.strip())):
         try:
@@ -148,6 +151,78 @@ selected = st.selectbox("Choose a recording", ids,
     format_func=lambda key: next(f"{j['id']} · {Path(j['source']).name}" for j in jobs if j["id"] == key))
 
 
+@st.cache_data(show_spinner=False, max_entries=50)
+def cached_waveform(path, modified_ns, size, start, end):
+    return waveform(Path(path), start, end)
+
+
+def source_evidence(job_id):
+    folder = store.job_dir(job_id)
+    source = folder / 'source.mp4'
+    timeline = folder / 'timeline.json'
+    st.subheader('Source evidence')
+    st.caption('Review the same source-time window across video, audio, transcript and sampled screen descriptions. This panel makes no additional AI calls.')
+    st.button('Refresh source evidence', key=f'evidence-refresh-{job_id}', help='Refresh after a processing stage finishes.')
+    if not source.exists() or not timeline.exists():
+        st.info('The source review appears after the recording has been prepared. Start or resume processing to create it.')
+        return
+    try:
+        duration = float(json.loads(timeline.read_text())['duration'])
+        if not math.isfinite(duration) or duration <= 0:
+            raise ValueError('Invalid source duration')
+    except (ValueError, KeyError, OSError, json.JSONDecodeError):
+        st.warning('Source timing is unavailable. Resume processing to prepare it again.')
+        return
+    if not st.checkbox('Open source evidence', key=f'evidence-{job_id}'):
+        return
+    latest_start = max(0, math.ceil(duration) - 1)
+    start = st.slider('Source window start (seconds)', 0, latest_start, 0, key=f'evidence-start-{job_id}') if latest_start else 0
+    end = min(duration, start + 30.0)
+    st.caption(f'Source time: {start:.2f}–{end:.2f} seconds. Change the window to inspect another part; video playback is not automatically synchronized with the chart.')
+    st.video(str(source), start_time=start)
+    try:
+        stat = source.stat()
+        with st.spinner('Reading local audio waveform…'):
+            points = cached_waveform(str(source), stat.st_mtime_ns, stat.st_size, float(start), float(end))
+        st.line_chart(pd.DataFrame(points), x='Source time (s)', y='Peak amplitude', height=180)
+        st.caption('Peak amplitude per 20 ms, from mono audio sampled at 8 kHz. Quiet audio can contain speech; the waveform is not a speech detector.')
+    except (OSError, ValueError, RuntimeError, subprocess.TimeoutExpired) as exc:
+        st.warning(f'Waveform unavailable: {exc}')
+    transcript_path, scenes_path = folder / 'transcript.json', folder / 'scenes.json'
+    try:
+        words = json.loads(transcript_path.read_text())['words'] if transcript_path.exists() else None
+        scenes = json.loads(scenes_path.read_text()) if scenes_path.exists() else None
+        window_words, window_scenes = in_window(words or [], scenes or [], start, end)
+        left, right = st.columns(2)
+        with left:
+            st.markdown('#### Transcript · word by word')
+            if words is None:
+                st.info('Transcript is not ready yet.')
+            elif window_words:
+                st.dataframe([{'Start (s)': round(w['start'], 2), 'End (s)': round(w['end'], 2), 'Word': w['word']} for w in window_words], hide_index=True, use_container_width=True)
+            else:
+                st.info('No timed words in this window.')
+        with right:
+            st.markdown('#### What appears on screen')
+            if scenes is None:
+                st.info('Screen descriptions are not ready yet.')
+            elif window_scenes:
+                for scene in window_scenes:
+                    st.markdown(f"**{scene['time']:.2f} s**")
+                    st.write(scene.get('scene', ''))
+                    if scene.get('actions'):
+                        st.caption('Actions: ' + scene['actions'])
+                    if scene.get('screen_content'):
+                        st.caption('Screen: ' + scene['screen_content'])
+                    if scene.get('visible_text'):
+                        st.caption('Visible text: ' + scene['visible_text'])
+            else:
+                st.info('No sampled frames in this window.')
+        st.caption('Word timestamps are estimates. Screen descriptions are independent observations of frames sampled about every five seconds, not a continuous record. Check the video and listen before making cuts.')
+    except (OSError, ValueError, KeyError, TypeError, json.JSONDecodeError):
+        st.warning('Some source evidence could not be read. Check the job status or resume processing.')
+
+
 @st.fragment(run_every="3s")
 def dashboard(job_id):
     job = store.get(job_id)
@@ -210,4 +285,5 @@ def dashboard(job_id):
         st.json({k: v for k, v in job.items() if k != "config"})
 
 
+source_evidence(selected)
 dashboard(selected)

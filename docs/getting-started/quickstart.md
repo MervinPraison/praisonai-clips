@@ -33,6 +33,8 @@ Use a new output filename if that file already exists.
 
 Open [the local dashboard](http://127.0.0.1:8501). On your first visit, add a recording directly in the main screen. Open **Use a local file or adjust clip settings** for local paths, clip count, and duration. Uploads support up to 2 GB; use a path for larger files. **Create my clips** becomes available when a source is selected and processing prerequisites are ready.
 
+After starting a job, select the recording and open **Source evidence**. Pick a source-time window to see the video, local audio waveform, word-level transcript, and screen descriptions together. The transcript and visual observations appear when their processing stages finish; select **Refresh source evidence** to reload them. This panel does not make additional AI requests. Playback does not automatically follow the chart. Word timings are estimates, the screen is sampled about every five seconds, and quiet audio may still contain speech, so listen and inspect before cutting.
+
 ## Review the output
 
 ```sh
