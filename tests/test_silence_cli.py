@@ -32,6 +32,27 @@ def test_plan_finds_quiet_region_and_checks_source(tmp_path, monkeypatch):
     assert client.run_lua.call_count == 1
 
 
+def test_inclusive_native_end_keeps_last_frame_and_guards_native_value(tmp_path, monkeypatch):
+    source = tmp_path / 'source.mp4'
+    source.write_bytes(b'fixture')
+    client = Mock()
+    client._clip_code.side_effect = lambda target, code: code
+    client.run_lua.return_value = {'result': {'source': str(source), 'source_fps': 30,
+        'timeline_rate': 30, 'source_start': 300, 'source_end': 389, 'duration': 90,
+        'media_id': 'media', 'properties': {}}}
+    monkeypatch.setattr('praisonai_shorts_studio.live.silence.subprocess.run',
+                        lambda *a, **k: Mock(returncode=0, stderr='silence_start: 0.5\nsilence_end: 1.5\n'))
+    plan = plan_silence(client, TARGET, padding=.1)
+    assert plan['ranges'] == [[300, 318], [342, 390]]
+    assert plan['source_end'] == 389
+    client.run_lua.return_value = {'result': {'video_clips': 2, 'audio_clips': 2}}
+    apply_silence_plan(client, plan, timeline_name='Review')
+    code = client.run_lua.call_args.args[0]
+    assert 'GetSourceEndFrame()==389' in code
+    assert 'startFrame=342,endFrame=390' in code
+    assert 'Unexpected appended clip duration' in code
+
+
 def test_apply_checks_ranges_and_delegates_guarded_native_operation(tmp_path):
     source = tmp_path / 'source.mp4'
     source.write_bytes(b'fixture')

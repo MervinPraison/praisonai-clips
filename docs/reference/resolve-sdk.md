@@ -79,6 +79,8 @@ if plan["removed_ranges"]:
 
 `plan_silence` analyzes the clip locally with FFmpeg. `apply_silence_plan` verifies source identity, creates a new timeline, preserves clip framing and timeline resolution, and adds corresponding video and audio segments. It currently requires an unretimed 30 fps source and timeline. A quiet passage may include speech: inspect and listen to the review timeline. Errors can leave a partially created timeline; inspect Resolve before retrying. The original timeline is not edited.
 
+Resolve may report the last source frame inclusively at the end of a media file. The planner keeps that native boundary for its identity check and uses the clip duration to preserve the final frame in its half-open edit ranges. The apply step checks the native video and audio segment durations after insertion. This was tested on Resolve Free 21.1.2 on macOS; review the result on other versions and sources.
+
 Agents can call the `plan_silence` and `apply_silence_plan` MCP tools. The [CLI and YAML reference](cli.md#remove-quiet-pauses) exposes the same options and SDK behavior.
 
 ## Frame exports and official API extensions

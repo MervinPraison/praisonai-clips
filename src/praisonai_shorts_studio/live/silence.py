@@ -23,8 +23,11 @@ def plan_silence(client, target: ClipTarget, *, threshold_db=-25.0, min_silence=
         "media_id=m:GetUniqueId(),source_fps=m:GetClipProperty('FPS'),properties=c:GetProperties()}")
     info = client.run_lua(code, expected_project_id=target.project_id)['result']
     fps = float(info['timeline_rate'])
-    if fps != 30 or float(info['source_fps']) != 30 or info['source_end'] - info['source_start'] != info['duration']:
+    if fps != 30 or float(info['source_fps']) != 30 or info['source_end'] - info['source_start'] not in (info['duration'], info['duration'] - 1):
         raise ValueError('Only unretimed 30 fps clips are supported for pause removal')
+    # Resolve can report the final media frame inclusively. Keep its native
+    # value for the identity guard and use half-open ranges for the edit.
+    range_end = info['source_start'] + info['duration']
     source = Path(info['source']).expanduser().resolve(strict=True)
     if not source.is_file():
         raise ValueError('Source media is not a file')
@@ -44,15 +47,15 @@ def plan_silence(client, target: ClipTarget, *, threshold_db=-25.0, min_silence=
     cut, ranges, cursor = [], [], info['source_start']
     for a, b in zip(starts, ends):
         first = max(cursor, info['source_start'] + math.ceil((a + padding) * fps))
-        last = min(info['source_end'], info['source_start'] + math.floor((b - padding) * fps))
+        last = min(range_end, info['source_start'] + math.floor((b - padding) * fps))
         if last <= first:
             continue
         if first > cursor:
             ranges.append([cursor, first])
         cut.append([first, last])
         cursor = last
-    if cursor < info['source_end']:
-        ranges.append([cursor, info['source_end']])
+    if cursor < range_end:
+        ranges.append([cursor, range_end])
     return {'target': asdict(target), 'source': str(source), 'source_sha256': before_hash,
             'media_id': info['media_id'], 'fps': fps, 'source_start': info['source_start'],
             'source_end': info['source_end'], 'duration': info['duration'],
@@ -72,8 +75,11 @@ def apply_silence_plan(client, plan, *, timeline_name):
     start, end = plan['source_start'], plan['source_end']
     if any(type(plan[k]) is not int or plan[k] < 0 for k in ('source_start', 'source_end', 'duration')):
         raise ValueError('Invalid source bounds in plan')
+    if plan['duration'] <= 0 or end - start not in (plan['duration'], plan['duration'] - 1):
+        raise ValueError('Invalid source bounds in plan')
+    range_end = start + plan['duration']
     spans = [(int(a),int(b)) for a,b in plan['ranges']]
-    if any(type(x) is not int for row in plan['ranges'] for x in row) or any(a < start or b > end or a >= b for a,b in spans) or any(spans[i][1] > spans[i+1][0] for i in range(len(spans)-1)):
+    if any(type(x) is not int for row in plan['ranges'] for x in row) or any(a < start or b > range_end or a >= b for a,b in spans) or any(spans[i][1] > spans[i+1][0] for i in range(len(spans)-1)):
         raise ValueError('Invalid source ranges in plan')
     parts = ','.join(f'{{mediaPoolItem=m,startFrame={a},endFrame={b}}}' for a,b in spans)
     from .models import FRAMING_KEYS
@@ -92,6 +98,8 @@ def apply_silence_plan(client, plan, *, timeline_name):
         "local added=assert(pool:AppendToTimeline({"+parts+"}),'Append failed'); "
         "local videos=review:GetItemListInTrack('video',1) or {}; local audio=review:GetItemListInTrack('audio',1) or {}; "
         "assert(#videos=="+str(len(spans))+" and #audio=="+str(len(spans))+",'Unexpected video/audio clip count'); "
+        "local expected={"+','.join(str(b-a) for a,b in spans)+"}; "
+        "for i,n in ipairs(expected) do assert(videos[i]:GetDuration()==n and audio[i]:GetDuration()==n,'Unexpected appended clip duration') end; "
         "for _,item in ipairs(videos) do assert(item:SetProperties({"+saved+"}),'Framing failed') end; "
         "return {timeline_name=review:GetName(),timeline_id=review:GetUniqueId(),video_clips=#videos,audio_clips=#audio,"
         "start=review:GetStartFrame(),finish=review:GetEndFrame()}")
