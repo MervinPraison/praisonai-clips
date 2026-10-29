@@ -6,7 +6,13 @@
 
 ### Turn one long video into short clips you can review and share.
 
-Bring an interview, lesson, webinar, or walkthrough. PraisonAI Clips finds moments, frames them for vertical video, adds captions, and gives you the final say. You can also ask Codex to make live edits in DaVinci Resolve while you watch.
+Bring an interview, lesson, webinar, or walkthrough. PraisonAI Clips finds moments, frames them for vertical video, adds captions, and gives you the final say. You can also ask Codex to make live edits in your video editor while you watch.
+
+**REAL-TIME EDITING · EXPERIMENTAL**
+
+<a href="docs/reference/resolve-sdk.md"><img src="docs/assets/editor-logos/davinci-resolve.png" width="40" alt="DaVinci Resolve logo"></a> &nbsp; [**DaVinci Resolve**](docs/reference/resolve-sdk.md) &nbsp;&nbsp;&nbsp; <a href="docs/KDENLIVE_LIVE_CONTROL.md"><img src="docs/assets/editor-logos/kdenlive.png" width="40" alt="Kdenlive logo"></a> &nbsp; [**Kdenlive**](docs/KDENLIVE_LIVE_CONTROL.md)
+
+Ask Codex to adjust framing and see the result in your open editor. Resolve also supports creating a review timeline with quiet pauses removed. Setup and supported operations differ by editor.
 
 [**Watch the example**](https://clips.praison.ai/#see-example) · [**See the walkthrough**](https://clips.praison.ai/built-with-codex/#watch-the-walkthrough) · [Get started](#get-started) · [Edit by chatting](#edit-in-resolve-by-chatting)
 
@@ -127,3 +133,5 @@ You decide what to publish. Preview the framing, check the captions, and listen 
 [Product overview](docs/product.md) · [Full documentation](https://clips.praison.ai/) · [Resolve SDK](docs/reference/resolve-sdk.md) · [Data handling](docs/reference/public-release.md) · [Contributing and architecture](docs/development/architecture.md)
 
 PraisonAI Clips uses third-party tools and components, including OpenAI, FFmpeg, Streamlit, MkDocs Material, and optional editor integrations. Their license notices and attribution are retained in the project.
+
+DaVinci Resolve is a trademark of Blackmagic Design. Kdenlive™, Kde’n’live™ and the playhead logo are trademarks of KDE e.V.
