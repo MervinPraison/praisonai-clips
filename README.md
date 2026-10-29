@@ -10,6 +10,15 @@
 
 Bring an interview, lesson, webinar, or walkthrough. PraisonAI Clips finds moments, frames them for vertical video, adds captions, and gives you the final say. You can also ask Codex to make live edits in your video editor while you watch.
 
+**Install and open the app**
+
+```sh
+python -m pip install praisonai-clips
+praisonai-clips studio
+```
+
+For your own videos, you also need Python 3.11+, a compatible FFmpeg installation, and an OpenAI API key. [See the setup guide](docs/getting-started/installation.md).
+
 **REAL-TIME EDITING**
 
 <a href="docs/reference/resolve-sdk.md"><img src="docs/assets/editor-logos/davinci-resolve.png" width="40" alt="DaVinci Resolve logo"></a> &nbsp; [**DaVinci Resolve**](docs/reference/resolve-sdk.md) &nbsp;&nbsp;&nbsp; <a href="docs/KDENLIVE_LIVE_CONTROL.md"><img src="docs/assets/editor-logos/kdenlive.png" width="40" alt="Kdenlive logo"></a> &nbsp; [**Kdenlive**](docs/KDENLIVE_LIVE_CONTROL.md)
@@ -43,6 +52,10 @@ flowchart LR
 The app aims for up to five clips of 30–60 seconds each. It may find fewer suitable clips. Results that need another look appear as drafts.
 
 ## Edit in Resolve by chatting
+
+[![Watch the 30-second recording of Codex editing a Resolve timeline](docs/assets/live-edit/resolve-demo-poster.jpg)](https://clips.praison.ai/assets/live-edit/resolve-demo.mp4)
+
+**▶ Watch the 30-second live-editing demo.** Codex creates a separate review timeline after a request to remove quiet pauses. The recording is shortened and has no narration; the [demo notes](https://clips.praison.ai/built-with-codex/#watch-the-live-editing-demo) explain the intervention used in that run.
 
 ![How a Codex chat request reaches PraisonAI Clips MCP and SDK, updates DaVinci Resolve, and returns the result for review.](docs/assets/illustrations/codex-resolve-flow.svg)
 
