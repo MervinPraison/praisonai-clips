@@ -4,6 +4,8 @@
 
 [![Visit clips.praison.ai](docs/assets/illustrations/visit-website.svg)](https://clips.praison.ai/)
 
+[**View on ChatGPT Sites →**](https://praisonai-clips-community.praison.chatgpt.site/)
+
 ### Turn one long video into short clips you can review and share.
 
 Bring an interview, lesson, webinar, or walkthrough. PraisonAI Clips finds moments, frames them for vertical video, adds captions, and gives you the final say. You can also ask Codex to make live edits in your video editor while you watch.
