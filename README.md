@@ -67,7 +67,7 @@ With DaVinci Resolve open, you can ask Codex to inspect a timeline and make an e
 >
 > “Find the quiet pauses in this clip and make a new timeline so I can review the cuts.”
 
-The pause workflow creates a separate timeline for review. In a real Mac test, a 20-second excerpt became six video and audio segments, with 0.9 seconds of quiet pauses removed.
+The pause workflow creates a separate timeline for review.
 
 [**Set up Codex for live editing →**](docs/getting-started/codex.md) · [Resolve SDK](docs/reference/resolve-sdk.md) · [CLI and YAML](docs/reference/cli.md#remove-quiet-pauses)
 
@@ -174,6 +174,16 @@ Yes. You can export editable source cuts and caption sidecars, or use live frami
 ## Built to be checked
 
 You decide what to publish. Preview the framing, check the captions, and listen to the audio. Automated review checks the render and samples frames, but it cannot catch every issue.
+
+**The Cambridge Codex Community Challenge: what we made, changed and checked**
+
+1. **Made:** Asked Codex to remove quiet pauses while DaVinci Resolve was open. After the first run was rejected, Codex intervened to create a separate review timeline to compare with the original. The [30-second recording](https://clips.praison.ai/assets/live-edit/resolve-demo.mp4) shows the interaction and has no narration.
+2. **Changed:** The first run was rejected because Resolve counts the final frame differently. Codex fixed the boundary check and added a regression test; version 0.1.3 includes the fix. The recording predates that fix and does not show a clean end-to-end run of the updated command.
+3. **Checked:** Resolve showed five matching video and audio pieces after four quiet pauses were cut, with the original untouched. Three cuts overlap estimated word timings; they still need listening before use. Pause removal currently supports unretimed 30 fps footage on a 30 fps timeline.
+
+![Waveforms around the four removed ranges in the Resolve demonstration, with removed portions marked in red.](docs/assets/live-edit/resolve-cut-waveforms.png)
+
+*The chart compares the removed ranges with the source waveform. Estimated word timings and sampled screen descriptions are review clues, not proof that speech was cut. [See the cut-by-cut evidence](https://clips.praison.ai/built-with-codex/#checking-the-cuts).*
 
 [See what was made, changed, and checked](https://clips.praison.ai/built-with-codex/) · [Read the real-video validation report](docs/reference/validation-report.md) · [View automated checks](https://github.com/MervinPraison/praisonai-clips/actions/workflows/verify.yml)
 
