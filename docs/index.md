@@ -130,19 +130,19 @@ Preview, listen, and download. Explore native framing in Kdenlive or DaVinci Res
 <div class="section-heading"><span class="eyebrow">WORKING SOFTWARE. INSPECTABLE EVIDENCE.</span><span>See what has been tested.</span></div>
 <div class="start-grid proof-grid" markdown>
 <div markdown>
-## The workflow is running.<br><em>The evidence is open.</em>
-Real-video processing has produced captioned vertical clips with explicit review outcomes. Native editor tests have verified live framing changes and restoration against exported frames.
+## A real recording.<br><em>Documented checks.</em>
+In one four-minute real-video test, the app produced three captioned clips: one passed automated review and two remained drafts. Separate macOS tests checked live framing changes and restoration in DaVinci Resolve and a custom Kdenlive bridge using rendered frames; they do not establish support for every edit or editor version. The reports describe these tests; some original test files remain local.
 [Explore the product and validation](product.md) · [Read the processing report](reference/validation-report.md)
 </div>
 <div class="evidence-card" markdown>
-<span class="step">CURRENT PRODUCT · 0.1.3</span>
+<span class="step">LATEST PYPI RELEASE · 0.1.3</span>
 ### Build on a working foundation
 - Local dashboard, CLI, and resumable jobs
 - Video, captions, edit mappings, and review artifacts
-- Python SDK, CLI, YAML, and Resolve MCP tools
-- Live Kdenlive and Resolve integrations
+- Python SDK, CLI and YAML workflows; optional Resolve MCP tools
+- Supported live edits in DaVinci Resolve and Kdenlive with separate setup
 
-Live adapters have version constraints. Automated review uses sampled frames; inspect and listen before publishing.
+The tested Mac Kdenlive integration uses a custom bridge from the source checkout, not the stock app alone or the PyPI package by itself. Editor adapters have version constraints. The source checkout contains newer changes than this PyPI release. Automated review uses sampled frames; inspect and listen before publishing.
 </div>
 </div>
 <div class="section-heading"><span class="eyebrow">START WITH YOUR NEXT RECORDING</span><span>Python · OpenAI · FFmpeg</span></div>
