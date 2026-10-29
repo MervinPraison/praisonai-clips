@@ -2,25 +2,39 @@
 
 **This project was built entirely using OpenAI Codex**, under Mervin Praison’s direction—from implementation and debugging to tests, documentation, and deployment. It was prepared for the community-led [Cambridge Codex Community Challenge](https://cambridge-codex-workshop-guide.lilizhu.chatgpt.site/challenges.html).
 
-The everyday task: take a long recording, find a complete thought, make a captioned vertical clip, and check it before sharing. PraisonAI Clips brings those steps into one local workflow.
+The everyday task: remove quiet pauses from a short video without manually cutting every gap. I asked Codex to help while DaVinci Resolve was open, then reviewed the timeline it created.
 
 <div class="challenge-facts" markdown>
 <div markdown>
 <span class="step">01 / WHAT I MADE</span>
-### A recording-to-clips workflow
-A local app that selects moments, frames vertical video, adds highlighted captions, and separates accepted clips from uncertain drafts.
+### An edit I could request in chat
+PraisonAI Clips connects Codex to an open video editor. In this example, it creates a version of a clip with quiet pauses removed.
 </div>
 <div markdown>
 <span class="step">02 / WHAT I CHANGED</span>
-### Show the result before setup
-A playable example, a main-screen upload, and a setup check replaced an explanation-first opening with an immediate way to explore the output.
+### Keep the original available
+Codex created a separate review timeline, so the new cuts can be compared with the original before sharing.
 </div>
 <div markdown>
 <span class="step">03 / WHAT I CHECKED</span>
-### Test the path to the first clip
-Rendering, caption timing, review/repair, resume, and first-run guards have automated coverage. Browser checks cover example playback and downloads.
+### Inspect the result
+Resolve showed five matching video and audio segments after four quiet pauses were removed. The review timeline still needs listening around the cuts; quiet audio can include speech.
 </div>
 </div>
+
+## Watch the live editing demo
+
+<video class="challenge-video" controls playsinline preload="metadata" poster="../assets/live-edit/resolve-demo-poster.jpg" aria-label="Screen recording of a request in Codex and a review timeline in DaVinci Resolve"><source src="../assets/live-edit/resolve-demo.mp4" type="video/mp4"><a href="../assets/live-edit/resolve-demo.mp4">Download the live editing demo</a>.</video>
+
+[Watch the 30-second demo directly](assets/live-edit/resolve-demo.mp4) · [See the editor setup](getting-started/codex.md) · [Explore the code](https://github.com/MervinPraison/praisonai-clips)
+
+This screen recording shows the actual request and the resulting Resolve timeline. It is silent and edited to remove waiting, so it is not uninterrupted real-time footage. In this run Codex also had to clear pending Console input before proceeding. The original timeline remained available.
+
+### The request
+
+> Your shorts is there in the timeline, please remove the silences.
+
+This is one tested operation, not a claim that every natural-language edit is supported. The pause-removal workflow currently requires an unretimed 30 fps clip in a 30 fps Resolve timeline. See the [Resolve SDK guide](reference/resolve-sdk.md) for setup and limitations.
 
 ## Watch the walkthrough
 
