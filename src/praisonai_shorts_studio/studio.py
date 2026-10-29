@@ -116,6 +116,14 @@ def show_example():
         st.write("Your bundle includes the MP4, SRT and ASS captions, source/output word timings, edit mapping, and an explanation of how the example was made.")
 
 
+def show_copyright():
+    st.markdown(
+        '<div class="studio-copyright">PraisonAI Clips and its original design © 2026 Mervin Praison. '
+        'All rights reserved. Third-party components retain their respective licenses.</div>',
+        unsafe_allow_html=True,
+    )
+
+
 jobs = store.list()
 if not jobs:
     create, preview = st.columns([1.35, 1], gap="large")
@@ -140,6 +148,7 @@ if not jobs:
         st.write("We prepare your recording, transcribe the audio, inspect sampled frames, and choose complete moments. Then we frame, caption, render, and review each candidate. Processing time and API costs depend on the recording; fewer clips may pass review than you request.")
     with st.expander("Can I finish the edit in my desktop editor?"):
         st.write("Optional integrations export editable Kdenlive source cuts or support live framing in Kdenlive and DaVinci Resolve. Live adapters are experimental and require separate setup.")
+    show_copyright()
     st.stop()
 with st.sidebar:
     st.header("Create another set of clips")
@@ -324,3 +333,4 @@ def dashboard(job_id):
 
 source_evidence(selected)
 dashboard(selected)
+show_copyright()
