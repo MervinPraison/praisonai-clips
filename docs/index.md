@@ -84,18 +84,18 @@ Inspect local audio peaks in the same source-time window.
 <figcaption>The comparison table in the dashboard. This screenshot shows part of the table; the audio column is outside the captured area. <a href="assets/evidence/streamlit-comparison-table.png">Open full-size image ↗</a></figcaption>
 </figure>
 <figure class="codex-flow"><img src="assets/illustrations/codex-resolve-flow.svg" alt="A Codex chat request passes through PraisonAI Clips MCP and SDK checks to DaVinci Resolve; the edit appears on screen and the result returns to Codex."><figcaption>From a request in Codex to a result you can review in Resolve.</figcaption></figure>
-<div class="value-strip"><div><strong>Complete thoughts</strong><span>Transcript + visual context</span></div><div><strong>Review before delivery</strong><span>Accepted clips & separate drafts</span></div><div><strong>Keep editorial control</strong><span>Source mappings & editor tools</span></div></div>
+<div class="value-strip"><div><strong>Find promising moments</strong><span>Transcript + sampled visuals</span></div><div><strong>Review before delivery</strong><span>Automatically checked clips & separate drafts</span></div><div><strong>Keep editorial control</strong><span>Source mappings & editor tools</span></div></div>
 <div class="section-heading"><span class="eyebrow">BUILT FOR THE RECORDINGS YOU ALREADY MAKE</span><span>One workflow. More places to start.</span></div>
 <div class="feature-grid" markdown>
 <div markdown>
 <span class="step">FOR CREATORS</span>
 ### Let the moment stand alone
-Find complete thoughts inside an interview or longer conversation. Give each clip its own beginning and ending.
+Find potential standalone moments in an interview or longer conversation. Check that each clip makes sense on its own.
 </div>
 <div markdown>
 <span class="step">FOR EDUCATORS</span>
-### Keep the explanation intact
-Make short lessons from longer recordings. Preserve slides and screen content with full-frame fit when a crop would lose context.
+### Keep the whole picture
+Make short lessons from longer recordings. Full-frame fit keeps the whole picture when a crop may lose context; check that slides and text remain readable.
 </div>
 <div markdown>
 <span class="step">FOR CONTENT TEAMS</span>
@@ -104,12 +104,12 @@ Review the result, download the video and caption files, and keep the source map
 </div>
 </div>
 <div class="section-heading"><span class="eyebrow">FROM SOURCE TO SHORT</span><span>Automation with an editorial checkpoint.</span></div>
-<p>Start with a long video and choose where to stop: review its transcript and screen evidence, review selected moments, or render captioned vertical clips in one run. You can continue later from saved analysis. Import a rendered clip into DaVinci Resolve or Kdenlive, then connect Codex for supported further edits. Rendered framing and captions are baked in; an optional Kdenlive export provides editable source cuts with separate caption files. <a href="guides/workflow/">See the full workflow and editor handoff ↗</a></p>
+<p>Start with a long video and render captioned vertical clips in one run. You can also stop after source analysis or moment selection and continue later from saved results. Import a rendered clip into DaVinci Resolve or Kdenlive, then set up Codex for supported further edits. Rendered framing and captions are baked in. An optional Kdenlive export, with separate setup and the normalised source kept at its existing path, provides editable source cuts and separate caption files; it does not reproduce the rendered framing or captions in the timeline. <a href="guides/workflow/">See the full workflow and editor handoff ↗</a></p>
 <div class="process-grid" markdown>
 <div markdown>
 <span class="step">01 / FIND</span>
-### Choose a complete thought
-Measured transcription and sampled frames inform moment selection. Candidate ranges respect sentence and duration constraints.
+### Find a promising moment
+Estimated word timings and sampled frames inform selection. Candidate ranges follow sentence and duration rules before pause trimming; check that each selection is complete.
 </div>
 <div markdown>
 <span class="step">02 / PRODUCE</span>
@@ -119,7 +119,7 @@ Create vertical video with a stable crop or full-frame fit, word-highlight capti
 <div markdown>
 <span class="step">03 / REVIEW</span>
 ### Check before accepting
-Run technical checks and sampled visual review. Attempt supported framing repairs and keep uncertain results in drafts.
+Run technical checks and sampled visual review, attempt supported framing repairs, and keep rendered clips that do not pass the checks in drafts. Listen and check the final clip before sharing; the visual review does not listen to the audio.
 </div>
 <div markdown>
 <span class="step">04 / REFINE</span>
