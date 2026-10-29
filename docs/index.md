@@ -25,6 +25,12 @@ hide:
 <div class="demo-downloads"><a href="assets/demo/clip.mp4" download>Download the clip ↗</a><a href="assets/demo/source.mp4">Compare the original</a></div>
 </figure>
 </div>
+<div class="section-heading"><span class="eyebrow">HOW IT WORKS</span><span>From recording to finished clips.</span></div>
+<div class="journey" aria-label="Three steps from a long recording to Shorts and optional live editing">
+<div><span class="step">01 / ADD A VIDEO</span><strong>Your long recording</strong><span>Upload a file or choose one on your computer.</span></div>
+<div><span class="step">02 / MAKE SHORTS</span><strong>Clips made for you</strong><span>The app finds moments, frames them and adds captions.</span></div>
+<div><span class="step">03 / KEEP EDITING</span><strong>Refine in an editor</strong><span>Optional: ask Codex to edit in DaVinci Resolve or Kdenlive.</span></div>
+</div>
 <div class="section-heading" id="install"><span class="eyebrow">GET STARTED</span><span>Install and open the app.</span></div>
 <div class="start-grid install-grid" markdown>
 <div markdown>
@@ -84,24 +90,6 @@ Inspect local audio peaks in the same source-time window.
 <figcaption>The comparison table in the dashboard. This screenshot shows part of the table; the audio column is outside the captured area. <a href="assets/evidence/streamlit-comparison-table.png">Open full-size image ↗</a></figcaption>
 </figure>
 <figure class="codex-flow"><img src="assets/illustrations/codex-resolve-flow.svg" alt="A Codex chat request passes through PraisonAI Clips MCP and SDK checks to DaVinci Resolve; the edit appears on screen and the result returns to Codex."><figcaption>From a request in Codex to a result you can review in Resolve.</figcaption></figure>
-<div class="section-heading"><span class="eyebrow">FROM LONG VIDEO TO SHORTS</span><span>Then edit by chatting.</span></div>
-<div class="feature-grid" markdown>
-<div markdown>
-<span class="step">01 / FIND</span>
-### Find the moments
-The app uses the transcript and screen descriptions to choose promising clips.
-</div>
-<div markdown>
-<span class="step">02 / MAKE</span>
-### Create captioned Shorts
-It frames, captions and checks each clip. Clips that fail automated review stay in drafts.
-</div>
-<div markdown>
-<span class="step">03 / REFINE</span>
-### Continue in your editor
-Import a clip into DaVinci Resolve or Kdenlive and ask Codex for supported live edits.
-</div>
-</div>
 <p>Preview and listen before sharing. You can also pause and resume processing, or inspect the transcript, screen descriptions and waveform. <a href="guides/workflow/">See the full workflow ↗</a></p>
 <div class="section-heading"><span class="eyebrow">TESTED ON REAL VIDEO</span><span>See the evidence.</span></div>
 <p>A four-minute recording produced three captioned clips: one passed automated review and two stayed in drafts. Live framing was also tested in DaVinci Resolve and a custom Kdenlive setup. <a href="reference/validation-report/">Read the test results ↗</a> · <a href="product/">See supported editor setups ↗</a></p>

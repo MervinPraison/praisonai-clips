@@ -32,3 +32,5 @@
 @media(max-width:760px){.md-typeset figure.live-edit-demo,.md-typeset figure.source-evidence-demo{padding:.75rem;box-shadow:4px 4px 0 var(--md-code-bg-color)}}
 
 .md-typeset .install-grid h2,.md-typeset .install-grid pre{margin-top:0}
+
+.journey{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.6rem;padding:1.5rem 0 2rem}.journey>div{position:relative;display:flex;flex-direction:column;gap:.45rem;border:1px solid var(--line);background:var(--card);padding:1rem;min-width:0}.journey>div:not(:last-child):after{content:'→';position:absolute;right:-1.25rem;top:50%;transform:translateY(-50%);font-size:1.15rem;color:var(--muted)}.journey strong{font-family:Newsreader,serif;font-size:1.25rem;line-height:1.15;font-weight:500}.journey>div>span:last-child{font-size:.72rem;line-height:1.5;color:var(--muted)}@media(max-width:760px){.journey{grid-template-columns:1fr;gap:1.4rem}.journey>div:not(:last-child):after{content:'↓';right:50%;top:auto;bottom:-1.35rem;transform:translateX(50%)}}
