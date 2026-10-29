@@ -78,6 +78,11 @@ Inspect local audio peaks in the same source-time window.
 <figcaption>A real dashboard view from an analyzed recording. Word timings are estimates and screen descriptions come from sampled frames. <a href="assets/evidence/streamlit-source-evidence-wide.png">Open full-size image ↗</a></figcaption>
 </figure>
 <p>A comparison table groups all three into five-second intervals. Its audio number is the maximum sampled peak, not average loudness. The transcript and screen observations appear as processing finishes; use <strong>Refresh source evidence</strong> to reload them. The panel makes no additional AI calls. Video playback does not automatically follow the chart. Listen and inspect the video before accepting cuts. <a href="getting-started/quickstart/#use-the-dashboard">Open the dashboard guide ↗</a></p>
+<figure class="source-evidence-demo">
+<div class="demo-heading"><span>COMPARE BY SOURCE TIME</span><span>REAL APP VIEW</span></div>
+<a href="assets/evidence/streamlit-comparison-table.png" aria-label="Open the full-size comparison table screenshot"><img src="assets/evidence/streamlit-comparison-table.png" alt="Streamlit comparison table showing source-time intervals alongside transcript and screen observations." loading="lazy"></a>
+<figcaption>The comparison table in the dashboard. This screenshot shows part of the table; the audio column is outside the captured area. <a href="assets/evidence/streamlit-comparison-table.png">Open full-size image ↗</a></figcaption>
+</figure>
 <figure class="codex-flow"><img src="assets/illustrations/codex-resolve-flow.svg" alt="A Codex chat request passes through PraisonAI Clips MCP and SDK checks to DaVinci Resolve; the edit appears on screen and the result returns to Codex."><figcaption>From a request in Codex to a result you can review in Resolve.</figcaption></figure>
 <div class="value-strip"><div><strong>Complete thoughts</strong><span>Transcript + visual context</span></div><div><strong>Review before delivery</strong><span>Accepted clips & separate drafts</span></div><div><strong>Keep editorial control</strong><span>Source mappings & editor tools</span></div></div>
 <div class="section-heading"><span class="eyebrow">BUILT FOR THE RECORDINGS YOU ALREADY MAKE</span><span>One workflow. More places to start.</span></div>

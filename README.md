@@ -112,6 +112,10 @@ After processing starts, select your recording and open **Source evidence**. Cho
 
 A comparison table maps the three views to five-second source intervals. Its audio value is the maximum sampled peak, not average loudness. The transcript and screen descriptions appear as their processing stages finish; use **Refresh source evidence** to update them. The panel makes no additional AI calls. Playback does not automatically follow the chart. Listen and inspect before accepting cuts: quiet audio and estimated timestamps are not proof that speech is absent.
 
+![Streamlit comparison table showing source-time intervals alongside transcript and screen observations.](docs/assets/evidence/streamlit-comparison-table.png)
+
+*The comparison table in the dashboard. This screenshot shows part of the table; the audio column is outside the captured area.*
+
 <details>
 <summary><strong>Show the setup commands</strong></summary>
 

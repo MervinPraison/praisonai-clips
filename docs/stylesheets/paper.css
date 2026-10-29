@@ -24,7 +24,7 @@
 
 /* Material's figure defaults otherwise override the homepage media widths. */
 .md-typeset figure.live-edit-demo,.md-typeset figure.source-evidence-demo{box-sizing:border-box;width:100%;max-width:850px;margin:1.5rem auto 2rem}
-.md-typeset figure.source-evidence-demo{max-width:1100px;border:1px solid var(--line);padding:1rem;background:var(--card);box-shadow:7px 7px 0 var(--md-code-bg-color)}
+.md-typeset figure.source-evidence-demo{max-width:1175px;border:1px solid var(--line);padding:1rem;background:var(--card);box-shadow:7px 7px 0 var(--md-code-bg-color)}
 .md-typeset .live-edit-demo img,.md-typeset .source-evidence-demo img{display:block;width:100%;height:auto;margin:1rem auto}
 .md-typeset .source-evidence-demo img{max-width:1133px;border:1px solid var(--line)}
 .md-typeset figure.live-edit-demo figcaption,.md-typeset figure.source-evidence-demo figcaption,.md-typeset figure.codex-flow figcaption{max-width:none;margin:.7rem 0 0;text-align:left;font-style:normal;font-size:.7rem;line-height:1.6;color:var(--muted)}
