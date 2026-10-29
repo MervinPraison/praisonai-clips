@@ -12,13 +12,13 @@ PraisonAI Clips connects Codex to an open video editor. In this example, it crea
 </div>
 <div markdown>
 <span class="step">02 / WHAT I CHANGED</span>
-### Keep the original available
-Codex created a separate review timeline, so the new cuts can be compared with the original before sharing.
+### Fix the last-frame check
+My first run was rejected because Resolve counts the final frame differently. I had Codex fix that check and add a regression test. Version 0.1.3 includes it.
 </div>
 <div markdown>
 <span class="step">03 / WHAT I CHECKED</span>
-### Inspect the result
-I checked the result in DaVinci Resolve. It created a separate review timeline with the pauses removed, while keeping the original available.
+### Cuts made, listening still to do
+Resolve showed five matching pieces after four quiet pauses were cut, with the original untouched. Three cuts overlap estimated word timings, so I still need to listen before using it.
 </div>
 </div>
 
