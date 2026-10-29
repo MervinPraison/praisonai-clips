@@ -16,7 +16,7 @@ Bring an interview, lesson, webinar, or walkthrough. PraisonAI Clips finds momen
 
 Ask Codex to adjust framing and see the result in your open editor. Resolve also supports creating a review timeline with quiet pauses removed. Setup and supported operations differ by editor.
 
-[**Watch the example**](https://clips.praison.ai/#see-example) · [**See the walkthrough**](https://clips.praison.ai/built-with-codex/#watch-the-walkthrough) · [Get started](#get-started) · [Edit by chatting](#edit-in-resolve-by-chatting)
+[**Watch the example**](https://clips.praison.ai/#see-example) · [**Watch Codex edit in Resolve**](https://clips.praison.ai/#live-edit-demo) · [**See the walkthrough**](https://clips.praison.ai/built-with-codex/#watch-the-walkthrough) · [Get started](#get-started) · [Edit by chatting](#edit-in-resolve-by-chatting)
 
 ## See it before you set anything up
 

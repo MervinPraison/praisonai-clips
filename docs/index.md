@@ -27,6 +27,12 @@ hide:
 </div>
 <div class="section-heading"><span class="eyebrow">EDIT BY CHATTING WITH CODEX</span><span>See changes in your editor.</span></div>
 <p>Ask Codex to adjust framing in DaVinci Resolve or Kdenlive while you watch. In Resolve, you can also create a review timeline with quiet pauses removed. The Python SDK, MCP tools, CLI and YAML commands share the same guarded operations. <a href="reference/resolve-sdk/">Explore live Resolve editing ↗</a></p>
+<figure class="live-edit-demo" id="live-edit-demo">
+<div class="demo-heading"><span>WATCH CODEX EDIT IN RESOLVE</span><span>00:30</span></div>
+<video controls playsinline preload="metadata" poster="assets/live-edit/resolve-demo-poster.jpg" aria-label="Thirty-second edited screen recording of a Codex request to remove quiet pauses in DaVinci Resolve"><source src="assets/live-edit/resolve-demo.mp4" type="video/mp4">Your browser does not support embedded video. <a href="assets/live-edit/resolve-demo.mp4">Download the demonstration</a>.</video>
+<figcaption>Ask Codex to remove quiet pauses, then see a separate review timeline appear in Resolve. This screen recording is shortened to remove waiting; it has no narration.</figcaption>
+<div class="demo-downloads"><a href="assets/live-edit/resolve-demo.mp4" download>Download the demo ↗</a></div>
+</figure>
 <figure class="codex-flow"><img src="assets/illustrations/codex-resolve-flow.svg" alt="A Codex chat request passes through PraisonAI Clips MCP and SDK checks to DaVinci Resolve; the edit appears on screen and the result returns to Codex."><figcaption>From a request in Codex to a result you can review in Resolve.</figcaption></figure>
 <div class="value-strip"><div><strong>Complete thoughts</strong><span>Transcript + visual context</span></div><div><strong>Review before delivery</strong><span>Accepted clips & separate drafts</span></div><div><strong>Keep editorial control</strong><span>Source mappings & editor tools</span></div></div>
 <div class="section-heading"><span class="eyebrow">BUILT FOR THE RECORDINGS YOU ALREADY MAKE</span><span>One workflow. More places to start.</span></div>

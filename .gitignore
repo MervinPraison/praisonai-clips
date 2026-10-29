@@ -160,3 +160,6 @@ id_ed25519
 
 # Public captioned walkthrough of the empty app and generated example
 !/docs/assets/challenge/walkthrough.mp4
+
+# Public, user-approved live editing demonstration
+!/docs/assets/live-edit/resolve-demo.mp4

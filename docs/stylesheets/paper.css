@@ -18,3 +18,5 @@
 .editor-support{margin-top:1.35rem;border-top:1px solid var(--line);padding-top:.8rem}.editor-support-label{font:.55rem 'IBM Plex Mono',monospace;letter-spacing:.04em;color:var(--muted)}.editor-support-links{display:flex;flex-wrap:wrap;gap:1rem;margin-top:.5rem}.md-typeset .editor-support-links a{display:inline-flex;align-items:center;gap:.4rem;font-size:.68rem;font-weight:600;text-decoration:none}.editor-support-links img{width:36px;height:36px;object-fit:contain}
 
 .github-button{display:inline-flex;align-items:center;gap:.45rem}.github-button svg{width:1rem;height:1rem;fill:currentColor;flex:none}
+
+.live-edit-demo{max-width:850px;margin:1.5rem auto 2rem!important;border:1px solid var(--line);padding:1rem;background:var(--card);box-shadow:7px 7px 0 var(--md-code-bg-color)}.live-edit-demo video{display:block;width:100%;height:auto;margin:1rem 0}.live-edit-demo figcaption{font-size:.7rem;line-height:1.6;color:var(--muted)}
