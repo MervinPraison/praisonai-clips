@@ -7,7 +7,7 @@ from unittest.mock import patch
 import pytest
 from streamlit.testing.v1 import AppTest
 
-from praisonai_shorts_studio.evidence import in_window, waveform
+from praisonai_shorts_studio.evidence import in_window, mapped_windows, waveform
 from praisonai_shorts_studio.store import Store
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -17,6 +17,21 @@ def test_window_includes_intersecting_words_and_only_sampled_frames():
     words = [{'word': 'edge', 'start': 4.8, 'end': 5.2}, {'word': 'later', 'start': 10.0, 'end': 10.3}]
     scenes = [{'time': 5}, {'time': 10}]
     assert in_window(words, scenes, 5, 10) == ([words[0]], [scenes[0]])
+
+
+def test_mapping_keeps_timing_boundaries_and_missing_evidence_distinct():
+    words = [{'word': 'crosses', 'start': 4.8, 'end': 5.2}]
+    scenes = [{'time': 5, 'scene': 'A screen'}]
+    peaks = [{'Source time (s)': 4.98, 'Peak amplitude': .2},
+             {'Source time (s)': 5.0, 'Peak amplitude': .7}]
+    rows = mapped_windows(words, scenes, peaks, 0, 10)
+    assert [r['Transcript'] for r in rows] == ['crosses', 'crosses']
+    assert rows[0]['Screen observations'] == 'No frame sampled'
+    assert 'A screen' in rows[1]['Screen observations']
+    assert [r['Peak amplitude (0–1)'] for r in rows] == [.2, .7]
+    missing = mapped_windows(None, None, None, 0, 5)[0]
+    assert missing['Transcript'] == missing['Screen observations'] == 'Not ready'
+    assert missing['Peak amplitude (0–1)'] is None
 
 
 def test_waveform_measures_tone_and_silence(tmp_path):
@@ -56,6 +71,10 @@ def test_dashboard_shows_existing_source_evidence(tmp_path, monkeypatch):
     assert not app.exception
     assert any('A black screen' in text.value for text in app.markdown)
     assert any('Transcript · word by word' in text.value for text in app.markdown)
-    assert len(app.dataframe) == 1
+    assert len(app.dataframe) == 2
     assert app.dataframe[0].value.iloc[0]['Word'] == 'Hello'
-    assert any('Peak amplitude per 20 ms' in caption.value for caption in app.caption)
+    mapped = app.dataframe[1].value.iloc[0]
+    assert mapped['Transcript'] == 'Hello'
+    assert 'A black screen' in mapped['Screen observations']
+    assert mapped['Peak amplitude (0–1)'] > 0
+    assert any('Peak per 20 ms' in caption.value for caption in app.caption)

@@ -104,7 +104,7 @@ Real-video processing has produced captioned vertical clips with explicit review
 [Explore the product and validation](product.md) · [Read the processing report](reference/validation-report.md)
 </div>
 <div class="evidence-card" markdown>
-<span class="step">CURRENT PRODUCT · 0.1.1</span>
+<span class="step">CURRENT PRODUCT · 0.1.2</span>
 ### Build on a working foundation
 - Local dashboard, CLI, and resumable jobs
 - Video, captions, edit mappings, and review artifacts

@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 
 from praisonai_shorts_studio.cli import doctor
 from praisonai_shorts_studio.artifacts import clip_bundle
-from praisonai_shorts_studio.evidence import in_window, waveform
+from praisonai_shorts_studio.evidence import in_window, mapped_windows, waveform
 from praisonai_shorts_studio.onboarding import example_directory, example_bundle, processing_issues, stage_label
 from praisonai_shorts_studio.pipeline import default_config, validate_config
 from praisonai_shorts_studio.store import Store
@@ -180,20 +180,20 @@ def source_evidence(job_id):
     end = min(duration, start + 30.0)
     st.caption(f'Source time: {start:.2f}–{end:.2f} seconds. Change the window to inspect another part; video playback is not automatically synchronized with the chart.')
     st.video(str(source), start_time=start)
+    points = None
+    waveform_error = None
     try:
         stat = source.stat()
         with st.spinner('Reading local audio waveform…'):
             points = cached_waveform(str(source), stat.st_mtime_ns, stat.st_size, float(start), float(end))
-        st.line_chart(pd.DataFrame(points), x='Source time (s)', y='Peak amplitude', height=180)
-        st.caption('Peak amplitude per 20 ms, from mono audio sampled at 8 kHz. Quiet audio can contain speech; the waveform is not a speech detector.')
     except (OSError, ValueError, RuntimeError, subprocess.TimeoutExpired) as exc:
-        st.warning(f'Waveform unavailable: {exc}')
+        waveform_error = str(exc)
     transcript_path, scenes_path = folder / 'transcript.json', folder / 'scenes.json'
     try:
         words = json.loads(transcript_path.read_text())['words'] if transcript_path.exists() else None
         scenes = json.loads(scenes_path.read_text()) if scenes_path.exists() else None
         window_words, window_scenes = in_window(words or [], scenes or [], start, end)
-        left, right = st.columns(2)
+        left, right, audio = st.columns(3)
         with left:
             st.markdown('#### Transcript · word by word')
             if words is None:
@@ -218,6 +218,16 @@ def source_evidence(job_id):
                         st.caption('Visible text: ' + scene['visible_text'])
             else:
                 st.info('No sampled frames in this window.')
+        with audio:
+            st.markdown('#### Audio waveform')
+            if points:
+                st.line_chart(pd.DataFrame(points), x='Source time (s)', y='Peak amplitude', height=180)
+                st.caption('Peak per 20 ms, mono at 8 kHz. 0 means no sampled amplitude; 1 is full scale. Quiet audio can contain speech.')
+            else:
+                st.warning(f'Waveform unavailable: {waveform_error or "no audio samples"}')
+        st.markdown('#### Compare by source time')
+        st.caption('Each row covers five seconds. Words can appear in adjacent rows if their estimated timing crosses a boundary. Screen descriptions are point samples, not continuous coverage. Audio values are the maximum sampled peak in the row, not average loudness or a speech detector.')
+        st.dataframe(mapped_windows(words, scenes, points, start, end), hide_index=True, use_container_width=True)
         st.caption('Word timestamps are estimates. Screen descriptions are independent observations of frames sampled about every five seconds, not a continuous record. Check the video and listen before making cuts.')
     except (OSError, ValueError, KeyError, TypeError, json.JSONDecodeError):
         st.warning('Some source evidence could not be read. Check the job status or resume processing.')

@@ -96,7 +96,7 @@ praisonai-clips studio
 3. Start the dashboard and add a recording.
 4. Review the clips, listen, and download the ones you want.
 
-After processing starts, select your recording and open **Source evidence** to inspect the source video, its local audio waveform, word-by-word timestamps, and sampled screen descriptions in the same 30-second window. The analysis appears as each stage finishes; use **Refresh source evidence** to update it. Listen and inspect before accepting cuts: quiet audio and estimated timestamps are not proof that speech is absent.
+After processing starts, select your recording and open **Source evidence** to inspect the source video alongside three views: word-by-word transcript, sampled screen descriptions, and the local audio waveform. A table maps them to the same five-second source intervals. Analysis appears as each stage finishes; use **Refresh source evidence** to update it. Listen and inspect before accepting cuts: quiet audio and estimated timestamps are not proof that speech is absent.
 
 <details>
 <summary><strong>Show the setup commands</strong></summary>

@@ -35,3 +35,22 @@ def in_window(words, scenes, start, end):
     """Keep words intersecting the interval and point observations within it."""
     return ([w for w in words if w['end'] >= start and w['start'] < end],
             [s for s in scenes if start <= s['time'] < end])
+
+
+def mapped_windows(words, scenes, points, start, end, *, width=5):
+    """Map point samples and intersecting words to the same source-time bins."""
+    rows = []
+    cursor = float(start)
+    while cursor < end:
+        boundary = min(cursor + width, end)
+        timed_words = [w['word'] for w in words or [] if w['end'] > cursor and w['start'] < boundary]
+        samples = [s for s in scenes or [] if cursor <= s['time'] < boundary]
+        amplitudes = [p['Peak amplitude'] for p in points or [] if cursor <= p['Source time (s)'] < boundary]
+        rows.append({
+            'Source time (s)': f'{cursor:.2f}–{boundary:.2f}',
+            'Transcript': ' '.join(timed_words) if timed_words else ('Not ready' if words is None else 'No timed words'),
+            'Screen observations': ' | '.join(f"{s['time']:.2f}s: {s.get('scene', '')} {s.get('screen_content', '')} {s.get('visible_text', '')}".strip() for s in samples) if samples else ('Not ready' if scenes is None else 'No frame sampled'),
+            'Peak amplitude (0–1)': round(max(amplitudes), 3) if amplitudes else None,
+        })
+        cursor = boundary
+    return rows
