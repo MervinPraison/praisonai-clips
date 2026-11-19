@@ -1,127 +1,93 @@
 ---
-template: home.html
-hide:
-- navigation
-- toc
 layout: home
 title: PraisonAI Clips
-description: Create reviewed vertical clips from long videos.
+nav_title: Home
+description: Find complete moments in long recordings and turn them into vertical clips.
 hero:
   name: PraisonAI Clips
-  text: PraisonAI Clips
-  tagline: Create reviewed vertical clips from long videos.
+  text: Your long video. Your next short.
+  tagline: Find complete moments in interviews, lessons, and webinars. Turn them into vertical clips with highlighted captions, then review and choose what to share.
   actions:
-  - text: Quick start
-    link: getting-started/installation.md
+    - text: Make my first clips
+      link: getting-started/quickstart.md
+    - text: View on GitHub
+      link: https://github.com/MervinPraison/praisonai-clips
+      theme: alt
+features:
+  - title: Add a video
+    icon: film
+    details: Upload a file or choose one on your computer.
+    link: getting-started/quickstart.md
+    linkText: Make a clip
+  - title: Make shorts
+    icon: clapperboard
+    details: The app finds moments, frames them, and adds highlighted captions.
+    link: guides/workflow.md
+    linkText: See the workflow
+  - title: Keep editing
+    icon: pencil
+    details: Optionally ask Codex to edit in DaVinci Resolve or Kdenlive.
+    link: reference/resolve-sdk.md
+    linkText: Live editing
 ---
-<div class="edition"><span>PRAISONAI CLIPS</span><span>AI VIDEO REPURPOSING</span><span>CREATE · REVIEW · REFINE</span></div>
-<div class="hero" markdown>
-<div markdown>
-<p class="eyebrow">YOUR RECORDING HAS MORE TO GIVE</p>
-<h1>Your long video.<br><em>Your next short.</em></h1>
-<p class="lede">Find complete moments in your interviews, lessons, and webinars. Turn them into vertical clips with highlighted captions, then review and choose what to share.</p>
-<div class="actions"><a class="paper-button" href="getting-started/quickstart/">Make my first clips ↗</a><a class="paper-button secondary" href="#see-example">Watch the example</a><a class="paper-button secondary" href="#install">Install the app</a><a class="paper-button secondary github-button" href="https://github.com/MervinPraison/praisonai-clips"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg><span>View on GitHub</span></a></div>
-<p class="hero-note">Mervin Praison uses this app to make Shorts for <a href="https://www.youtube.com/@MervinPraison/">his YouTube channel ↗</a>. Watch the real example without an API key.</p>
-<p class="hero-note"><a href="getting-started/codex/">Connect Codex to your editor ↗</a></p>
-<div class="editor-support" aria-label="Real-time editor integrations">
-<span class="editor-support-label">REAL-TIME EDITING</span>
-<div class="editor-support-links"><a href="reference/resolve-sdk/"><img src="assets/editor-logos/davinci-resolve.png" alt="" width="36" height="36"><span>DaVinci Resolve ↗</span></a><a href="KDENLIVE_LIVE_CONTROL/"><img src="assets/editor-logos/kdenlive.png" alt="" width="36" height="36"><span>Kdenlive ↗</span></a></div>
-</div>
-</div>
-<figure class="demo-showcase" id="see-example">
-<div class="demo-heading"><span>REAL VIDEO → VERTICAL SHORT</span><span>00:51 FROM 14:02</span></div>
-<video controls playsinline preload="metadata" poster="assets/real-example/poster.jpg" aria-label="A fifty-one-second captioned Short selected from a fourteen-minute RAG tutorial"><source src="assets/real-example/short.mp4" type="video/mp4">Your browser does not support embedded video. <a href="assets/real-example/short.mp4">Download the real example clip</a>.</video>
-<figcaption>One of five clips the app made from Mervin’s 14-minute RAG tutorial. It keeps the full slide visible and adds highlighted captions. This is a review draft; check the video and audio before publishing.</figcaption>
-<div class="demo-downloads"><a href="assets/real-example/short.mp4" download>Download the Short ↗</a><a href="https://www.youtube.com/watch?v=pIGRwMjhMaQ">Watch the full original ↗</a><a href="assets/real-example/captions.srt" download>Download captions ↗</a></div>
-</figure>
-</div>
-<div class="section-heading"><span class="eyebrow">HOW IT WORKS</span><span>From recording to finished clips.</span></div>
-<div class="journey" aria-label="Three steps from a long recording to Shorts and optional live editing">
-<div><span class="step">01 / ADD A VIDEO</span><strong>Your long recording</strong><span>Upload a file or choose one on your computer.</span></div>
-<div><span class="step">02 / MAKE SHORTS</span><strong>Clips made for you</strong><span>The app finds moments, frames them and adds captions.</span></div>
-<div><span class="step">03 / KEEP EDITING</span><strong>Refine in an editor</strong><span>Optional: ask Codex to edit in DaVinci Resolve or Kdenlive.</span></div>
-</div>
-<div class="section-heading" id="install"><span class="eyebrow">GET STARTED</span><span>Install and open the app.</span></div>
-<div class="start-grid install-grid" markdown>
-<div markdown>
-## Ready to try your own video?
-Install PraisonAI Clips, then open its dashboard. You'll also need Python 3.11+, a compatible FFmpeg installation, and an OpenAI API key.
 
-[Step-by-step installation guide ↗](getting-started/installation.md) · [See how data is handled](reference/public-release.md)
-</div>
-<div markdown>
+Mervin Praison uses this app to make Shorts for [his YouTube channel](https://www.youtube.com/@MervinPraison/). You can watch a real example without an API key. [Connect Codex to your editor](getting-started/codex.md).
+
+## See an example
+
+One of five clips the app made from a 14-minute RAG tutorial. It keeps the full slide visible and adds highlighted captions. This is a review draft; check the video and audio before publishing.
+
+<video controls playsinline preload="metadata" poster="assets/real-example/poster.jpg">
+  <source src="assets/real-example/short.mp4" type="video/mp4">
+</video>
+
+[Download the Short](assets/real-example/short.mp4) · [Watch the full original](https://www.youtube.com/watch?v=pIGRwMjhMaQ) · [Download captions](assets/real-example/captions.srt)
+
+## How it works
+
+1. **Add a video.** Upload a file or choose one on your computer.
+2. **Make shorts.** The app finds moments, frames them, and adds captions.
+3. **Keep editing.** Optionally ask Codex to edit in DaVinci Resolve or Kdenlive.
+
+## Install and open the app
+
+Install PraisonAI Clips, then open its dashboard. You need Python 3.11 or newer, a compatible FFmpeg installation, and an OpenAI API key.
+
 ```sh
 python -m pip install praisonai-clips
 praisonai-clips studio
 ```
-</div>
-</div>
-<div class="section-heading"><span class="eyebrow">EDIT BY CHATTING WITH CODEX</span><span>See changes in your editor.</span></div>
-<p>Ask Codex to adjust framing in DaVinci Resolve or Kdenlive while you watch. In Resolve, you can also create a review timeline with quiet pauses removed. The Python SDK, MCP tools, CLI and YAML commands share the same guarded operations. <a href="reference/resolve-sdk/">Explore live Resolve editing ↗</a></p>
-<figure class="live-edit-demo" id="live-edit-demo">
-<div class="demo-heading"><span>WATCH CODEX EDIT IN RESOLVE</span><span>00:30</span></div>
-<video controls playsinline preload="metadata" poster="assets/live-edit/resolve-demo-poster.jpg" aria-label="Thirty-second edited screen recording of a Codex request to remove quiet pauses in DaVinci Resolve"><source src="assets/live-edit/resolve-demo.mp4" type="video/mp4">Your browser does not support embedded video. <a href="assets/live-edit/resolve-demo.mp4">Download the demonstration</a>.</video>
-<figcaption>Ask Codex to remove quiet pauses, then see a separate review timeline appear in Resolve. This screen recording is shortened to remove waiting; it has no narration.</figcaption>
-<div class="demo-downloads"><a href="assets/live-edit/resolve-demo.mp4" download>Download the demo ↗</a></div>
-</figure>
-<figure class="live-edit-demo" id="silence-review">
-<div class="demo-heading"><span>HOW THE CUTS WERE CHECKED</span><span>4 PAUSES</span></div>
-<img src="assets/live-edit/resolve-cut-waveforms.png" alt="Four source audio waveforms around the removed ranges, marked in red. The transcript estimates overlap words on cuts one, two and four." loading="lazy">
-<figcaption>Blue shows the source waveform; red marks the four ranges removed in the demo. The audio in those ranges is quieter than the surrounding audio. Three cuts overlap estimated word timings, and one crosses an on-screen text animation. Mervin checked the cuts and reported they looked and sounded good. <a href="built-with-codex/#checking-the-cuts">See the cut-by-cut evidence ↗</a></figcaption>
-</figure>
-<div class="section-heading" id="source-evidence"><span class="eyebrow">SEE THE EVIDENCE TOGETHER</span><span>Three views. One source timeline.</span></div>
-<p>After uploading a video or choosing a local path, start processing, select the recording, and open <strong>Source evidence</strong>. Choose a time window to compare:</p>
-<div class="feature-grid" markdown>
-<div markdown>
-<span class="step">01 / WORDS</span>
-### Transcript
-Read the words with their estimated start and end times.
-</div>
-<div markdown>
-<span class="step">02 / PICTURE</span>
-### Screen descriptions
-See what was observed in frames sampled about every five seconds.
-</div>
-<div markdown>
-<span class="step">03 / SOUND</span>
-### Audio waveform
-Inspect local audio peaks in the same source-time window.
-</div>
-</div>
-<figure class="source-evidence-demo">
-<div class="demo-heading"><span>INSIDE THE DASHBOARD</span><span>REAL APP VIEW</span></div>
-<a href="assets/evidence/streamlit-source-evidence-wide.png" aria-label="Open the full-size Streamlit dashboard screenshot"><img src="assets/evidence/streamlit-source-evidence-wide.png" alt="Real Streamlit source evidence view showing a word-by-word transcript, sampled screen descriptions, and an audio waveform side by side." loading="lazy"></a>
-<figcaption>A real dashboard view from an analyzed recording. Word timings are estimates and screen descriptions come from sampled frames. <a href="assets/evidence/streamlit-source-evidence-wide.png">Open full-size image ↗</a></figcaption>
-</figure>
-<p>A comparison table groups all three into five-second intervals. Its audio number is the maximum sampled peak, not average loudness. The transcript and screen observations appear as processing finishes; use <strong>Refresh source evidence</strong> to reload them. The panel makes no additional AI calls. Video playback does not automatically follow the chart. Listen and inspect the video before accepting cuts. <a href="getting-started/quickstart/#use-the-dashboard">Open the dashboard guide ↗</a></p>
-<figure class="source-evidence-demo">
-<div class="demo-heading"><span>COMPARE BY SOURCE TIME</span><span>REAL APP VIEW</span></div>
-<a href="assets/evidence/streamlit-comparison-table.png" aria-label="Open the full-size comparison table screenshot"><img src="assets/evidence/streamlit-comparison-table.png" alt="Streamlit comparison table showing source-time intervals alongside transcript and screen observations." loading="lazy"></a>
-<figcaption>The comparison table in the dashboard. This screenshot shows part of the table; the audio column is outside the captured area. <a href="assets/evidence/streamlit-comparison-table.png">Open full-size image ↗</a></figcaption>
-</figure>
-<figure class="codex-flow"><img src="assets/illustrations/codex-resolve-flow.svg" alt="A Codex chat request passes through PraisonAI Clips MCP and SDK checks to DaVinci Resolve; the edit appears on screen and the result returns to Codex."><figcaption>From a request in Codex to a result you can review in Resolve.</figcaption></figure>
-<p>Preview and listen before sharing. You can also pause and resume processing, or inspect the transcript, screen descriptions and waveform. <a href="guides/workflow/">See the full workflow ↗</a></p>
-<div class="section-heading"><span class="eyebrow">TESTED ON REAL VIDEO</span><span>See the evidence.</span></div>
-<p>A four-minute recording produced three captioned clips: one passed automated review and two stayed in drafts. Live framing was also tested in DaVinci Resolve and a custom Kdenlive setup. <a href="reference/validation-report/">Read the test results ↗</a> · <a href="product/">See supported editor setups ↗</a></p>
-<p class="hero-note">The latest source checkout also trims detected quiet pauses during Shorts rendering; PyPI 0.1.3 does not yet include that change. The tested Mac Kdenlive integration needs a custom bridge from the source checkout.</p>
-<div class="section-heading"><span class="eyebrow">START WITH YOUR NEXT RECORDING</span><span>Python · OpenAI · FFmpeg</span></div>
-<div class="start-grid" markdown>
-<div markdown>
-## Bring a video.<br><em>Find its next story.</em>
-Start in the dashboard or run a job from the command line. OpenAI processes audio and sampled frames; job state and output files stay in your local workspace. API usage is billed to your account.
-[Install the prerequisites](getting-started/installation.md) · [Read about data handling](reference/public-release.md)
-</div>
-<div markdown>
-```sh
-# Install the package and open the dashboard
-python -m pip install praisonai-clips
-praisonai-clips studio
 
-# Check prerequisites or process from the command line
-praisonai-clips doctor
-praisonai-clips run '/absolute/path/to/video.mp4'
+[Step-by-step installation](getting-started/installation.md) · [How data is handled](reference/public-release.md)
 
-# Source checkout also supports: streamlit run app.py
-```
-</div>
-</div>
+## Edit by chatting with Codex
+
+Ask Codex to adjust framing in DaVinci Resolve or Kdenlive while you watch. In Resolve, you can also create a review timeline with quiet pauses removed. The Python SDK, MCP tools, CLI, and YAML commands share the same guarded operations.
+
+[Explore live Resolve editing](reference/resolve-sdk.md)
+
+<video controls playsinline preload="metadata" poster="assets/live-edit/resolve-demo-poster.jpg">
+  <source src="assets/live-edit/resolve-demo.mp4" type="video/mp4">
+</video>
+
+Ask Codex to remove quiet pauses, then see a separate review timeline appear in Resolve. This screen recording is shortened to remove waiting. It has no narration.
+
+![Four source audio waveforms around the removed ranges](assets/live-edit/resolve-cut-waveforms.png)
+
+Blue shows the source waveform. Red marks the four ranges removed in the demo. [See the cut-by-cut evidence](built-with-codex.md#checking-the-cuts).
+
+## Source evidence
+
+After uploading a video or choosing a local path, start processing, select the recording, and open **Source evidence**. Compare words, picture, and sound in the same time window.
+
+![Dashboard view of transcript, screen descriptions, and waveform](assets/evidence/streamlit-source-evidence-wide.png)
+
+Word timings are estimates. Screen descriptions come from sampled frames. The panel makes no additional AI calls. [Open the dashboard guide](getting-started/quickstart.md#use-the-dashboard).
+
+## Tested on real video
+
+A four-minute recording produced three captioned clips. One passed automated review and two stayed in drafts. Live framing was also tested in DaVinci Resolve and a custom Kdenlive setup.
+
+[Read the test results](reference/validation-report.md) · [See supported editor setups](product.md)
+
+The latest source checkout also trims detected quiet pauses during Shorts rendering. PyPI 0.1.3 does not yet include that change. The tested Mac Kdenlive integration needs a custom bridge from the source checkout.
