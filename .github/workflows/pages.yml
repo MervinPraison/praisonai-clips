@@ -26,10 +26,14 @@ jobs:
           python-version: '3.11'
           cache: pip
           cache-dependency-path: pyproject.toml
-      - name: Install documentation dependencies
-        run: python -m pip install '.[docs]'
-      - name: Build documentation
-        run: mkdocs build --strict
+      - name: Install PraisonAI UI
+        run: pip install aiui
+      - name: Build docs
+        run: |
+          aiui build --config aiui.template.yaml --output site --minify
+          if [ -f CNAME ]; then cp CNAME site/CNAME; fi
+          if [ -f docs/CNAME ]; then cp docs/CNAME site/CNAME; fi
+          if [ -f mkdocs-docs/CNAME ]; then cp mkdocs-docs/CNAME site/CNAME; fi
       - name: Upload static site
         uses: actions/upload-pages-artifact@v4
         with:
