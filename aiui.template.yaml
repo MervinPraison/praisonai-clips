@@ -17,37 +17,26 @@ seo:
   siteUrl: https://clips.praison.ai
 navigation:
   tabs:
-  - tab: Home
+  - tab: Docs
     groups:
-    - group: Home
+    - group: Get started
       pages:
       - index
-  - tab: Product
-    groups:
-    - group: Product
-      pages:
       - product
-  - tab: Built with Codex
-    groups:
-    - group: Built with Codex
-      pages:
       - built-with-codex
-  - tab: Get started
-    groups:
+      icon: rocket
     - group: Get started
       pages:
       - getting-started/installation
       - getting-started/quickstart
+      icon: rocket
       prefix: getting-started
-  - tab: Workflow
-    groups:
     - group: Workflow
       pages:
       - guides/workflow
       - reference/configuration
       - reference/cli
-  - tab: Editors
-    groups:
+      icon: book-open
     - group: Editors
       pages:
       - editors/index
@@ -55,15 +44,20 @@ navigation:
       - KDENLIVE_MCP_HANDOVER
       - RESOLVE_LIVE_CONTROL
       - editors/resolve-runbook
-  - tab: Contribute
-    groups:
+      icon: book-open
     - group: Contribute
       pages:
       - reference/resolve-sdk
       - reference/documentation
       - reference/validation-report
       - reference/public-release
+      icon: book-open
       prefix: reference
+navbar:
+  primary:
+    type: button
+    label: Quick start
+    href: /docs/getting-started/installation
 footer:
   socials:
     github: https://github.com/MervinPraison/praisonai-clips
@@ -76,6 +70,8 @@ content:
     include:
     - '**/*.md'
     - '**/*.mdx'
+    nav:
+      mode: manual
     exclude:
     - SHORTS_STUDIO.md
     - assets/fonts/README.md

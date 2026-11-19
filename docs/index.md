@@ -1,8 +1,18 @@
 ---
 template: home.html
 hide:
-  - navigation
-  - toc
+- navigation
+- toc
+layout: home
+title: PraisonAI Clips
+description: Create reviewed vertical clips from long videos.
+hero:
+  name: PraisonAI Clips
+  text: PraisonAI Clips
+  tagline: Create reviewed vertical clips from long videos.
+  actions:
+  - text: Quick start
+    link: getting-started/installation.md
 ---
 <div class="edition"><span>PRAISONAI CLIPS</span><span>AI VIDEO REPURPOSING</span><span>CREATE · REVIEW · REFINE</span></div>
 <div class="hero" markdown>
