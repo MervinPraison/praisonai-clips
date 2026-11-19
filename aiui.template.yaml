@@ -9,8 +9,9 @@ site:
   title: PraisonAI Clips
   ui: shadcn
   theme:
-    preset: zinc
-    darkMode: true
+    preset: paper
+    radius: md
+    mode: system
   description: Create reviewed vertical clips from long videos.
 seo:
   siteUrl: https://clips.praison.ai
